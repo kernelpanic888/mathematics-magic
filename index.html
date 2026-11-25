@@ -70,6 +70,7 @@
     .hero-stat strong { display: block; font: 27px var(--mono); letter-spacing: -.06em; color: var(--white); }
     .hero-stat small { margin-top: 7px; display: block; font: 10px var(--mono); letter-spacing: .035em; color: var(--quiet); }
     .stat-separator { width: 1px; height: 40px; background: var(--line-strong); }
+    .atlas-column { position: relative; min-width: 0; }
     .graph-wrapper { position: relative; height: 688px; min-width: 0; user-select: none; }
     .graph-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
     .graph-canvas.dragging { cursor: grabbing; }
@@ -441,6 +442,7 @@
 <div class="hero-stat"><strong id="completed-sector-count">00</strong><small>РАЗДЕЛОВ ПРОЙДЕНО</small></div>
 </div>
 </div>
+<div class="atlas-column">
 <div aria-label="Интерактивная трёхмерная карта основных разделов математики" class="graph-wrapper" id="atlas">
 <div aria-label="Карта направлений без JavaScript" class="atlas-static" id="atlas-static">
 <div aria-label="Основные направления математики" class="atlas-static-map">
@@ -484,13 +486,11 @@
 </aside>
 <div aria-live="polite" class="sr-only" id="graph-live"></div>
 </div>
-</section>
-<div class="divider"></div>
-<section aria-labelledby="route-title" class="shell" id="learning-route" hidden>
+<section aria-labelledby="route-title" id="learning-route" hidden>
 <style>
-#learning-route{margin-block:2rem;padding:clamp(1rem,3vw,2rem);border:1px solid #315743;background:#091b12}
+#learning-route{margin-block:0 2rem;padding:clamp(1rem,3vw,2rem);border:1px solid #315743;background:#091b12}
 #learning-route h2{margin:0 0 .9rem}
-#learning-route select{max-width:100%;padding:.55rem;color:#e3f6e9;background:#12291c;border:1px solid #638674;border-radius:4px;font:inherit}
+#learning-route select{display:block;width:100%;min-width:0;margin-top:.35rem;padding:.55rem;color:#e3f6e9;background:#12291c;border:1px solid #638674;border-radius:4px;font:inherit}
 #learning-route a{color:#a2f2bd;text-decoration:underline}
 #learning-route li{margin:.45rem 0}
 #learning-route .route-done{color:#ffd36b}
@@ -503,6 +503,9 @@
 </select>
 <div id="route-result" aria-live="polite"></div>
 </section>
+</div>
+</section>
+<div class="divider"></div>
 <section aria-labelledby="catalog-title" class="shell catalog" id="catalog">
 <div class="catalog-header">
 <div>
