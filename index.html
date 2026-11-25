@@ -53,12 +53,12 @@
     .nav-status { color: var(--mint); display: flex; align-items: center; gap: 9px; }
     .hero { min-height: 690px; display: grid; grid-template-columns: minmax(410px, .82fr) minmax(520px, 1.18fr); position: relative; }
     .hero::before { content: ""; position: absolute; width: 820px; height: 760px; right: -110px; top: -25px; pointer-events: none; background: radial-gradient(ellipse, rgba(33, 156, 79, .115) 0%, rgba(7, 30, 17, .06) 39%, transparent 67%); filter: blur(4px); }
-    .intro { z-index: 2; padding-top: 114px; padding-bottom: 65px; }
+    .intro { min-width: 0; container-type: inline-size; z-index: 2; padding-top: 114px; padding-bottom: 65px; }
     .eyebrow { font: 11px var(--mono); letter-spacing: .14em; color: var(--mint); display: flex; align-items: center; gap: 13px; }
     .eyebrow::before { content: ""; height: 1px; width: 30px; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
     h1 { font-size: clamp(64px, 6.4vw, 108px); line-height: .99; letter-spacing: -.065em; font-weight: 670; margin: 35px 0 30px; }
     h1 span { display: block; }
-    h1 .highlight { color: #9df7b9; text-shadow: 0 0 45px rgba(38, 235, 104, .2); }
+    h1 .highlight { font-size: min(.94em, 17.25cqw); white-space: nowrap; color: #9df7b9; text-shadow: 0 0 45px rgba(38, 235, 104, .2); }
     .subtitle { max-width: 460px; color: #ecf4ec; font-size: clamp(19px, 1.6vw, 23px); font-weight: 450; letter-spacing: -.02em; line-height: 1.5; margin: 0 0 17px; }
     .desc { color: var(--muted); font-size: 14px; line-height: 1.85; max-width: 430px; margin: 0; }
     .actions { margin-top: 37px; display: flex; gap: 13px; align-items: center; flex-wrap: wrap; }
@@ -421,7 +421,7 @@
 <section aria-labelledby="page-title" class="shell hero">
 <div class="intro">
 <div class="eyebrow">НАЧАЛО ПУТИ / ВЕРСИЯ 1.1.0</div>
-<h1 id="page-title"><span>Магия</span><span class="highlight">Матема­тики.</span></h1>
+<h1 id="page-title"><span>Магия</span><span class="highlight">Математики.</span></h1>
 <p class="subtitle">Не заучивать формулы.<br/>Видеть связи.</p>
 <p class="desc">Полный атлас основных направлений: от арифметики и логики до топологии, анализа и математической физики. Внутри каждого раздела — независимые HTML-уроки.</p>
 <div class="actions">
