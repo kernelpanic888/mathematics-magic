@@ -1,0 +1,959 @@
+{
+  "site": "Магия Математики",
+  "version": "1.0.2",
+  "lessons": [
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Числа и операции",
+      "href": "lessons/foundations/numbers.html",
+      "requires": []
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Математические символы",
+      "href": "lessons/foundations/symbols.html",
+      "requires": [
+        "lessons/foundations/numbers.html"
+      ]
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Порядок действий",
+      "href": "lessons/foundations/order.html",
+      "requires": [
+        "lessons/foundations/symbols.html"
+      ]
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Степени и корни",
+      "href": "lessons/foundations/powers-roots.html",
+      "requires": [
+        "lessons/foundations/order.html"
+      ]
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Дроби и отношения",
+      "href": "lessons/foundations/fractions-ratios.html",
+      "requires": [
+        "lessons/foundations/powers-roots.html"
+      ]
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Множества и отношения",
+      "href": "lessons/foundations/sets-relations.html",
+      "requires": [
+        "lessons/foundations/fractions-ratios.html"
+      ]
+    },
+    {
+      "section": "foundations",
+      "section_title": "Основания математики",
+      "title": "Как читать доказательства",
+      "href": "lessons/foundations/proofs.html",
+      "requires": [
+        "lessons/foundations/sets-relations.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Переменные и выражения",
+      "href": "lessons/elementary/variables.html",
+      "requires": [
+        "lessons/foundations/fractions-ratios.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Тождества и преобразования",
+      "href": "lessons/elementary/identities.html",
+      "requires": [
+        "lessons/elementary/variables.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Уравнения и неравенства",
+      "href": "lessons/elementary/equations.html",
+      "requires": [
+        "lessons/elementary/identities.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Многочлены",
+      "href": "lessons/elementary/polynomials.html",
+      "requires": [
+        "lessons/elementary/equations.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Функции и графики",
+      "href": "lessons/elementary/functions.html",
+      "requires": [
+        "lessons/elementary/polynomials.html"
+      ]
+    },
+    {
+      "section": "elementary",
+      "section_title": "Элементарная алгебра",
+      "title": "Тригонометрия",
+      "href": "lessons/elementary/trigonometry.html",
+      "requires": [
+        "lessons/elementary/functions.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Векторы",
+      "href": "lessons/linear/vectors.html",
+      "requires": [
+        "lessons/elementary/equations.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Матрицы",
+      "href": "lessons/linear/matrices.html",
+      "requires": [
+        "lessons/linear/vectors.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Системы линейных уравнений",
+      "href": "lessons/linear/systems.html",
+      "requires": [
+        "lessons/linear/matrices.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Определители",
+      "href": "lessons/linear/determinants.html",
+      "requires": [
+        "lessons/linear/systems.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Линейные пространства",
+      "href": "lessons/linear/vector-spaces.html",
+      "requires": [
+        "lessons/linear/determinants.html"
+      ]
+    },
+    {
+      "section": "linear",
+      "section_title": "Линейная алгебра",
+      "title": "Собственные числа и векторы",
+      "href": "lessons/linear/eigen.html",
+      "requires": [
+        "lessons/linear/vector-spaces.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Операции и алгебраические структуры",
+      "href": "lessons/abstract/operations.html",
+      "requires": [
+        "lessons/foundations/sets-relations.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Группы и симметрии",
+      "href": "lessons/abstract/groups.html",
+      "requires": [
+        "lessons/abstract/operations.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Кольца",
+      "href": "lessons/abstract/rings.html",
+      "requires": [
+        "lessons/abstract/groups.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Поля",
+      "href": "lessons/abstract/fields.html",
+      "requires": [
+        "lessons/abstract/rings.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Гомоморфизмы",
+      "href": "lessons/abstract/homomorphisms.html",
+      "requires": [
+        "lessons/abstract/fields.html"
+      ]
+    },
+    {
+      "section": "abstract",
+      "section_title": "Абстрактная алгебра",
+      "title": "Введение в теорию Галуа",
+      "href": "lessons/abstract/galois.html",
+      "requires": [
+        "lessons/abstract/homomorphisms.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Делимость",
+      "href": "lessons/numbers/divisibility.html",
+      "requires": [
+        "lessons/foundations/numbers.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Простые числа",
+      "href": "lessons/numbers/primes.html",
+      "requires": [
+        "lessons/numbers/divisibility.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Наибольший общий делитель",
+      "href": "lessons/numbers/gcd.html",
+      "requires": [
+        "lessons/numbers/primes.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Модульная арифметика",
+      "href": "lessons/numbers/modular.html",
+      "requires": [
+        "lessons/numbers/gcd.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Диофантовы уравнения",
+      "href": "lessons/numbers/diophantine.html",
+      "requires": [
+        "lessons/numbers/modular.html"
+      ]
+    },
+    {
+      "section": "numbers",
+      "section_title": "Теория чисел",
+      "title": "Криптографические применения",
+      "href": "lessons/numbers/cryptography.html",
+      "requires": [
+        "lessons/numbers/diophantine.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Евклидова геометрия",
+      "href": "lessons/geometry/euclidean.html",
+      "requires": [
+        "lessons/foundations/numbers.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Координаты и векторы",
+      "href": "lessons/geometry/coordinates.html",
+      "requires": [
+        "lessons/geometry/euclidean.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Аналитическая геометрия",
+      "href": "lessons/geometry/analytic.html",
+      "requires": [
+        "lessons/geometry/coordinates.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Преобразования и симметрии",
+      "href": "lessons/geometry/transformations.html",
+      "requires": [
+        "lessons/geometry/analytic.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Дифференциальная геометрия",
+      "href": "lessons/geometry/differential.html",
+      "requires": [
+        "lessons/geometry/transformations.html"
+      ]
+    },
+    {
+      "section": "geometry",
+      "section_title": "Геометрия",
+      "title": "Дифференциальные формы",
+      "href": "lessons/geometry/forms.html",
+      "requires": [
+        "lessons/geometry/differential.html",
+        "lessons/analysis/multivariable.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Топологические пространства",
+      "href": "lessons/topology/spaces.html",
+      "requires": [
+        "lessons/foundations/sets-relations.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Открытые и замкнутые множества",
+      "href": "lessons/topology/open-closed.html",
+      "requires": [
+        "lessons/topology/spaces.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Непрерывность",
+      "href": "lessons/topology/continuity.html",
+      "requires": [
+        "lessons/topology/open-closed.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Компактность",
+      "href": "lessons/topology/compactness.html",
+      "requires": [
+        "lessons/topology/continuity.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Связность",
+      "href": "lessons/topology/connectedness.html",
+      "requires": [
+        "lessons/topology/compactness.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Алгебраическая топология",
+      "href": "lessons/topology/algebraic.html",
+      "requires": [
+        "lessons/topology/connectedness.html"
+      ]
+    },
+    {
+      "section": "topology",
+      "section_title": "Топология",
+      "title": "Когомологии де Рама",
+      "href": "lessons/topology/de-rham.html",
+      "requires": [
+        "lessons/topology/algebraic.html",
+        "lessons/geometry/forms.html",
+        "lessons/geometry/differential.html",
+        "lessons/analysis/multivariable.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Пределы и бесконечность",
+      "href": "lessons/analysis/limits.html",
+      "requires": [
+        "lessons/elementary/functions.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Непрерывность функций",
+      "href": "lessons/analysis/continuity.html",
+      "requires": [
+        "lessons/analysis/limits.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Производная",
+      "href": "lessons/analysis/derivatives.html",
+      "requires": [
+        "lessons/analysis/continuity.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Интеграл",
+      "href": "lessons/analysis/integrals.html",
+      "requires": [
+        "lessons/analysis/derivatives.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Ряды",
+      "href": "lessons/analysis/series.html",
+      "requires": [
+        "lessons/analysis/integrals.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Анализ нескольких переменных",
+      "href": "lessons/analysis/multivariable.html",
+      "requires": [
+        "lessons/analysis/series.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Комплексный анализ",
+      "href": "lessons/analysis/complex.html",
+      "requires": [
+        "lessons/analysis/multivariable.html",
+        "lessons/analysis/derivatives.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Теория меры",
+      "href": "lessons/analysis/measure.html",
+      "requires": [
+        "lessons/analysis/limits.html",
+        "lessons/foundations/sets-relations.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Интеграл Лебега",
+      "href": "lessons/analysis/lebesgue.html",
+      "requires": [
+        "lessons/analysis/measure.html"
+      ]
+    },
+    {
+      "section": "analysis",
+      "section_title": "Математический анализ",
+      "title": "Ряды и преобразование Фурье",
+      "href": "lessons/analysis/fourier.html",
+      "requires": [
+        "lessons/analysis/series.html",
+        "lessons/analysis/integrals.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Нормированные пространства и пространства Банаха",
+      "href": "lessons/functional/normed-banach.html",
+      "requires": [
+        "lessons/linear/vector-spaces.html",
+        "lessons/analysis/limits.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Гильбертовы пространства",
+      "href": "lessons/functional/hilbert.html",
+      "requires": [
+        "lessons/functional/normed-banach.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Линейные и ограниченные операторы",
+      "href": "lessons/functional/bounded-operators.html",
+      "requires": [
+        "lessons/functional/hilbert.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Неограниченные операторы",
+      "href": "lessons/functional/unbounded.html",
+      "requires": [
+        "lessons/functional/bounded-operators.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Сопряжённые и самосопряжённые операторы",
+      "href": "lessons/functional/adjoint-selfadjoint.html",
+      "requires": [
+        "lessons/functional/unbounded.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Спектральная теория операторов",
+      "href": "lessons/functional/spectral.html",
+      "requires": [
+        "lessons/functional/adjoint-selfadjoint.html",
+        "lessons/linear/eigen.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Компактные операторы",
+      "href": "lessons/functional/compact.html",
+      "requires": [
+        "lessons/functional/spectral.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Операторы в квантовой механике",
+      "href": "lessons/functional/quantum.html",
+      "requires": [
+        "lessons/functional/compact.html",
+        "lessons/functional/spectral.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Пространства Lᵖ",
+      "href": "lessons/functional/lp.html",
+      "requires": [
+        "lessons/analysis/lebesgue.html",
+        "lessons/functional/normed-banach.html"
+      ]
+    },
+    {
+      "section": "functional",
+      "section_title": "Функциональный анализ",
+      "title": "Обобщённые функции и распределения",
+      "href": "lessons/functional/distributions.html",
+      "requires": [
+        "lessons/analysis/fourier.html",
+        "lessons/functional/hilbert.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Производная как скорость",
+      "href": "lessons/diffeq/velocity.html",
+      "requires": [
+        "lessons/analysis/derivatives.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Обыкновенные дифференциальные уравнения",
+      "href": "lessons/diffeq/ode.html",
+      "requires": [
+        "lessons/diffeq/velocity.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Системы ОДУ",
+      "href": "lessons/diffeq/systems.html",
+      "requires": [
+        "lessons/diffeq/ode.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Устойчивость решений",
+      "href": "lessons/diffeq/stability.html",
+      "requires": [
+        "lessons/diffeq/systems.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Уравнения в частных производных",
+      "href": "lessons/diffeq/pde.html",
+      "requires": [
+        "lessons/diffeq/stability.html",
+        "lessons/analysis/multivariable.html",
+        "lessons/analysis/fourier.html"
+      ]
+    },
+    {
+      "section": "diffeq",
+      "section_title": "Дифференциальные уравнения",
+      "title": "Динамические системы",
+      "href": "lessons/diffeq/dynamical.html",
+      "requires": [
+        "lessons/diffeq/pde.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Случайные события",
+      "href": "lessons/probability/events.html",
+      "requires": [
+        "lessons/foundations/fractions-ratios.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Комбинаторика для вероятностей",
+      "href": "lessons/probability/counting.html",
+      "requires": [
+        "lessons/probability/events.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Условная вероятность",
+      "href": "lessons/probability/conditional.html",
+      "requires": [
+        "lessons/probability/counting.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Случайные величины",
+      "href": "lessons/probability/random-variables.html",
+      "requires": [
+        "lessons/probability/conditional.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Распределения",
+      "href": "lessons/probability/distributions.html",
+      "requires": [
+        "lessons/probability/random-variables.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Математическое ожидание",
+      "href": "lessons/probability/expectation.html",
+      "requires": [
+        "lessons/probability/distributions.html"
+      ]
+    },
+    {
+      "section": "probability",
+      "section_title": "Теория вероятностей",
+      "title": "Стохастические процессы",
+      "href": "lessons/probability/stochastic.html",
+      "requires": [
+        "lessons/probability/expectation.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Описание данных",
+      "href": "lessons/statistics/descriptive.html",
+      "requires": [
+        "lessons/probability/distributions.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Выборка и генеральная совокупность",
+      "href": "lessons/statistics/sampling.html",
+      "requires": [
+        "lessons/statistics/descriptive.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Оценивание параметров",
+      "href": "lessons/statistics/estimation.html",
+      "requires": [
+        "lessons/statistics/sampling.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Доверительные интервалы",
+      "href": "lessons/statistics/confidence.html",
+      "requires": [
+        "lessons/statistics/estimation.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Проверка гипотез",
+      "href": "lessons/statistics/testing.html",
+      "requires": [
+        "lessons/statistics/confidence.html"
+      ]
+    },
+    {
+      "section": "statistics",
+      "section_title": "Математическая статистика",
+      "title": "Регрессия",
+      "href": "lessons/statistics/regression.html",
+      "requires": [
+        "lessons/statistics/testing.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Комбинаторика",
+      "href": "lessons/discrete/combinatorics.html",
+      "requires": [
+        "lessons/logic/connectives.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Теория графов",
+      "href": "lessons/discrete/graphs.html",
+      "requires": [
+        "lessons/discrete/combinatorics.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Отношения и структуры",
+      "href": "lessons/discrete/relations.html",
+      "requires": [
+        "lessons/discrete/graphs.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Булева алгебра",
+      "href": "lessons/discrete/boolean.html",
+      "requires": [
+        "lessons/discrete/relations.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Алгоритмы",
+      "href": "lessons/discrete/algorithms.html",
+      "requires": [
+        "lessons/discrete/boolean.html"
+      ]
+    },
+    {
+      "section": "discrete",
+      "section_title": "Дискретная математика",
+      "title": "Теория вычислимости",
+      "href": "lessons/discrete/computability.html",
+      "requires": [
+        "lessons/discrete/algorithms.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Высказывания",
+      "href": "lessons/logic/propositions.html",
+      "requires": [
+        "lessons/foundations/symbols.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Логические связки",
+      "href": "lessons/logic/connectives.html",
+      "requires": [
+        "lessons/logic/propositions.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Логика предикатов",
+      "href": "lessons/logic/predicates.html",
+      "requires": [
+        "lessons/logic/connectives.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Доказательства и контрпримеры",
+      "href": "lessons/logic/proofs.html",
+      "requires": [
+        "lessons/logic/predicates.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Аксиомы и формальные системы",
+      "href": "lessons/logic/axioms.html",
+      "requires": [
+        "lessons/logic/proofs.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Теория моделей",
+      "href": "lessons/logic/models.html",
+      "requires": [
+        "lessons/logic/axioms.html"
+      ]
+    },
+    {
+      "section": "logic",
+      "section_title": "Логика и основания",
+      "title": "Теория категорий",
+      "href": "lessons/logic/categories.html",
+      "requires": [
+        "lessons/logic/models.html",
+        "lessons/abstract/homomorphisms.html",
+        "lessons/discrete/graphs.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Численные методы",
+      "href": "lessons/applied/numerical-methods.html",
+      "requires": [
+        "lessons/linear/matrices.html",
+        "lessons/analysis/derivatives.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Вычисление корней",
+      "href": "lessons/applied/roots.html",
+      "requires": [
+        "lessons/applied/numerical-methods.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Оптимизация",
+      "href": "lessons/applied/optimization.html",
+      "requires": [
+        "lessons/applied/roots.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Математическое моделирование",
+      "href": "lessons/applied/modeling.html",
+      "requires": [
+        "lessons/applied/optimization.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Исследование операций",
+      "href": "lessons/applied/operations-research.html",
+      "requires": [
+        "lessons/applied/modeling.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Теория управления",
+      "href": "lessons/applied/control.html",
+      "requires": [
+        "lessons/applied/operations-research.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Математическая физика",
+      "href": "lessons/applied/mathematical-physics.html",
+      "requires": [
+        "lessons/applied/control.html"
+      ]
+    },
+    {
+      "section": "applied",
+      "section_title": "Прикладная математика",
+      "title": "Тензорное исчисление",
+      "href": "lessons/applied/tensors.html",
+      "requires": [
+        "lessons/applied/mathematical-physics.html"
+      ]
+    }
+  ],
+  "total_lessons": 104,
+  "sections": 15
+}

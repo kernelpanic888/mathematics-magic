@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="#030a07" name="theme-color"/><title>Теория меры — Магия Математики</title><meta content="Самостоятельный урок с доказательством и интерактивной лабораторией: Теория меры" name="description"/><style>
+:root{color-scheme:dark;--bg:#030a07;--green:#9effb6;--gold:#ffd36b;--line:#2f6340;--quiet:#9eb3a2;--mono:ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 76% 6%,#16472655,transparent 52%),#030a07;color:#e9f9ed;font-family:system-ui,-apple-system,Segoe UI,Arial,sans-serif}a{color:#a2ffc0}button,input{font:inherit}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.shell{width:min(1040px,calc(100% - 40px));margin:auto}.top{background:#06180c;border-bottom:1px solid #294532;font:10px var(--mono);color:#76aa84;letter-spacing:.13em;padding:10px 0}.top .shell,.navtop{display:flex;justify-content:space-between;align-items:center;gap:15px}.navtop{padding:25px 0;border-bottom:1px solid #27422f}.brand{text-decoration:none;font-weight:700;letter-spacing:.06em}.brand b{font:27px Georgia,serif;color:var(--green);margin-right:12px}.back{font:11px var(--mono);text-decoration:none;border:1px solid #2b6a3e;padding:10px 12px}.crumb{font:10px var(--mono);color:#7cb18e;letter-spacing:.15em;margin-top:30px}.hero{border-bottom:1px solid #28563a;padding:38px 0 34px}.kicker{font:11px var(--mono);color:var(--green);letter-spacing:.16em}.hero h1{font-size:clamp(36px,5.7vw,65px);line-height:1.08;letter-spacing:-.06em;margin:18px 0 18px}.hero p{font-size:18px;color:#b2cdb9;max-width:750px;line-height:1.7}.cols{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:36px;margin:24px 0 55px}section.block{padding:30px 0;border-bottom:1px solid #1e4230}.block h2{font-size:26px;letter-spacing:-.04em;margin:9px 0 15px}.block p,.block li{line-height:1.85;color:#bbd0c0;font-size:14px}.block li{margin:8px 0}.over{font:10px var(--mono);color:var(--green);letter-spacing:.17em}.formula{overflow:auto;background:#061d0f;color:#c0ffd4;border:1px solid #337449;padding:22px 18px;border-radius:5px;font:clamp(14px,2.5vw,19px)/1.6 var(--mono);white-space:pre-wrap;margin:16px 0}.proof{border:1px solid #37664a;background:#0a2214;padding:19px 23px;border-radius:6px}.proof ol{padding-left:20px}.boundary{border-left:3px solid #d46a70;background:#331b1c4a;color:#ffbdc0!important;padding:11px 16px}.links{display:flex;flex-wrap:wrap;gap:8px}.links a{display:inline-block;border:1px solid #327849;text-decoration:none;border-radius:4px;font:11px/1.6 var(--mono);padding:7px 10px}.links a:hover{background:#164c2a}.mapsteps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mapsteps a{text-decoration:none;font:12px var(--mono);border:1px solid #325c3f;padding:12px;color:#adffc7;border-radius:4px}.lab{border:1px solid #42845b;border-radius:6px;padding:20px;background:#091d10}.lab input{width:100%;accent-color:#86ffac;margin:18px 0}.lab label{color:#d0ffe1;font:13px var(--mono)}.lab output{display:block;min-height:37px;color:#ffe1a0;line-height:1.6;font:12px var(--mono);margin:8px 0}.lab canvas{width:100%;height:300px;display:block;background:#041209;border:1px solid #23422d;border-radius:4px}.question{margin:15px 0;border:1px solid #284d35;background:#08190e;padding:16px;border-radius:5px}.question h3{font-size:14px;font-weight:600;line-height:1.5}.options{display:grid;gap:8px;margin:12px 0}.options button{width:100%;text-align:left;cursor:pointer;border:1px solid #29513b;border-radius:3px;background:#0e2818;color:#dcfbe2;padding:11px}.options button:hover:not(:disabled){border-color:#78f9a8}.options button.correct{background:#21492a;border-color:#9bffac}.options button.wrong{border-color:#bc5b5b;background:#321b1b}.options button:disabled{cursor:default;opacity:.85}.feedback{font:12px/1.6 var(--mono);color:#a8fabb}.feedback.warn{color:#ffb5b5}.mini{color:#91ae98;font:12px/1.7 var(--mono)}.mastered{color:#ffe3a0}.endbtn{border:1px solid #ffe3a0;color:#302004;background:#ffd36b;border-radius:4px;padding:15px 16px;font-weight:700;cursor:pointer;margin:15px 0}.aside{border:1px solid #264b32;background:#07160c;padding:20px;align-self:start;position:sticky;top:15px}.aside a{display:block;font:11px/1.8 var(--mono);text-decoration:none;margin:10px 0}.aside a:hover{color:var(--gold)}.footer{font:10px var(--mono);border-top:1px solid #2a4c35;padding:25px 0;color:#82a18d}
+@media(max-width:820px){.cols{grid-template-columns:1fr}.aside{position:static;order:-1}.mapsteps{grid-template-columns:1fr}.hero h1{font-size:38px}.lab canvas{height:240px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media(max-width:520px){.hero h1{overflow-wrap:anywhere;hyphens:auto}.cols>article,.block{min-width:0;overflow-wrap:anywhere}.top .shell,.navtop{flex-wrap:wrap}.top .shell span{overflow-wrap:anywhere}.brand{min-width:0;overflow-wrap:anywhere}.shell{width:calc(100% - 28px)}.formula{overflow-wrap:anywhere;white-space:pre-wrap}}
+
+/* MM v1.0.5: signs must be taught before they're used. Native HTML works without JS. */
+.notation-box{margin:18px 0 26px;border:1px solid #397250;border-left:3px solid #86ffab;border-radius:8px;background:#071d10;padding:0;color:#d8f2dd;max-width:100%;overflow:hidden}
+.notation-box summary{cursor:pointer;list-style:revert;padding:14px 18px;font:600 13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:#afffc2;letter-spacing:.02em}
+.notation-box summary:hover{background:#123922}
+.notation-box summary::marker{color:#89efa6}
+.notation-box .notation-intro{padding:0 18px 12px;color:#a9c9b0;font:13px/1.7 system-ui,sans-serif;margin:0}
+.notation-box dl{margin:0;padding:0 18px 15px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.notation-box dl>div{border:1px solid #315b3e;border-radius:6px;padding:11px;background:#0b2516;min-width:0}
+.notation-box dt{font:600 23px/1.4 'STIX Two Math','Cambria Math','STIX Math',Georgia,serif;color:#d0ffd8;margin:0 0 3px}
+.notation-box dd{margin:0;font:13px/1.6 system-ui,sans-serif;color:#c0d8c6;overflow-wrap:anywhere}
+.notation-hint{border-left:3px solid #8bf5a5;background:#0c2917;padding:15px 18px;margin:18px 0;font:14px/1.75 system-ui,sans-serif;color:#c5efcf}
+.notation-hint b{color:#e2ffe9}
+.notation-hint code,.notation-box code{font-family:'STIX Two Math','Cambria Math','STIX Math',Georgia,serif;font-size:1.22em;color:#c8ffda;background:none;border:0;padding:0}
+.notation-hint .notation-example{display:block;padding:9px 0;font-size:20px;color:#b6f8c2;overflow-wrap:anywhere}
+@media(max-width:600px){.notation-box dl{grid-template-columns:minmax(0,1fr);padding:0 12px 12px}.notation-box summary{padding:12px 14px}.notation-box .notation-intro{padding:0 14px 10px}.notation-hint{padding:12px 14px}}
+</style><style id="mm-language-style">
+/* MM 1.1: mathematical language layer, all assets in this HTML */
+.mm-lang-link{display:inline-flex;align-items:center;gap:7px;border:1px solid #356a46;border-radius:6px;padding:9px 11px;text-decoration:none;color:#b9ffd0!important;font:600 12px/1.25 ui-monospace,Menlo,monospace;background:#0c2516}
+.mm-lang-link:hover,.mm-lang-link:focus-visible{background:#17462b;outline:1px solid #9bfab8}
+.mm-lexicon{border:1px solid #4c8c5c;background:linear-gradient(140deg,#0d2a19,#06160d);border-radius:9px;padding:16px 19px;margin:20px 0 29px;color:#d4efd8}
+.mm-lexicon .mm-kicker{font:11px/1.5 ui-monospace,monospace;letter-spacing:.12em;color:#8df0ac}
+.mm-lexicon h2{font:650 clamp(18px,2.4vw,23px)/1.3 system-ui,sans-serif;color:#dbffe6;margin:8px 0 9px}
+.mm-lexicon p{color:#b8cfbf;line-height:1.7;font-size:14px;margin:0 0 12px}
+.mm-lexicon .mm-def{padding:10px 12px;background:#071b10;border-left:2px solid #a4ffc1;border-radius:3px;margin:12px 0;font:14px/1.7 system-ui,sans-serif}
+.mm-lexicon details{border:1px solid #335f40;border-radius:5px;margin-top:12px;overflow:hidden}
+.mm-lexicon summary{font:600 12px/1.4 ui-monospace,monospace;color:#b8ffd0;cursor:pointer;padding:13px 14px;list-style:revert}
+.mm-lexicon .mm-sym-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}
+.mm-lexicon .mm-sym-entry{border:1px solid #2b553b;padding:12px;border-radius:6px;background:#091f13;min-width:0}
+.mm-lexicon .mm-sym-entry strong{font:600 23px/1.3 'Cambria Math',Georgia,serif;color:#b9ffd0;margin-right:9px}
+.mm-lexicon .mm-sym-entry b{font-size:13px;color:#ecffe8}
+.mm-lexicon .mm-sym-entry p{font:13px/1.55 system-ui,sans-serif;margin:8px 0 0}
+.mm-lexicon .mm-sym-entry em{display:block;font:11px/1.55 system-ui,sans-serif;color:#edca8c;margin-top:5px}
+.mm-lexicon .mm-legend-footer{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:12px}
+.mm-lexicon a{color:#c3ffc7;text-decoration:underline;text-underline-offset:3px}
+.mm-sym{cursor:help;text-decoration:underline dotted #7bd39a88;text-decoration-thickness:1px;text-underline-offset:3px;border-radius:3px;transition:background .13s,color .13s}
+.mm-sym:hover,.mm-sym:focus-visible,.mm-sym.mm-selected{background:#23543a;color:#fff4c5;outline:1px solid #80e2a1;outline-offset:2px}
+.mm-symbol-tooltip{position:fixed;z-index:2147483640;max-width:min(370px,calc(100vw - 20px));width:max-content;box-sizing:border-box;background:#081c10;color:#daf7e2;border:1px solid #85dd94;box-shadow:0 12px 50px #000d,0 0 22px #22593666;border-radius:9px;padding:16px 40px 15px 17px;font-family:system-ui,sans-serif;line-height:1.55;font-size:14px;pointer-events:auto}
+.mm-symbol-tooltip[hidden]{display:none!important}
+.mm-symbol-tooltip .mm-tt-title{display:flex;align-items:baseline;gap:11px;margin-bottom:7px;font-weight:700;color:#c6ffce}
+.mm-symbol-tooltip .mm-tt-glyph{font-size:28px;font-family:'Cambria Math',Georgia,serif;color:#f4d17c}
+.mm-symbol-tooltip .mm-tt-description{font-size:13px}
+.mm-symbol-tooltip .mm-tt-context{font:12px/1.55 system-ui,sans-serif;color:#ffd38a;margin-top:8px}
+.mm-symbol-tooltip .mm-tt-close{position:absolute;top:8px;right:8px;width:27px;height:27px;background:#143a24;border:1px solid #386747;border-radius:6px;color:#d7ffdb;cursor:pointer;font-size:18px}
+.mm-symbol-tooltip .mm-tt-close:hover{background:#23603c}
+@media(max-width:680px){.mm-lexicon{padding:13px}.mm-lexicon .mm-sym-grid{grid-template-columns:minmax(0,1fr)}.mm-lang-link{font-size:11px;padding:8px}}
+@media(prefers-reduced-motion:reduce){.mm-sym{transition:none}}
+</style>
+<style id="mm-next-style">
+.mm-next-action{display:inline-flex;align-items:center;justify-content:center;gap:.5em;min-height:47px;max-width:100%;padding:13px 18px;border:1px solid #d8b566!important;border-radius:5px;background:#392d12!important;color:#ffe9aa!important;font:600 12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace!important;letter-spacing:.01em;text-align:center;cursor:pointer;white-space:normal;overflow-wrap:anywhere;transition:background .15s,border-color .15s}
+.mm-next-action:hover,.mm-next-action:focus-visible{background:#59431b!important;border-color:#ffe4a2!important;outline-offset:3px}
+@media(max-width:540px){.mm-next-action{width:100%}.complete-actions .mm-next-action,.actions .mm-next-action{flex:1 1 100%}}
+</style>
+
+<script id="mm-next-script">
+(()=>{'use strict';
+  const myIndex=45,myKey="analysis::Теория меры",nextFile="lessons/analysis/lebesgue.html";
+  const storeKey='magic-math:lesson-progress:v1';
+  const urlParams=new URLSearchParams(location.search);
+  const rawTrail=urlParams.get('mm-trail')||'';
+  const trail=new Set();
+  if(rawTrail.length<=450 && /^\d{1,3}(?:\.\d{1,3})*$/.test(rawTrail)){
+    rawTrail.split('.').forEach(t=>{const n=Number(t);if(Number.isInteger(n)&&n>=0&&n<104)trail.add(n);});
+  }
+  // Если пользователь повторно открыл урок после цепочки переходов, его отметка остаётся.
+  if(trail.has(myIndex)){
+    try{const saved=JSON.parse(localStorage.getItem(storeKey)||'{}');if(saved&&typeof saved==='object'){saved[myKey]=true;localStorage.setItem(storeKey,JSON.stringify(saved));}}catch(e){}
+  }
+  function carry(u,action){
+    const steps=new Set(trail);
+    if(action==='done')steps.add(myIndex);
+    if(action==='undo')steps.delete(myIndex);
+    if(steps.size)u.searchParams.set('mm-trail',[...steps].sort((a,b)=>a-b).join('.'));
+    else u.searchParams.delete('mm-trail');
+    return u;
+  }
+  // Используется стандартными кнопками завершения, чтобы сохранённые в цепочке
+  // уроки передавались атласу, даже если file:// не разделяет localStorage.
+  window.MagiyaTrail={toAtlas:carry};
+  document.addEventListener('DOMContentLoaded',()=>{
+    // Любой выход на главную или переход к другому уроку переносит уже сделанные отметки.
+    if(trail.size){
+      document.querySelectorAll('a[href]').forEach(a=>{
+        try{
+          const u=new URL(a.getAttribute('href'),location.href);
+          if(u.protocol!==location.protocol || u.host!==location.host)return;
+          if(!u.pathname.endsWith('/index.html') && !u.pathname.includes('/lessons/'))return;
+          carry(u);
+          a.href=u.href;
+        }catch(e){}
+      });
+    }
+    const button=document.getElementById('mm-next-lesson');
+    if(!button)return;
+    button.addEventListener('click',()=>{
+      // В отличие от "снять отметку" новая кнопка всегда лишь добавляет отметку.
+      try{
+        const raw=JSON.parse(localStorage.getItem(storeKey)||'{}');
+        const state=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+        state[myKey]=true;localStorage.setItem(storeKey,JSON.stringify(state));
+      }catch(e){}
+      const u=new URL(nextFile?'../../'+nextFile:'../../index.html',location.href);
+      carry(u,'done');
+      if(!nextFile){
+        u.searchParams.set('lesson-key',myKey);
+        u.searchParams.set('lesson-progress','done');
+        u.hash='catalog';
+      }
+      location.assign(u.href);
+    });
+  });
+})();
+</script>
+</head><body>
+<div class="top"><div class="shell"><span>MM://LEARNING / SELF-CONTAINED HTML</span><span>ВЕРСИЯ 1.0.1 · Математический анализ</span></div></div>
+<header class="shell navtop"><a class="brand" href="../../index.html"><b>∑</b>Магия Математики</a><a class="back" href="../../index.html#catalog">← К атласу</a><a aria-label="Открыть словарь математических обозначений" class="mm-lang-link" href="../../symbols.html">◈ Словарь символов</a></header>
+<main class="shell"><div class="crumb">АТЛАС / МАТЕМАТИЧЕСКИЙ АНАЛИЗ / УГЛУБЛЕНИЕ</div><section class="hero"><span class="kicker">[ МАТЕМАТИЧЕСКАЯ ЛАБОРАТОРИЯ / 1.0 ]</span><h1>Теория меры</h1><p>Как математически измерять длину, площадь и вероятность так, чтобы счётные объединения были согласованы.</p></section>
+<div class="cols"><article><div class="mm-lexicon" id="mm-language"><div class="mm-kicker">MM:// МАТЕМАТИЧЕСКИЙ ЯЗЫК / ПЕРЕД ФОРМУЛАМИ</div><h2>Сначала поймём обозначения</h2><p>Сначала читаем смысл словами, затем знакомимся с записью. <strong>Наведи мышь или коснись подчёркнутого знака</strong> в тексте, чтобы вспомнить его значение.</p><div class="mm-def">Множество — набор объектов. Элемент — отдельный объект набора. Буквы обычно обозначают числа, функции или другие изучаемые объекты; точная роль задаётся в условии.</div><details open=""><summary>Азбука урока · 16 обозначений</summary><div class="mm-sym-grid"><div class="mm-sym-entry"><strong>=</strong><b>Равно</b><p>Объекты по обе стороны обозначают одно и то же значение.</p></div><div class="mm-sym-entry"><strong>+</strong><b>Плюс</b><p>Знак сложения: соединяем количества или складываем числа.</p></div><div class="mm-sym-entry"><strong>−</strong><b>Минус</b><p>Знак вычитания или знак отрицательного числа.</p><em>Роль зависит от того, стоит ли знак между числами или перед числом.</em></div><div class="mm-sym-entry"><strong>/</strong><b>Деление или дробная черта</b><p>Указывает на деление числителя на знаменатель; знаменатель не должен равняться нулю.</p></div><div class="mm-sym-entry"><strong>ℝ</strong><b>Действительные числа</b><p>Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа.</p></div><div class="mm-sym-entry"><strong>≤</strong><b>Меньше или равно</b><p>Число слева либо меньше числа справа, либо такое же.</p></div><div class="mm-sym-entry"><strong>≥</strong><b>Больше или равно</b><p>Число слева либо больше числа справа, либо такое же.</p></div><div class="mm-sym-entry"><strong>∑</strong><b>Сумма</b><p>Краткая запись последовательного сложения нескольких слагаемых.</p></div><div class="mm-sym-entry"><strong>·</strong><b>Умножение или точка</b><p>Точка часто обозначает умножение. Для векторов может обозначать скалярное произведение.</p><em>Значение зависит от раздела и типа объектов.</em></div><div class="mm-sym-entry"><strong>Σ</strong><b>Буква Сигма Заглавная</b><p>Греческая буква. Часто обозначает сумму, матрицу или множество.</p><em>Смысл зависит от определения в конкретном уроке.</em></div><div class="mm-sym-entry"><strong>μ</strong><b>Буква Мю</b><p>Греческая буква. Часто обозначает меру, среднее или параметр.</p><em>Смысл зависит от определения в конкретном уроке.</em></div><div class="mm-sym-entry"><strong>σ</strong><b>Буква Сигма</b><p>Греческая буква. Часто обозначает разброс, напряжение или параметр.</p><em>Смысл зависит от определения в конкретном уроке.</em></div><div class="mm-sym-entry"><strong>→</strong><b>Стрелка</b><p>В зависимости от темы означает переход, отображение, предел или сходимость.</p><em>Нужно читать вместе с окружающими словами.</em></div><div class="mm-sym-entry"><strong>∅</strong><b>Пустое множество</b><p>Набор, в котором нет ни одного элемента.</p></div><div class="mm-sym-entry"><strong>∞</strong><b>Бесконечность</b><p>Не обозначает обычное конечное число. Используется, когда величина неограниченно растёт или речь идёт о бесконечном объекте.</p></div><div class="mm-sym-entry"><strong>⋃</strong><b>Объединение семейства</b><p>Объединение сразу нескольких наборов, иногда бесконечного количества.</p></div></div></details><div class="mm-legend-footer"><span>Мышь · Касание · Клавиатура</span><a href="../../symbols.html">Открыть полный словарь →</a></div></div>
+<section class="block" id="goal"><div class="over">00 / КАРТА ПОНИМАНИЯ</div><h2>От идеи к доказательству</h2><div class="mapsteps"><a href="#definition">01 · Модель и определение</a><a href="#formula">02 · Формальный язык</a><a href="#proof">03 · Пошаговое доказательство</a><a href="#lab">04 · Интерактивный эксперимент</a><a href="#quiz">05 · Задачи и проверка</a><a href="#links">06 · Связи и продолжение</a></div><p>Урок автономен. Примеры иллюстрируют теоремы, но не заменяют их доказательство.</p></section>
+<details class="notation-box"><summary>◈ Азбука обозначений · 9 знаков (ℝ · ∅ · ⋃ · ≤ · ≥)</summary><p class="notation-intro">Не нужно знать эти знаки заранее. Открой справочник, когда встретишь незнакомый символ. Значение некоторых знаков зависит от контекста.</p><dl><div><dt>ℝ</dt><dd>Действительные числа, включая рациональные и иррациональные (например, √2).</dd></div><div><dt>∅</dt><dd>Пустое множество — множество без элементов.</dd></div><div><dt>⋃</dt><dd>Объединение семейства множеств.</dd></div><div><dt>≤</dt><dd>Меньше или равно.</dd></div><div><dt>≥</dt><dd>Больше или равно.</dd></div><div><dt>∞</dt><dd>Бесконечность — не обычное действительное число.</dd></div><div><dt>∑</dt><dd>Суммирование по указанным индексам.</dd></div><div><dt>→</dt><dd>Стрелка: переход, отображение или сходимость — точный смысл зависит от записи.</dd></div><div><dt>σ</dt><dd>Греческая «сигма»; может обозначать стандартное отклонение, спектр и другие величины.</dd></div></dl></details>
+<section class="block" id="definition"><div class="over">01 / МАТЕМАТИЧЕСКАЯ МОДЕЛЬ</div><h2>Определение</h2><p>Мера <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span> на <span aria-label="σ: Буква Сигма" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает разброс, напряжение или параметр." data-mm-name="Буква Сигма" data-mm-sign="σ" role="button" tabindex="0" title="Буква Сигма — Греческая буква. Часто обозначает разброс, напряжение или параметр.">σ</span>-алгебре <span aria-label="Σ: Буква Сигма Заглавная" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает сумму, матрицу или множество." data-mm-name="Буква Сигма Заглавная" data-mm-sign="Σ" role="button" tabindex="0" title="Буква Сигма Заглавная — Греческая буква. Часто обозначает сумму, матрицу или множество.">Σ</span> подмножеств X — функция <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>:<span aria-label="Σ: Буква Сигма Заглавная" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает сумму, матрицу или множество." data-mm-name="Буква Сигма Заглавная" data-mm-sign="Σ" role="button" tabindex="0" title="Буква Сигма Заглавная — Греческая буква. Часто обозначает сумму, матрицу или множество.">Σ</span><span aria-label="→: Стрелка" class="mm-sym" data-mm-context="Нужно читать вместе с окружающими словами." data-mm-explanation="В зависимости от темы означает переход, отображение, предел или сходимость." data-mm-name="Стрелка" data-mm-sign="→" role="button" tabindex="0" title="Стрелка — В зависимости от темы означает переход, отображение, предел или сходимость.">→</span>[0,<span aria-label="∞: Бесконечность" class="mm-sym" data-mm-explanation="Не обозначает обычное конечное число. Используется, когда величина неограниченно растёт или речь идёт о бесконечном объекте." data-mm-name="Бесконечность" data-mm-sign="∞" role="button" tabindex="0" title="Бесконечность — Не обозначает обычное конечное число. Используется, когда величина неограниченно растёт или речь идёт о бесконечном объекте.">∞</span>], для которой <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>(<span aria-label="∅: Пустое множество" class="mm-sym" data-mm-explanation="Набор, в котором нет ни одного элемента." data-mm-name="Пустое множество" data-mm-sign="∅" role="button" tabindex="0" title="Пустое множество — Набор, в котором нет ни одного элемента.">∅</span>)=0 и <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>(<span aria-label="⋃: Объединение семейства" class="mm-sym" data-mm-explanation="Объединение сразу нескольких наборов, иногда бесконечного количества." data-mm-name="Объединение семейства" data-mm-sign="⋃" role="button" tabindex="0" title="Объединение семейства — Объединение сразу нескольких наборов, иногда бесконечного количества.">⋃</span>ₙAₙ)=<span aria-label="∑: Сумма" class="mm-sym" data-mm-explanation="Краткая запись последовательного сложения нескольких слагаемых." data-mm-name="Сумма" data-mm-sign="∑" role="button" tabindex="0" title="Сумма — Краткая запись последовательного сложения нескольких слагаемых.">∑</span>ₙ <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>(Aₙ) для попарно непересекающихся измеримых Aₙ. Допускается также значение +<span aria-label="∞: Бесконечность" class="mm-sym" data-mm-explanation="Не обозначает обычное конечное число. Используется, когда величина неограниченно растёт или речь идёт о бесконечном объекте." data-mm-name="Бесконечность" data-mm-sign="∞" role="button" tabindex="0" title="Бесконечность — Не обозначает обычное конечное число. Используется, когда величина неограниченно растёт или речь идёт о бесконечном объекте.">∞</span>.</p></section>
+<section class="block" id="formula"><div class="over">02 / ФОРМАЛЬНАЯ ЗАПИСЬ</div><h2>Формула</h2><div class="formula"><span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>([a,b]) = b<span aria-label="−: Минус" class="mm-sym" data-mm-context="Роль зависит от того, стоит ли знак между числами или перед числом." data-mm-explanation="Знак вычитания или знак отрицательного числа." data-mm-name="Минус" data-mm-sign="−" role="button" tabindex="0" title="Минус — Знак вычитания или знак отрицательного числа.">−</span>a　(мера Лебега на <span aria-label="ℝ: Действительные числа" class="mm-sym" data-mm-explanation="Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа." data-mm-name="Действительные числа" data-mm-sign="ℝ" role="button" tabindex="0" title="Действительные числа — Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа.">ℝ</span>, a <span aria-label="≤: Меньше или равно" class="mm-sym" data-mm-explanation="Число слева либо меньше числа справа, либо такое же." data-mm-name="Меньше или равно" data-mm-sign="≤" role="button" tabindex="0" title="Меньше или равно — Число слева либо меньше числа справа, либо такое же.">≤</span> b)</div><p><span aria-label="σ: Буква Сигма" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает разброс, напряжение или параметр." data-mm-name="Буква Сигма" data-mm-sign="σ" role="button" tabindex="0" title="Буква Сигма — Греческая буква. Часто обозначает разброс, напряжение или параметр.">σ</span>-алгебра замкнута относительно дополнений и счётных объединений. Счётная аддитивность сильнее конечной и является ключевым условием.</p></section>
+<section class="block" id="proof"><div class="over">03 / ВЫВОД И ЕГО ПРЕДПОСЫЛКИ</div><h2>Аддитивность для двух соседних интервалов</h2><div class="proof"><strong>Условия:</strong><p>Берём [0,a] и [a,a+b] с a,b<span aria-label="≥: Больше или равно" class="mm-sym" data-mm-explanation="Число слева либо больше числа справа, либо такое же." data-mm-name="Больше или равно" data-mm-sign="≥" role="button" tabindex="0" title="Больше или равно — Число слева либо больше числа справа, либо такое же.">≥</span>0. Общая граничная точка имеет меру ноль.</p><ol><li>Длина первого интервала равна a, второго — b.</li><li>Их пересечение — одноточечное множество {a}, мера которого равна нулю.</li><li>Мера объединения двух измеримых множеств равна сумме мер минус мера пересечения.</li><li>Получаем <span aria-label="μ: Буква Мю" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает меру, среднее или параметр." data-mm-name="Буква Мю" data-mm-sign="μ" role="button" tabindex="0" title="Буква Мю — Греческая буква. Часто обозначает меру, среднее или параметр.">μ</span>([0,a+b])=a+b, что согласуется с длиной объединённого интервала.</li><li>Это иллюстрация конечной аддитивности. Общая счётная аддитивность — отдельная аксиома меры и здесь не доказана.</li></ol></div><p class="boundary"><strong>⚑ Граница утверждения.</strong> Не всякое подмножество <span aria-label="ℝ: Действительные числа" class="mm-sym" data-mm-explanation="Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа." data-mm-name="Действительные числа" data-mm-sign="ℝ" role="button" tabindex="0" title="Действительные числа — Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа.">ℝ</span> измеримо по Лебегу. Для произвольных множеств нельзя без условий приписывать «длину» с нужными свойствами.</p></section>
+<section class="block" id="lab"><div class="over">04 / LIVE / RESEARCH LAB</div><h2>Аддитивность длин двух непересекающихся интервалов</h2><p>Два цветных отрезка не пересекаются; суммарная мера равна сумме их длин.</p><div class="lab"><label for="parameter">a = <strong id="value">1.5</strong></label><input aria-label="Параметр a" id="parameter" max="3" min="0.2" step="0.1" type="range" value="1.5"/><output aria-live="polite" id="result"></output><canvas aria-label="Динамическая математическая иллюстрация" id="visual" role="img"></canvas></div><p class="mini">Все вычисления выполняются локально. Эксперимент проверяет частный случай, но не доказывает общий результат.</p></section>
+<section class="block" id="quiz"><div class="over">05 / ПРОВЕРКА ПОНИМАНИЯ</div><h2>Закрепи выводы</h2><p>Четыре независимые задачи. Ошибку можно исправить — важен результат, а не попытка с первого раза.</p><div aria-live="polite" class="mini" id="mastery-status">◇ Решено 0 / 4 <span aria-label="·: Умножение или точка" class="mm-sym" data-mm-context="Значение зависит от раздела и типа объектов." data-mm-explanation="Точка часто обозначает умножение. Для векторов может обозначать скалярное произведение." data-mm-name="Умножение или точка" data-mm-sign="·" role="button" tabindex="0" title="Умножение или точка — Точка часто обозначает умножение. Для векторов может обозначать скалярное произведение.">·</span> Для звезды ★ требуется решить все задачи.</div><div class="question" data-answer="1" data-explanation="Это аксиома меры: μ(∅)=0."><span class="over">ЗАДАЧА 01 / 04</span><h3>Чему равна мера пустого множества?</h3><div class="options"><button type="button">1</button><button type="button">0</button><button type="button">Неизвестно</button><button type="button">∞</button></div><p aria-live="polite" class="feedback" role="status"></p></div><div class="question" data-answer="2" data-explanation="Длина интервала равна 5−2=3."><span class="over">ЗАДАЧА 02 / 04</span><h3>Какова мера интервала [2,5] на вещественной прямой?</h3><div class="options"><button type="button">2</button><button type="button">5</button><button type="button">3</button><button type="button">7</button></div><p aria-live="polite" class="feedback" role="status"></p></div><div class="question" data-answer="0" data-explanation="Равенство действует для счётного непересекающегося объединения."><span class="over">ЗАДАЧА 03 / 04</span><h3>Что означает <span aria-label="σ: Буква Сигма" class="mm-sym" data-mm-context="Смысл зависит от определения в конкретном уроке." data-mm-explanation="Греческая буква. Часто обозначает разброс, напряжение или параметр." data-mm-name="Буква Сигма" data-mm-sign="σ" role="button" tabindex="0" title="Буква Сигма — Греческая буква. Часто обозначает разброс, напряжение или параметр.">σ</span>-аддитивность?</h3><div class="options"><button type="button">Сумма мер для счётного семейства непересекающихся измеримых множеств</button><button type="button">Сумма площадей только двух фигур</button><button type="button">Любая функция аддитивна</button><button type="button">Мера любого множества конечна</button></div><p aria-live="polite" class="feedback" role="status"></p></div><div class="question" data-answer="3" data-explanation="Синглетон имеет меру ноль."><span class="over">ЗАДАЧА 04 / 04</span><h3>Какая мера у одной точки на <span aria-label="ℝ: Действительные числа" class="mm-sym" data-mm-explanation="Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа." data-mm-name="Действительные числа" data-mm-sign="ℝ" role="button" tabindex="0" title="Действительные числа — Все точки непрерывной числовой прямой: в том числе целые, дробные и иррациональные числа.">ℝ</span> для меры Лебега?</h3><div class="options"><button type="button">1</button><button type="button">∞</button><button type="button">Зависит от координаты</button><button type="button">0</button></div><p aria-live="polite" class="feedback" role="status"></p></div></section>
+<section class="block" id="links"><div class="over">06 / СВЯЗИ ЗНАНИЙ</div><h2>Что стоит знать до и после?</h2><p>Предпосылки рекомендуются, но открывать этот автономный урок можно напрямую.</p><div class="links"><a href="../analysis/limits.html">↗ Пределы и бесконечность</a><a href="../foundations/sets-relations.html">↗ Множества и отношения</a></div><div class="links" style="margin-top:14px"><a href="../analysis/lebesgue.html">Следующая тема: Интеграл Лебега</a><a href="../../index.html#catalog">Открыть 3D-атлас</a></div></section>
+<section class="block" id="finish"><div class="over">07 / ПРОХОЖДЕНИЕ</div><h2>Отметить в атласе</h2><p aria-live="polite" id="done-label">○ Урок ещё не отмечен.</p><button class="endbtn" id="complete" type="button">✓ Отметить пройденным и вернуться в атлас</button><button class="mm-next-action" id="mm-next-lesson" type="button">✓ Отметить и перейти к следующему уроку →</button> <a href="../../index.html#catalog">Вернуться без отметки</a><p class="mini">Отметка может быть ручной; ★ подтверждает правильное выполнение четырёх заданий. Прогресс хранится локально, переход в атлас передаёт отметку через ссылку.</p></section>
+</article><aside class="aside"><div class="over">НАВИГАЦИЯ</div><a href="#goal">00 / Карта</a><a href="#definition">01 / Определение</a><a href="#formula">02 / Формула</a><a href="#proof">03 / Доказательство</a><a href="#lab">04 / Лаборатория</a><a href="#quiz">05 / Практика</a><a href="#links">06 / Связи</a><a href="#finish">07 / Прогресс</a><hr style="border:0;border-top:1px solid #254a32;margin:20px 0"/><span class="mini">Математический анализ<br/>Теория меры</span></aside></div></main><div class="shell footer">МАГИЯ МАТЕМАТИКИ · 1.0.1 · СТРОГОСТЬ / НАГЛЯДНОСТЬ / ПРАКТИКА</div>
+<script>(()=>{'use strict';
+const CFG={sector:"analysis",title:"Теория меры"},key=CFG.sector+'::'+CFG.title,storageKey='magic-math:lesson-progress:v1',masteryKey='magic-math:mastery:v1';
+const slider=document.getElementById('parameter'),val=document.getElementById('value'),canvas=document.getElementById('visual'),ctx=canvas.getContext('2d'),output=document.getElementById('result'),kind="measure";
+
+function drawLab(){
+ const v=Number(slider.value),W=Math.max(260,canvas.clientWidth),H=Math.max(220,canvas.clientHeight),ratio=Math.min(devicePixelRatio||1,2);
+ canvas.width=Math.round(W*ratio);canvas.height=Math.round(H*ratio);ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,W,H);ctx.fillStyle='#041209';ctx.fillRect(0,0,W,H);
+ const green='#7efca6',gold='#ffd36b',grey='#5a8165',stroke=(x1,y1,x2,y2,c=grey,l=1)=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.strokeStyle=c;ctx.lineWidth=l;ctx.stroke();};
+ const line=(fn,xmin,xmax,ymin,ymax,color,width=2)=>{ctx.beginPath();for(let i=0;i<=330;i++){const x=xmin+(xmax-xmin)*i/330,y=fn(x),px=36+(W-52)*i/330,py=H-29-(y-ymin)/(ymax-ymin)*(H-51);if(i===0)ctx.moveTo(px,py);else ctx.lineTo(px,py);}ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();};
+ const text=(t,x,y,c='#a8c1af')=>{ctx.fillStyle=c;ctx.font='11px ui-monospace,Menlo,monospace';ctx.fillText(t,x,y);};
+ const axis=(y0)=>{stroke(36,y0,W-16,y0);stroke(36,16,36,H-29);};
+ const fmt=x=>Number(x.toFixed(5)).toLocaleString('ru-RU');
+ if(kind==='forms'){
+   const cx=W/2,cy=H/2+5,R=Math.min(W*.24,H*.31);ctx.strokeStyle=gold;ctx.lineWidth=3;ctx.beginPath();ctx.arc(cx,cy,R,0,2*Math.PI);ctx.stroke();
+   for(let y=-2;y<=2;y++)for(let x=-3;x<=3;x++){const px=cx+x*R*.48,py=cy-y*R*.48;const norm=Math.hypot(x,y)||1,ux=-y/norm*Math.sign(v),uy=-x/norm*Math.sign(v);if(v===0)continue;stroke(px,py,px+ux*15,py+uy*15,green,1.4);}
+   ctx.fillStyle='#ef7281';ctx.beginPath();ctx.arc(cx,cy,4,0,Math.PI*2);ctx.fill();text('∮ α по окружности R=1',18,19);
+   output.textContent='a = '+fmt(v)+';  dα = '+fmt(2*v)+' dx∧dy;  ∮α = '+fmt(2*Math.PI*v);
+ } else if(kind==='measure'){
+   const a=v,b=.75,unit=(W-75)/5.7,x0=36,y=H*.6;
+   axis(y);ctx.fillStyle='#63e19a';ctx.fillRect(x0,y-33,a*unit,33);ctx.fillStyle=gold;ctx.fillRect(x0+(a+.65)*unit,y-33,b*unit,33);
+   text('A: длина '+fmt(a),x0,30);text('B: длина 0,75',x0,47,gold);
+   output.textContent='μ(A∪B) = μ(A)+μ(B) = '+fmt(a)+' + 0,75 = '+fmt(a+b);
+ } else if(kind==='lebesgue'){
+   const n=Math.round(v),left=36,bot=H-29,sz=Math.min(H-62,W-57),x0=left,y0=bot;
+   axis(bot);for(let i=0;i<n;i++){const x=left+sz*i/n,height=sz*i/n;ctx.fillStyle='#317a50';ctx.fillRect(x,bot-height,sz/n-.6,height);}
+   stroke(left,bot,left+sz,bot-sz,gold,2.5);text('f(x)=x',left+sz*.60,bot-sz*.65,gold);
+   output.textContent='n = '+n+';  ∫sₙ = '+fmt((n-1)/(2*n))+';  точный интеграл = 0,5';
+ } else if(kind==='fourier'){
+   const n=Math.round(v),xmin=-Math.PI,xmax=Math.PI,ymin=-1.6,ymax=1.6;
+   axis(H*.5);
+   line(x=>Math.sin(x)>0?1:Math.sin(x)<0?-1:0,xmin,xmax,ymin,ymax,gold,2);
+   line(x=>{let s=0;for(let k=0;k<n;k++)s+=Math.sin((2*k+1)*x)/(2*k+1);return 4*s/Math.PI;},xmin,xmax,ymin,ymax,green,2);
+   text('ЗОЛОТОЙ = исходная волна',48,19,gold);text('ЗЕЛЁНЫЙ = сумма N гармоник',48,34,green);
+   output.textContent='N = '+n+';  максимальная частота = '+(2*n-1)+';  около разрыва заметны осцилляции';
+ } else if(kind==='lp'){
+   const p=Math.round(v);axis(H-29);line(x=>x**p,0,1,0,1,green,3);line(x=>x,0,1,0,1,gold,1.3);text('ЗЕЛЁНЫЙ: xᵖ; ЗОЛОТОЙ: x',48,19);
+   output.textContent='p = '+p+';  ∫₀¹xᵖdx = '+fmt(1/(p+1))+';  ‖x‖ₚ = '+fmt((1/(p+1))**(1/p));
+ } else if(kind==='distributions'){
+   const sigma=v,ymax=5.2;axis(H-29);line(x=>Math.exp(-x*x/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI)),-2,2,0,ymax,green,2.3);line(x=>Math.exp(-x*x),-2,2,0,ymax,gold,1.5);
+   text('ЗЕЛЁНЫЙ: ρσ(x)   ЗОЛОТОЙ: φ(x)',45,19);
+   output.textContent='σ = '+fmt(sigma)+'; ∫ρσ·φ dx = '+fmt(1/Math.sqrt(1+2*sigma*sigma))+'; предел → 1';
+ }
+ val.textContent=v;
+}
+
+slider.addEventListener('input',drawLab);if(typeof ResizeObserver!=='undefined'){const obs=new ResizeObserver(()=>{const r=canvas.getBoundingClientRect();if(r.width>0)drawLab();});obs.observe(canvas);}else window.addEventListener('resize',drawLab);drawLab();
+let verified=false;try{verified=JSON.parse(localStorage.getItem(masteryKey)||'{}')[key]===true;}catch(e){}
+let done=false;try{done=JSON.parse(localStorage.getItem(storageKey)||'{}')[key]===true;}catch(e){}if(new URLSearchParams(location.search).get('done')==='1')done=true;
+const doneLabel=document.getElementById('done-label'),btn=document.getElementById('complete');
+function update(){doneLabel.textContent=done?'✓ Пройдено · золотая отметка':'○ Урок ещё не отмечен';btn.textContent=done?'↶ Снять отметку и вернуться':'✓ Отметить пройденным и вернуться в атлас';}
+update();
+const qs=[...document.querySelectorAll('.question')],solved=new Set();
+function updateMastery(){const el=document.getElementById('mastery-status');el.textContent=verified?'★ Проверено: 4/4 задач':`◇ Решено ${solved.size} / ${qs.length}`;el.classList.toggle('mastered',verified);}
+updateMastery();
+qs.forEach((q,i)=>{const expected=Number(q.dataset.answer),buttons=[...q.querySelectorAll('button')],fb=q.querySelector('.feedback');buttons.forEach((button,j)=>button.addEventListener('click',()=>{if(solved.has(i))return;buttons.forEach(b=>b.classList.remove('wrong'));
+if(j!==expected){button.classList.add('wrong');fb.classList.add('warn');fb.textContent='Не совсем. Проверь определение и условия вывода; попробуй ещё.';}else{button.classList.add('correct');solved.add(i);buttons.forEach(b=>b.disabled=true);fb.classList.remove('warn');fb.textContent='✓ '+q.dataset.explanation;
+if(solved.size===qs.length){verified=true;try{const data=JSON.parse(localStorage.getItem(masteryKey)||'{}');data[key]=true;localStorage.setItem(masteryKey,JSON.stringify(data));}catch(e){}}}
+updateMastery();}));});
+btn.addEventListener('click',()=>{const next=!done;done=next;try{const data=JSON.parse(localStorage.getItem(storageKey)||'{}');if(next)data[key]=true;else delete data[key];localStorage.setItem(storageKey,JSON.stringify(data));if(!next){const m=JSON.parse(localStorage.getItem(masteryKey)||'{}');delete m[key];localStorage.setItem(masteryKey,JSON.stringify(m));}}catch(e){}
+const u=new URL('../../index.html',location.href);u.searchParams.set('lesson-key',key);u.searchParams.set('lesson-progress',next?'done':'undo');if(next&&verified)u.searchParams.set('lesson-verified','1');window.MagiyaTrail?.toAtlas(u,next?'done':'undo');u.hash='catalog';location.href=u.href;});
+})();</script><script id="mm-language-script">/* MM 1.1: in-document tooltip, no network dependencies */
+(()=>{'use strict';
+ const scope=document.querySelector('main')||document.body;
+ const marks=[...scope.querySelectorAll('.mm-sym[data-mm-sign]')];
+ if(!marks.length) return;
+ const tip=document.createElement('div');tip.className='mm-symbol-tooltip';tip.hidden=true;
+ tip.setAttribute('role','status');tip.setAttribute('aria-live','polite');
+ const close=document.createElement('button');close.className='mm-tt-close';close.type='button';close.setAttribute('aria-label','Закрыть объяснение');close.textContent='×';
+ const title=document.createElement('div');title.className='mm-tt-title';
+ const glyph=document.createElement('span');glyph.className='mm-tt-glyph';
+ const term=document.createElement('span');
+ title.append(glyph,term);
+ const detail=document.createElement('div');detail.className='mm-tt-description';
+ const context=document.createElement('div');context.className='mm-tt-context';
+ tip.append(close,title,detail,context);document.body.appendChild(tip);
+ let active=null, locked=false;
+ function hide(){tip.hidden=true;active?.classList.remove('mm-selected');active=null;locked=false;}
+ function show(el,keep=false){
+  if(!el)return;
+  active?.classList.remove('mm-selected');active=el;locked=keep;el.classList.add('mm-selected');
+  glyph.textContent=el.dataset.mmSign||el.textContent;
+  term.textContent=el.dataset.mmName||'';
+  detail.textContent=el.dataset.mmExplanation||'';
+  context.textContent=el.dataset.mmContext||'';context.hidden=!context.textContent;
+  tip.hidden=false;
+  const r=el.getBoundingClientRect(), b=tip.getBoundingClientRect(),gap=10;
+  let x=r.left+r.width/2-b.width/2;
+  x=Math.max(gap,Math.min(x,window.innerWidth-b.width-gap));
+  let y=r.bottom+9;
+  if(y+b.height>window.innerHeight-gap) y=Math.max(gap,r.top-b.height-9);
+  tip.style.left=x+'px';tip.style.top=y+'px';
+ }
+ marks.forEach(m=>{
+   m.removeAttribute('title');
+   m.addEventListener('mouseenter',()=>{if(!locked)show(m,false)});
+   m.addEventListener('mouseleave',()=>{if(!locked)hide()});
+   m.addEventListener('focus',()=>show(m,false));
+   m.addEventListener('click',ev=>{ev.preventDefault();ev.stopPropagation();if(active===m&&locked)hide();else show(m,true)});
+   m.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();if(active===m&&locked)hide();else show(m,true)}if(ev.key==='Escape')hide()});
+ });
+ close.addEventListener('click',hide);
+ document.addEventListener('pointerdown',e=>{if(!tip.contains(e.target)&&!e.target.closest('.mm-sym'))hide()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')hide()});
+ window.addEventListener('resize',hide);
+ window.addEventListener('scroll',hide,true);
+})();</script></body></html>

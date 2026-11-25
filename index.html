@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#030907" name="theme-color"/>
+<meta content="Магия Математики — интерактивный атлас математики и высшей математики. Каждая тема — отдельная самостоятельная страница." name="description"/>
+<title>Магия Математики — Атлас знаний</title>
+<style>
+    :root {
+      color-scheme: dark;
+      --bg: #030907;
+      --bg-soft: #07140f;
+      --glass: rgba(7, 24, 18, .68);
+      --line: rgba(89, 211, 135, .14);
+      --line-strong: rgba(125, 242, 164, .33);
+      --mint: #8af7ab;
+      --green: #39ee84;
+      --green-deep: #126b3c;
+      --gold: #ffd36b;
+      --gold-bright: #ffe9a2;
+      --gold-muted: #c49439;
+      --white: #f1f7f0;
+      --muted: #9cad9e;
+      --quiet: #65816f;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--white); font-family: var(--sans); overflow-x: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 10; opacity: .36; background-image: linear-gradient(rgba(98, 183, 118, .035) 1px, transparent 1px), linear-gradient(90deg, rgba(98, 183, 118, .035) 1px, transparent 1px); background-size: 52px 52px; mask-image: linear-gradient(to bottom, #000, transparent 95%); }
+    body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 11; opacity: .13; background: repeating-linear-gradient(0deg, transparent 0px, transparent 3px, rgba(0,0,0,.55) 4px); }
+    ::selection { color: #021006; background: var(--mint); }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    button:focus-visible, a:focus-visible { outline: 2px solid var(--mint); outline-offset: 5px; }
+    .shell { width: min(1440px, calc(100% - 112px)); margin: 0 auto; }
+    .topline { height: 27px; background: #06120c; border-bottom: 1px solid rgba(107, 247, 152, .12); font: 10px var(--mono); color: #789a84; letter-spacing: .11em; }
+    .topline .shell { height: 100%; display: flex; justify-content: space-between; align-items: center; }
+    .topline .readout { display: flex; align-items: center; gap: 9px; }
+    .signal { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 9px var(--green); animation: flicker 2.4s infinite; }
+    .masthead { height: 92px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); position: relative; z-index: 12; }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .brandmark { width: 44px; height: 44px; display: grid; place-items: center; color: var(--mint); border: 1px solid rgba(117,247,166,.38); background: radial-gradient(circle at center, rgba(62, 234, 119, .12), transparent 70%); clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%); box-shadow: inset 0 0 16px rgba(30, 212, 103, .12); font: 26px Georgia, serif; }
+    .brandtitle { font-size: 16px; letter-spacing: .045em; font-weight: 700; }
+    .brandsub { margin-top: 5px; font: 10px var(--mono); color: var(--quiet); letter-spacing: .15em; }
+    .nav { display: flex; gap: 40px; align-items: center; font: 11px var(--mono); color: #a2b5a5; letter-spacing: .09em; }
+    .nav a { transition: color .2s; }
+    .nav a:hover { color: var(--mint); }
+    .nav-divider { height: 23px; width: 1px; background: var(--line-strong); }
+    .nav-status { color: var(--mint); display: flex; align-items: center; gap: 9px; }
+    .hero { min-height: 690px; display: grid; grid-template-columns: minmax(410px, .82fr) minmax(520px, 1.18fr); position: relative; }
+    .hero::before { content: ""; position: absolute; width: 820px; height: 760px; right: -110px; top: -25px; pointer-events: none; background: radial-gradient(ellipse, rgba(33, 156, 79, .115) 0%, rgba(7, 30, 17, .06) 39%, transparent 67%); filter: blur(4px); }
+    .intro { z-index: 2; padding-top: 114px; padding-bottom: 65px; }
+    .eyebrow { font: 11px var(--mono); letter-spacing: .14em; color: var(--mint); display: flex; align-items: center; gap: 13px; }
+    .eyebrow::before { content: ""; height: 1px; width: 30px; background: var(--mint); box-shadow: 0 0 8px var(--mint); }
+    h1 { font-size: clamp(64px, 6.4vw, 108px); line-height: .99; letter-spacing: -.065em; font-weight: 670; margin: 35px 0 30px; }
+    h1 span { display: block; }
+    h1 .highlight { color: #9df7b9; text-shadow: 0 0 45px rgba(38, 235, 104, .2); }
+    .subtitle { max-width: 460px; color: #ecf4ec; font-size: clamp(19px, 1.6vw, 23px); font-weight: 450; letter-spacing: -.02em; line-height: 1.5; margin: 0 0 17px; }
+    .desc { color: var(--muted); font-size: 14px; line-height: 1.85; max-width: 430px; margin: 0; }
+    .actions { margin-top: 37px; display: flex; gap: 13px; align-items: center; flex-wrap: wrap; }
+    .primary { cursor: pointer; border: 1px solid var(--mint); background: #91f5ac; color: #04200c; border-radius: 3px; padding: 17px 23px; font-weight: 730; font-size: 13px; display: inline-flex; align-items: center; gap: 22px; box-shadow: 0 0 30px rgba(78, 240, 119, .17); transition: transform .2s, box-shadow .2s; }
+    .primary:hover { transform: translateY(-2px); box-shadow: 0 0 35px rgba(78, 240, 119, .3); }
+    .secondary { font: 11px var(--mono); color: #cbdccf; border: 1px solid var(--line-strong); padding: 18px 17px; background: rgba(16, 42, 25, .26); border-radius: 3px; cursor: pointer; transition: border-color .2s, color .2s; }
+    .secondary:hover { color: var(--mint); border-color: var(--mint); }
+    .hero-bottom { display: flex; align-items: center; gap: 28px; margin-top: 71px; }
+    .hero-stat strong { display: block; font: 27px var(--mono); letter-spacing: -.06em; color: var(--white); }
+    .hero-stat small { margin-top: 7px; display: block; font: 10px var(--mono); letter-spacing: .035em; color: var(--quiet); }
+    .stat-separator { width: 1px; height: 40px; background: var(--line-strong); }
+    .graph-wrapper { position: relative; height: 688px; min-width: 0; user-select: none; }
+    .graph-canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+    .graph-canvas.dragging { cursor: grabbing; }
+    .graph-eyebrow { position: absolute; left: 22px; top: 44px; z-index: 2; pointer-events: none; }
+    .graph-eyebrow strong { display: block; font: 11px var(--mono); letter-spacing: .19em; color: var(--mint); font-weight: 500; }
+    .graph-eyebrow span { display: block; font: 10px var(--mono); color: var(--quiet); margin-top: 9px; letter-spacing: .08em; }
+    .graph-controls { position: absolute; top: 38px; right: 2px; z-index: 3; display: flex; gap: 6px; }
+    .control { cursor: pointer; min-width: 35px; height: 35px; border: 1px solid rgba(114, 206, 141, .25); border-radius: 3px; background: rgba(2, 14, 8, .8); color: #a5d5b0; font: 11px var(--mono); transition: background .2s, border-color .2s; }
+    .control:hover, .control[aria-pressed="true"] { background: rgba(22, 84, 44, .52); border-color: rgba(125, 242, 164, .7); }
+    .graph-info { position: absolute; bottom: 38px; left: 24px; z-index: 3; display: flex; align-items: center; gap: 12px; font: 10px var(--mono); color: #759783; letter-spacing: .04em; pointer-events: none; }
+    .graph-info .crosshair { width: 26px; height: 26px; border: 1px solid rgba(88, 224, 135, .3); border-radius: 50%; display: grid; place-items: center; font-size: 15px; color: var(--green); }
+    .graph-count { position: absolute; right: 3px; bottom: 39px; z-index: 2; font: 10px var(--mono); color: #7b9f84; letter-spacing: .1em; pointer-events: none; }
+    .graph-legend {position:absolute;z-index:3;left:24px;bottom:82px;display:flex;gap:14px;flex-wrap:wrap;font:10px var(--mono);letter-spacing:.025em;color:#9db1a0;pointer-events:none;}
+    .graph-legend span {display:inline-flex;align-items:center;gap:7px;}
+    .graph-legend i {width:8px;height:8px;display:inline-block;border-radius:50%;background:#65d89b;box-shadow:0 0 9px #46bb7b80;}
+    .graph-legend .gold i {background:#ffd36b;box-shadow:0 0 10px #ffc44899;}
+    .graph-tooltip {position:absolute;z-index:7;min-width:140px;max-width:230px;padding:9px 11px;border:1px solid #669e73;background:#06160fe9;box-shadow:0 8px 28px #0009;color:#c7f7d1;font:11px/1.5 var(--mono);pointer-events:none;border-radius:4px;}
+    .graph-tooltip[hidden]{display:none;}
+    .graph-tooltip.is-done {color:#ffe3a0;border-color:#d7a64d;background:#20180af0;}
+    .graph-tooltip small{display:block;margin-top:3px;color:#91aa99;font-size:9px;}
+    .graph-tooltip.is-done small{color:#d9b978;}
+    .node-card { position: absolute; z-index: 5; width: min(288px, 78%); right: 24px; bottom: 81px; border: 1px solid rgba(122, 244, 157, .32); border-radius: 4px; background: rgba(3, 17, 10, .95); padding: 19px 19px 16px; box-shadow: 0 18px 60px rgba(0,0,0,.44), 0 0 25px rgba(36,196,89,.06); backdrop-filter: blur(16px); animation: cardIn .2s ease-out; }
+    .node-card[hidden] { display: none; }
+    .node-card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: #91a896; font: 10px var(--mono); letter-spacing: .12em; }
+    .node-card-top button { cursor: pointer; color: #8dba99; border: 0; background: none; font: 18px var(--mono); padding: 0; }
+    .node-card h2 { font-size: 21px; margin: 12px 0 8px; letter-spacing: -.025em; font-weight: 570; }
+    .node-card p { font-size: 12px; line-height: 1.7; color: #90aa96; margin: 0; }
+    .node-status { margin-top: 14px; font: 10px var(--mono); color: #e6c98a; display: flex; gap: 8px; align-items: center; }
+    .node-status::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: #d3a65a; }
+    .divider { border-top: 1px solid var(--line); }
+    .under { min-height: 260px; padding: 45px 0 75px; display: grid; grid-template-columns: 1.1fr 1.9fr; gap: 60px; }
+    .section-kicker { color: var(--mint); font: 10px var(--mono); letter-spacing: .19em; margin: 0 0 20px; }
+    .section-head { color: #f1f8f2; font-size: clamp(26px, 2.3vw, 37px); font-weight: 570; line-height: 1.2; letter-spacing: -.04em; margin: 0; }
+    .section-head em { font-family: Georgia, serif; color: #7fe6a4; font-weight: 400; }
+    .rule-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .rule { border-left: 1px solid var(--line-strong); padding: 5px 0 0 18px; }
+    .rule-id { font: 11px var(--mono); color: var(--green); }
+    .rule h3 { font-size: 14px; margin: 15px 0 8px; line-height: 1.45; font-weight: 600; }
+    .rule p { color: #84978a; font-size: 12px; line-height: 1.8; margin: 0; }
+    footer { border-top: 1px solid var(--line); padding: 23px 0 40px; display: flex; align-items: center; justify-content: space-between; gap: 24px; color: #698274; font: 10px var(--mono); letter-spacing: .07em; }
+    footer .signature { color: #91cba2; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @keyframes flicker { 0%, 93%, 100% { opacity: 1; } 95%, 97% { opacity: .35; } }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 1160px) {
+      .shell { width: min(100% - 64px, 1440px); }
+      .hero { grid-template-columns: minmax(340px, .84fr) minmax(420px, 1.16fr); min-height: 630px; }
+      .intro { padding-top: 94px; }
+      h1 { font-size: clamp(57px, 6.4vw, 83px); }
+      .graph-wrapper { height: 620px; }
+      .hero-bottom { margin-top: 56px; }
+    }
+    @media (max-width: 850px) {
+      .hero::before { width: 100%; right: 0; }
+      .shell { width: calc(100% - 42px); }
+      .masthead { height: 78px; }
+      .brandmark { width: 40px; height: 40px; }
+      .nav { gap: 18px; }
+      .nav a:nth-child(2), .nav-divider { display: none; }
+      .hero { display: flex; flex-direction: column; }
+      .intro { padding-top: 65px; padding-bottom: 5px; }
+      h1 { font-size: clamp(58px, 12vw, 90px); }
+      .hero-bottom { margin-top: 43px; }
+      .graph-wrapper { height: 575px; margin: -30px -22px 0; }
+      .graph-eyebrow { left: 22px; top: 24px; }
+      .graph-controls { right: 22px; top: 19px; }
+      .under { grid-template-columns: 1fr; gap: 35px; }
+    }
+    @media (max-width: 520px) {
+      .topline .mobile-hide, .nav a, .nav-status { display: none; }
+      .nav { gap: 0; }
+      .nav-status { font-size: 10px; }
+      .brand { gap: 10px; }
+      .brandtitle { font-size: 13px; }
+      .brandsub { font-size: 8px; }
+      .hero-bottom { gap: 16px; }
+      .hero-stat strong { font-size: 23px; }
+      .hero-stat small { font-size: 8px; }
+      .intro { padding-top: 51px; }
+      h1 { font-size: clamp(52px, 12.5vw, 69px); margin-top: 30px; }
+      .subtitle { font-size: 19px; }
+      .desc { font-size: 13px; }
+      .graph-wrapper { height: 485px; }
+      .graph-info { bottom: 15px; left: 21px; }
+      .graph-legend {left:20px;bottom:58px;font-size:9px;gap:12px;}
+      .graph-count { bottom: 23px; right: 20px; }
+      .node-card { right: 15px; bottom: 60px; }
+      .rule-grid { grid-template-columns: 1fr; gap: 23px; }
+      footer { display: block; line-height: 2.2; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; scroll-behavior: auto !important; transition: none !important; }
+    }
+
+    /* Разделы атласа и каталог уроков */
+    .start-path { margin-top: 26px; padding-left: 16px; border-left: 2px solid rgba(137, 247, 172, .58); max-width: 445px; }
+    .start-path span { display: block; font: 10px var(--mono); color: var(--mint); letter-spacing: .14em; margin-bottom: 8px; }
+    .start-path p { font-size: 12px; line-height: 1.7; color: #a5b9a8; margin: 0; }
+    .start-path a { color: var(--mint); text-decoration: underline; text-underline-offset: 3px; }
+    .card-to-catalog { display: block; width: 100%; margin-top: 15px; padding: 10px; background: rgba(31, 113, 60, .24); border: 1px solid rgba(138, 247, 171, .38); color: #bfffd0; border-radius: 3px; text-align: left; cursor: pointer; font: 11px var(--mono); }
+    .card-to-catalog:hover { background: rgba(31, 113, 60, .46); }
+    .catalog { padding: 65px 0 74px; }
+    .catalog-header { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 29px; }
+    .catalog-header .section-head { max-width: 660px; }
+    .catalog-lead { font-size: 13px; line-height: 1.7; color: #8fa896; max-width: 460px; }
+    .search-wrap { width: min(100%, 310px); position: relative; flex-shrink: 0; }
+    .search-wrap::before { content: '⌕'; position: absolute; left: 15px; top: 11px; color: #8fe4a4; font-size: 22px; }
+    .search { width: 100%; border: 1px solid var(--line-strong); background: #07180d; color: #e0ffe7; padding: 15px 14px 15px 44px; border-radius: 3px; outline: none; font: 12px var(--mono); }
+    .search:focus { border-color: #8af7ab; box-shadow: 0 0 0 3px rgba(94, 240, 125, .08); }
+    .search::placeholder { color: #708d78; }
+    .catalog-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; }
+    .sector { cursor: pointer; position: relative; text-align: left; min-height: 121px; padding: 17px 16px; color: #b8d5bc; border: 1px solid rgba(89, 211, 135, .17); border-radius: 4px; background: linear-gradient(145deg, rgba(13, 38, 22, .85), rgba(4, 14, 9, .86)); transition: border-color .2s, background .2s, transform .2s; }
+    .sector:hover { border-color: rgba(135, 252, 173, .7); transform: translateY(-2px); }
+    .sector[aria-pressed="true"] { border-color: #89f8aa; background: linear-gradient(145deg, rgba(22, 75, 39, .8), rgba(6, 25, 12, .93)); box-shadow: 0 0 23px rgba(51, 228, 106, .08); }
+    .sector-st { display:flex; align-items:center;justify-content:space-between;gap:6px;font:10px var(--mono);color:#6da37e;letter-spacing:.05em; }
+    .sector[aria-pressed="true"] .sector-st { color: #9ff4b6; }
+    .sector h3 { margin: 22px 0 7px; font-size: 15px; letter-spacing: -.02em; font-weight: 580; color:#e9f9ee; }
+    .sector p { font:10px var(--mono);color:#749481;margin:0; }
+    .sector .first { color:#a8ffb9; }
+    .sector[hidden] { display:none; }
+    .nothing { display:none; color:#89ab94; font: 12px var(--mono); border:1px dashed var(--line-strong); margin:15px 0 0;padding:18px; }
+    .nothing:not([hidden]) { display:block; }
+    .sector-detail { display:grid; grid-template-columns:.95fr 1.55fr; border:1px solid rgba(129, 238, 163, .28); background: radial-gradient(ellipse at left top,rgba(28,91,50,.21), transparent 57%),rgba(3,15,8,.91); border-radius:4px; margin-top:20px; }
+    .detail-intro { padding: 31px 29px; border-right: 1px solid rgba(129, 238, 163, .16); }
+    .detail-index { font:10px var(--mono); color:#81e9a0;letter-spacing:.17em; }
+    .detail-intro h3 { font-size: 28px; letter-spacing: -.04em; font-weight: 570; margin:15px 0; }
+    .detail-intro p { font-size:13px;line-height:1.8;color:#8fab97;margin:0; }
+    .detail-route { font:11px var(--mono);color:#a6e3b5;margin-top:25px;line-height:1.75; }
+    .detail-lessons { padding:28px 28px 27px; }
+    .detail-lessons-head { display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:15px;font:11px var(--mono);letter-spacing:.12em;color:#9ff7b7; }
+    .lesson-list {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+    .lesson-subgroup {grid-column:1/-1;font:10px var(--mono);letter-spacing:.13em;color:#8df3aa;padding:13px 0 5px;border-bottom:1px solid rgba(123,232,161,.18);}
+    .lesson { display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:49px;padding:12px 12px;border:1px solid rgba(87,158,107,.19);border-radius:3px;background:#06190d;color:#c9e1cf;font:11px var(--mono);line-height:1.5; }
+    .lesson b {font-weight:400;color:#7b9983;font-size:9px;white-space:nowrap;}
+    .lesson a {color:#a4fbb7;text-decoration:underline;text-underline-offset:3px;}
+    .lesson-first { border-color:rgba(127,244,164,.44);background:rgba(21,65,34,.43); }
+    .lesson-first b { color:#a4fac2; }
+    .detail-hint { margin-top:14px;color:#638573;font:10px var(--mono);line-height:1.6; }
+    @media(max-width:1160px) { .catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+    @media(max-width:850px) { .catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.sector-detail{grid-template-columns:1fr;}.detail-intro{border-right:0;border-bottom:1px solid rgba(129, 238, 163, .16)}.catalog-header{align-items:start;flex-direction:column;}.search-wrap{width:100%;max-width:430px;} }
+    @media(max-width:520px) { .catalog{padding-top:46px}.catalog-grid{gap:7px}.sector{min-height:111px;padding:13px 12px}.sector h3{font-size:13px}.sector p{font-size:9px}.detail-intro,.detail-lessons{padding:22px 17px}.lesson-list{grid-template-columns:1fr}.start-path{margin-top:20px}.node-card{max-height:245px;overflow:auto;} }
+
+    /* Личный прогресс и рекомендованная траектория */
+    .journey-progress { margin-top: 22px; max-width: 445px; }
+    .journey-progress-top { display: flex; justify-content: space-between; gap: 16px; font: 10px var(--mono); letter-spacing: .10em; color: #9cbea5; }
+    .journey-progress-top strong { font-weight: 500; color: #bcf9cb; }
+    .journey-track, .sector-progress { width: 100%; height: 5px; background: #153222; border: 1px solid rgba(115, 233, 146, .12); border-radius: 8px; overflow: hidden; }
+    .journey-track { margin-top: 10px; }
+    .journey-track span, .sector-progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg,#2cae61,#b5ffc5); box-shadow: 0 0 14px rgba(82,255,139,.48); transition: width .3s ease; }
+    .journey-progress p { font: 10px/1.65 var(--mono); color: #799985; margin: 10px 0 0; }
+    .sector-progress { margin: -4px 0 19px; height: 4px; }
+    .sector.recommended { border-color: rgba(177,255,169,.72); box-shadow: inset 0 0 23px rgba(48,209,84,.08),0 0 16px rgba(76,236,112,.11); }
+    .sector.complete { border-color: rgba(236,180,68,.68); background: linear-gradient(145deg,rgba(66,45,13,.90),rgba(22,20,11,.93)); box-shadow:inset 0 0 24px #a7742518,0 0 16px #ba8b2811; }
+    .sector.complete h3 { color: var(--gold-bright); }
+    .sector .sector-st .done-mark { color: var(--gold);text-shadow:0 0 11px #e9b54466; }
+    .sector .sector-st .next-mark { color: #caffb6; text-shadow: 0 0 12px #67f58466; }
+    .lesson { align-items: center; gap: 8px; }
+    .lesson .lesson-name { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+    .lesson.lesson-done { background: rgba(68,44,13,.52); border-color: rgba(230,181,76,.52); }
+    .lesson.lesson-done .lesson-name { color: var(--gold-bright); }
+    .lesson.lesson-done .lesson-name::after { content: ' ✓'; color: var(--gold); }
+    .lesson-check { flex: 0 0 25px; width: 25px; height: 25px; display: grid; place-items: center; cursor: pointer; padding: 0; color: #7bab88; background: #092213; border: 1px solid rgba(129,232,155,.3); border-radius: 4px; font: 15px var(--mono); transition: .2s ease; }
+    .lesson-check:hover { border-color: #a6ffbd; color: #bafdd0; }
+    .lesson-check[aria-pressed="true"] { color: #241804; background: #ffd36b; border-color: #ffe6a0; box-shadow: 0 0 18px rgba(255,204,77,.23); }
+    .lesson b { text-align: right; }
+    .node-status.is-complete { color: var(--gold); }
+    .node-status.is-complete::before { background: var(--gold);box-shadow:0 0 12px #ffd36b90; }
+    @media (max-width: 850px) { .journey-progress { max-width: 520px; } }
+    @media (max-width: 520px) { .lesson { min-height: 55px; } .lesson-check { flex-basis: 30px; height: 30px; } }
+
+    /* MM / Единая библиотека тематических контурных значков (без внешних запросов). */
+    .mm-icon{width:19px;height:19px;flex:none;display:inline-block;vertical-align:middle;color:#75f8a1;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+    .mm-icon.sm{width:15px;height:15px}.mm-icon.lg{width:25px;height:25px}.mm-icon.xl{width:34px;height:34px}
+    .nav a,.primary,.secondary{display:inline-flex;align-items:center;gap:8px}
+    .nav .mm-icon{width:14px;height:14px}
+    .primary .mm-icon{color:#0a4a24}
+    .secondary .mm-icon{width:15px;height:15px}
+    .sector h3{display:flex;align-items:center;gap:9px}
+    .sector h3 .mm-icon{width:20px;height:20px}
+    .sector.complete h3 .mm-icon{color:var(--gold)}
+    .detail-intro h3,.node-card h2{display:flex;align-items:center;gap:12px}
+    .detail-intro h3 .mm-icon{width:29px;height:29px}
+    .node-card h2 .mm-icon{width:22px;height:22px}
+    .detail-intro h3.is-done .mm-icon,.node-card h2.is-done .mm-icon{color:var(--gold)}
+    .lesson-name{display:inline-flex;align-items:center;gap:9px}
+    .lesson-name .mm-icon{width:17px;height:17px;flex-shrink:0}
+    .lesson.lesson-done .lesson-name .mm-icon{color:var(--gold)}
+    .lesson-check .mm-icon{width:14px;height:14px;color:currentColor;stroke-width:2}
+    .graph-node-icons{position:absolute;inset:0;pointer-events:none;z-index:1}
+    .graph-node-icon{position:absolute;width:12px;height:12px;display:none;pointer-events:none;color:#8ce9a8;transform:translate3d(-50%,-50%,0)}
+    .graph-node-icon .mm-icon{width:12px;height:12px;stroke-width:2}
+    .graph-node-icon.is-done{color:var(--gold)}
+    .graph-node-icon.is-done .mm-icon{color:var(--gold)}
+    .node-card-top .mm-icon{height:13px;width:13px}
+    .graph-tooltip strong{display:inline-flex;align-items:center;gap:7px}
+    .graph-tooltip strong .mm-icon{width:14px;height:14px}
+    .graph-tooltip.is-done .mm-icon{color:var(--gold)}
+    .rule h3{display:flex;align-items:center;gap:8px}
+    .rule h3 .mm-icon{width:18px;height:18px}
+    .detail-lessons-head>span:first-child{display:inline-flex;align-items:center;gap:9px}
+    .graph-eyebrow strong{display:flex;align-items:center;gap:8px}
+    .eyebrow .mm-icon{height:16px;width:16px}
+    @media(max-width:520px){.sector h3{gap:6px}.sector h3 .mm-icon{width:17px;height:17px}.detail-intro h3 .mm-icon{width:25px;height:25px}.lesson-name .mm-icon{width:15px;height:15px}}
+      html { overflow-x: clip; }
+  
+/* MMV1_UPGRADE · Атлас доступности знаний */
+.graph-legend .locked i{background:#42594b;box-shadow:none;border:1px solid #607f69}
+.graph-legend .ready i{background:#81ffac;box-shadow:0 0 11px #5bff87b0}
+.sector.is-locked{opacity:.72;border-color:#334c3c}.sector.is-locked:hover{opacity:1}
+.sector.is-ready:not(.complete){border-color:#417e53}
+.lesson.is-locked:not(.lesson-done){background:#08110c;border-color:#243d30}
+.lesson.is-locked:not(.lesson-done) .lesson-name{color:#8eaa96}
+.lesson.is-ready:not(.lesson-done){border-color:#4f8c61;background:#0b2414}
+.lesson .lesson-status{font:9px var(--mono);color:#9fb8a4;white-space:nowrap}
+.lesson.lesson-done .lesson-status{color:#ffdc83}
+.lesson .is-verified{color:#ffe09b;font:12px var(--mono);margin-left:2px}
+.mm-access{margin-top:18px;border:1px solid #32553d;border-radius:4px;padding:15px;background:#07180e;color:#a4c6ae;font:11px/1.8 var(--mono)}
+.mm-access strong{color:#aaffc0}
+.mm-access a{color:#b5ffd0;text-decoration:underline;text-underline-offset:3px}
+.mm-access ul{padding-left:18px;margin:8px 0 0}
+.mm-access li.done{color:#f9d787}.mm-access li.pending{color:#a3c2a8}
+.mm-data{margin:24px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:9px;font:11px var(--mono)}
+.mm-data button{background:#082113;border:1px solid #3d8254;border-radius:4px;color:#b6ffce;padding:10px 12px;cursor:pointer}
+.mm-data button:hover{background:#15502b}
+.mm-data small{color:#87b59a;flex-basis:100%;line-height:1.6}
+.mm-data input{display:none}
+.mm-key{display:flex;flex-wrap:wrap;gap:18px;color:#98bca0;font:10px var(--mono);margin:14px 0 24px}
+.mm-key span{display:inline-flex;gap:7px;align-items:center}.mm-key b{display:block;border-radius:50%;width:8px;height:8px;background:#4a6655}
+.mm-key .ready b{background:#83ffac;box-shadow:0 0 8px #61f29280}
+.mm-key .done b{background:#ffd36b;box-shadow:0 0 8px #ffd36b80}
+@media(max-width:520px){.mm-data{gap:8px}.lesson .lesson-status{font-size:8px}.mm-access{padding:12px}}
+
+    /* v1.0.2: iPhone Quick Look/file preview progressive enhancement.
+       The static atlas remains visible when scripts are blocked or canvas fails. */
+    .atlas-static {position:absolute;inset:0;overflow:hidden;display:flex;flex-direction:column;z-index:1;padding:118px 22px 76px;background:radial-gradient(ellipse at 50% 48%,rgba(37,141,67,.12),transparent 65%);}
+    .atlas-static::before {content:"";position:absolute;inset:72px 0 44px;z-index:-1;pointer-events:none;background:repeating-radial-gradient(ellipse at 50% 48%,transparent 0 45px,rgba(75,214,124,.07) 46px 47px,transparent 48px 91px);}
+    .atlas-static-map {position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-content:center;flex:1;}
+    .atlas-static-node {display:flex;align-items:center;gap:8px;min-height:45px;padding:10px 11px;border:1px solid rgba(91,230,135,.38);border-radius:5px;background:rgba(4,25,12,.91);color:#c9fbd3;font:11px/1.35 var(--mono);box-shadow:0 0 15px rgba(60,230,110,.07);}
+    .atlas-static-node:active,.atlas-static-node:focus-visible {border-color:var(--gold);color:var(--gold);}
+    .atlas-static-number {flex:none;color:#74ec9c;font-size:10px;}
+    .atlas-static-branch {margin-left:auto;color:#6ebf80;}
+    .atlas-static-hint {font:10px/1.65 var(--mono);color:#88ab93;margin:18px 0 0;max-width:520px;}
+    html.mm-graph-ready #atlas-static {display:none;}
+    html:not(.mm-graph-ready) .graph-controls,html:not(.mm-graph-ready) .graph-node-icons,html:not(.mm-graph-ready) .graph-legend,html:not(.mm-graph-ready) .graph-info,html:not(.mm-graph-ready) .graph-count {display:none;}
+    html:not(.mm-graph-ready) #knowledge-map {pointer-events:none;}
+    .catalog-static {border:1px solid rgba(120,225,157,.32);border-radius:6px;background:#06130b;margin:24px 0 25px;padding:13px;}
+    .catalog-static-note {font:11px/1.7 var(--mono);color:#9ed4ab;margin:6px 8px 16px;}
+    .catalog-static details {border-top:1px solid rgba(110,206,139,.18);}
+    .catalog-static summary {cursor:pointer;display:flex;gap:11px;align-items:center;min-height:50px;padding:9px;color:#b8f7c7;font:12px/1.45 var(--mono);}
+    .catalog-static summary small {margin-left:auto;flex:none;color:#80a88c;font-size:9px;}
+    .catalog-static-num {color:#72ff9d;flex:none;}
+    .catalog-static ol {padding:0 4px 13px 49px;margin:0;color:#749883;font:11px/1.9 var(--mono);}
+    .catalog-static li a {color:#b4ffc8;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere;}
+    html.mm-catalog-ready #catalog-static {display:none;}
+    html:not(.mm-catalog-ready) #sector-detail {display:none;}
+    @media(max-width:850px){
+       .atlas-static {padding:102px 24px 80px;}
+    }
+    @media(max-width:520px){
+       .graph-wrapper {height:650px;margin:-8px -21px 0;}
+       .graph-eyebrow {top:18px;left:21px;right:21px;}
+       .graph-eyebrow strong {font-size:10px;line-height:1.55;letter-spacing:.13em;max-width:100%;}
+       .graph-eyebrow span {font-size:9px;margin-top:4px;}
+       .graph-controls {top:75px;left:21px;right:auto;gap:7px;}
+       .control {min-width:40px;height:39px;font-size:15px;}
+       .graph-legend {left:20px;right:18px;bottom:83px;gap:7px 13px;font-size:9px;}
+       .graph-info {left:20px;bottom:22px;}
+       .graph-count {display:none;}
+       .atlas-static {padding:140px 20px 87px;}
+       .atlas-static-map {grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;}
+       .atlas-static-node {font-size:10px;min-height:39px;padding:7px 8px;gap:6px;line-height:1.25;}
+       .atlas-static-number {font-size:9px;}
+       .atlas-static-branch {display:none;}
+       .atlas-static-hint {font-size:9px;margin-top:14px;}
+       .catalog-static {margin:14px 0 20px;padding:9px;}
+       .catalog-static summary {font-size:11px;gap:7px;}
+       .catalog-static summary small {font-size:8px;}
+    }
+    @media(max-width:350px){
+       .graph-wrapper {height:690px;}
+       .atlas-static {padding-top:145px;}
+       .atlas-static-node {font-size:9px;}
+    }
+
+</style>
+</head>
+<body>
+<svg aria-hidden="true" id="mm-icon-sprite" style="position:absolute;width:0;height:0;overflow:hidden" xmlns="http://www.w3.org/2000/svg">
+<symbol id="mm-i-network" viewbox="0 0 24 24"><circle cx="12" cy="4" r="2"></circle><circle cx="5" cy="19" r="2"></circle><circle cx="19" cy="19" r="2"></circle><path d="M12 6v7M12 13l-7 4M12 13l7 4"></path></symbol>
+<symbol id="mm-i-git-branch" viewbox="0 0 24 24"><circle cx="6" cy="4" r="2"></circle><circle cx="6" cy="20" r="2"></circle><circle cx="19" cy="6" r="2"></circle><path d="M6 6v12M6 15c0-5 4-5 8-5 3 0 5-2 5-4"></path></symbol>
+<symbol id="mm-i-book-open" viewbox="0 0 24 24"><path d="M12 7c-3-2.5-6-3-10-2v14c4-1 7-.5 10 2 3-2.5 6-3 10-2V5c-4-1-7-.5-10 2ZM12 7v14"></path></symbol>
+<symbol id="mm-i-book" viewbox="0 0 24 24"><path d="M4 3.5A2 2 0 0 1 6 2h14v19H6a2 2 0 0 1-2-2Zm0 0V19a2 2 0 0 0 2 2m0-4h14"></path></symbol>
+<symbol id="mm-i-compass" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m16 8-2.5 5.5L8 16l2.5-5.5z"></path></symbol>
+<symbol id="mm-i-grid" viewbox="0 0 24 24"><rect height="7" rx="1" width="7" x="3" y="3"></rect><rect height="7" rx="1" width="7" x="14" y="3"></rect><rect height="7" rx="1" width="7" x="3" y="14"></rect><rect height="7" rx="1" width="7" x="14" y="14"></rect></symbol>
+<symbol id="mm-i-matrix" viewbox="0 0 24 24"><path d="M6 3H3v18h3M18 3h3v18h-3"></path><circle cx="9" cy="8" r="1"></circle><circle cx="15" cy="8" r="1"></circle><circle cx="9" cy="16" r="1"></circle><circle cx="15" cy="16" r="1"></circle></symbol>
+<symbol id="mm-i-variable" viewbox="0 0 24 24"><path d="m4 7 6 10M10 7 4 17M14 7l3.5 5M21 7l-7 10"></path></symbol>
+<symbol id="mm-i-hash" viewbox="0 0 24 24"><path d="M5 9h14M4 15h14M11 3 7 21M17 3l-4 18"></path></symbol>
+<symbol id="mm-i-calculator" viewbox="0 0 24 24"><rect height="20" rx="2" width="16" x="4" y="2"></rect><path d="M7 7h10M8 12h2m4 0h2M8 17h2m4 0h2"></path></symbol>
+<symbol id="mm-i-geometry" viewbox="0 0 24 24"><path d="m12 3 10 17H2L12 3Z"></path><circle cx="12" cy="13.5" r="2"></circle></symbol>
+<symbol id="mm-i-cube" viewbox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5ZM3 7l9 5 9-5M12 12v10"></path></symbol>
+<symbol id="mm-i-layers" viewbox="0 0 24 24"><path d="m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5"></path></symbol>
+<symbol id="mm-i-chart-line" viewbox="0 0 24 24"><path d="M3 3v18h18M5 17l5-6 3 2 6-8"></path><path d="m16 5h3v3"></path></symbol>
+<symbol id="mm-i-activity" viewbox="0 0 24 24"><path d="M2 13h4l3-9 5 16 3-7h5"></path></symbol>
+<symbol id="mm-i-wave" viewbox="0 0 24 24"><path d="M2 12c2.5-7 4.5-7 7 0s4.5 7 7 0 4.5-7 6 0"></path></symbol>
+<symbol id="mm-i-dice" viewbox="0 0 24 24"><rect height="18" rx="3" width="18" x="3" y="3"></rect><circle cx="8" cy="8" r="1"></circle><circle cx="16" cy="8" r="1"></circle><circle cx="12" cy="12" r="1"></circle><circle cx="8" cy="16" r="1"></circle><circle cx="16" cy="16" r="1"></circle></symbol>
+<symbol id="mm-i-chart-bar" viewbox="0 0 24 24"><path d="M3 3v18h18M7 16v3M12 11v8M17 6v13"></path><path d="M6 16h3M11 11h3M16 6h3"></path></symbol>
+<symbol id="mm-i-binary" viewbox="0 0 24 24"><rect height="7" rx="3.5" width="7" x="2" y="4"></rect><rect height="7" rx="3.5" width="7" x="15" y="13"></rect><path d="M18 4v7M5 13v7M15 6h6"></path></symbol>
+<symbol id="mm-i-logic" viewbox="0 0 24 24"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="m8 8 3 7m5-7-3 7M8.5 6h7"></path></symbol>
+<symbol id="mm-i-atom" viewbox="0 0 24 24"><circle cx="12" cy="12" r="1.4"></circle><ellipse cx="12" cy="12" rx="10" ry="4"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"></ellipse></symbol>
+<symbol id="mm-i-settings" viewbox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="m10 2-.4 2.7-2 .8L5 4 3 7l2 2-.4 2.3L2 12l2.6 1.2L5 15l-2 2 2 3 2.6-1.5 2 .8L10 22h4l.4-2.7 2-.8L19 20l2-3-2-2 .4-2 2.6-1-2.6-1.2L19 9l2-2-2-3-2.6 1.5-2-.8L14 2Z"></path></symbol>
+<symbol id="mm-i-radical" viewbox="0 0 24 24"><path d="M2 12h3l4 8 4-16h9"></path></symbol>
+<symbol id="mm-i-divide" viewbox="0 0 24 24"><circle cx="12" cy="5" r="1"></circle><path d="M4 12h16"></path><circle cx="12" cy="19" r="1"></circle></symbol>
+<symbol id="mm-i-venn" viewbox="0 0 24 24"><circle cx="9" cy="12" r="7"></circle><circle cx="15" cy="12" r="7"></circle></symbol>
+<symbol id="mm-i-check" viewbox="0 0 24 24"><path d="m4 12 5 5L20 6"></path></symbol>
+<symbol id="mm-i-check-circle" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m7 12 3 3 7-7"></path></symbol>
+<symbol id="mm-i-circle" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle></symbol>
+<symbol id="mm-i-list" viewbox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"></path><path d="M3 6h2M3 12h2M3 18h2"></path></symbol>
+<symbol id="mm-i-lock" viewbox="0 0 24 24"><rect height="12" rx="2" width="14" x="5" y="10"></rect><path d="M8 10V7a4 4 0 0 1 8 0v3"></path></symbol>
+<symbol id="mm-i-equal" viewbox="0 0 24 24"><path d="M4 9h16M4 15h16"></path></symbol>
+<symbol id="mm-i-infinity" viewbox="0 0 24 24"><path d="M12 12c-3.5-5-6-5-8-3-4 4 0 10 4 7 2-1 3-3 4-4 1-2 2-4 4-4 5-1 7 7 2 8-2.5 1-4-.7-6-4Z"></path></symbol>
+<symbol id="mm-i-integral" viewbox="0 0 24 24"><path d="M17 4c-1.5-2-4-1-4 1l-3 14c-.6 2.5-3 3-5 1M9 9h8"></path></symbol>
+<symbol id="mm-i-sigma" viewbox="0 0 24 24"><path d="M20 4H5l7 8-7 8h15"></path></symbol>
+<symbol id="mm-i-target" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1"></circle></symbol>
+<symbol id="mm-i-orbit" viewbox="0 0 24 24"><circle cx="12" cy="12" r="2"></circle><ellipse cx="12" cy="12" rx="10" ry="4"></ellipse><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(65 12 12)"></ellipse></symbol>
+<symbol id="mm-i-arrow-right" viewbox="0 0 24 24"><path d="M4 12h16m-7-7 7 7-7 7"></path></symbol>
+<symbol id="mm-i-arrow-left" viewbox="0 0 24 24"><path d="M20 12H4m7-7-7 7 7 7"></path></symbol>
+<symbol id="mm-i-flask" viewbox="0 0 24 24"><path d="M9 3h6M10 3v7L4 20h16l-6-10V3M7.5 15h9"></path></symbol>
+<symbol id="mm-i-search" viewbox="0 0 24 24"><circle cx="11" cy="11" r="7"></circle><path d="m16 16 5 5"></path></symbol>
+<symbol id="mm-i-hexagon" viewbox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Z"></path></symbol>
+<symbol id="mm-i-folder" viewbox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v11H3Z"></path></symbol>
+</svg>
+<div aria-hidden="true" class="topline">
+<div class="shell"><span>MM://KNOWLEDGE-ATLAS / BUILD 1.1.2</span><span class="readout"><span class="signal"></span><span>СИСТЕМА ГОТОВА <span class="mobile-hide">/ КАРТА РАЗДЕЛОВ ЗАГРУЖЕНА</span></span></span></div>
+</div>
+<header class="shell masthead">
+<a aria-label="Магия Математики, главная" class="brand" href="index.html">
+<span aria-hidden="true" class="brandmark">∑</span>
+<span><span class="brandtitle">Магия Математики</span><span class="brandsub">ИНТЕРАКТИВНЫЙ АТЛАС ЗНАНИЙ</span></span>
+</a>
+<nav aria-label="Главное меню" class="nav">
+<a href="#atlas">01 / КАРТА ЗНАНИЙ</a>
+<a href="#catalog">02 / РАЗДЕЛЫ</a><a href="symbols.html">◈ СЛОВАРЬ</a><a href="#about">03 / ПРИНЦИП</a>
+<span class="nav-divider"></span>
+<span class="nav-status"><span class="signal"></span> АТЛАС ONLINE</span>
+</nav>
+</header>
+<main>
+<section aria-labelledby="page-title" class="shell hero">
+<div class="intro">
+<div class="eyebrow">НАЧАЛО ПУТИ / ВЕРСИЯ 1.1.0</div>
+<h1 id="page-title"><span>Магия</span><span class="highlight">Матема­тики.</span></h1>
+<p class="subtitle">Не заучивать формулы.<br/>Видеть связи.</p>
+<p class="desc">Полный атлас основных направлений: от арифметики и логики до топологии, анализа и математической физики. Внутри каждого раздела — независимые HTML-уроки.</p>
+<div class="actions">
+<a class="primary" href="#atlas">Исследовать атлас <span aria-hidden="true">↗</span></a>
+<a class="secondary" href="#catalog">ВСЕ РАЗДЕЛЫ <span aria-hidden="true">↘</span></a><a class="secondary" href="symbols.html">АЗБУКА СИМВОЛОВ <span aria-hidden="true">∈</span></a>
+</div>
+<div class="start-path" id="recommendation-box"><span id="recommendation-label">✦ СЛЕДУЮЩИЙ РЕКОМЕНДУЕМЫЙ РАЗДЕЛ</span><p><a href="#catalog" id="start-learning">Основания математики</a><span id="recommendation-detail"> · Впереди 7 уроков. Изучай разделы в своём темпе.</span></p></div>
+<div aria-label="Общий прогресс обучения" class="journey-progress">
+<div class="journey-progress-top"><span>ЛИЧНЫЙ ПРОГРЕСС</span><strong id="global-progress-text">0 / 104 УРОКОВ</strong></div>
+<div aria-label="Пройденные уроки" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="journey-track" id="journey-track" role="progressbar"><span id="journey-fill"></span></div>
+<p>Отмечай пройденные уроки ✓ — раздел завершится автоматически, а атлас подсветит следующий.</p>
+</div>
+<div aria-label="Состояние атласа" class="hero-bottom">
+<div class="hero-stat"><strong id="published-count">104</strong><small>УРОКОВ ГОТОВО</small></div>
+<div class="stat-separator"></div>
+<div class="hero-stat"><strong id="planned-count">15</strong><small>РАЗДЕЛОВ АТЛАСА</small></div>
+<div class="stat-separator"></div>
+<div class="hero-stat"><strong id="completed-sector-count">00</strong><small>РАЗДЕЛОВ ПРОЙДЕНО</small></div>
+</div>
+</div>
+<div aria-label="Интерактивная трёхмерная карта основных разделов математики" class="graph-wrapper" id="atlas">
+<div aria-label="Карта направлений без JavaScript" class="atlas-static" id="atlas-static">
+<div aria-label="Основные направления математики" class="atlas-static-map">
+<a class="atlas-static-node" href="#atlas-static-foundations"><span class="atlas-static-number">01</span><span>Основания математики</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-elementary"><span class="atlas-static-number">02</span><span>Элементарная алгебра</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-linear"><span class="atlas-static-number">03</span><span>Линейная алгебра</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-abstract"><span class="atlas-static-number">04</span><span>Абстрактная алгебра</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-numbers"><span class="atlas-static-number">05</span><span>Теория чисел</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-geometry"><span class="atlas-static-number">06</span><span>Геометрия</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-topology"><span class="atlas-static-number">07</span><span>Топология</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-analysis"><span class="atlas-static-number">08</span><span>Математический анализ</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-functional"><span class="atlas-static-number">09</span><span>Функциональный анализ</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-diffeq"><span class="atlas-static-number">10</span><span>Дифференциальные уравнения</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-probability"><span class="atlas-static-number">11</span><span>Теория вероятностей</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-statistics"><span class="atlas-static-number">12</span><span>Математическая статистика</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-discrete"><span class="atlas-static-number">13</span><span>Дискретная математика</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-logic"><span class="atlas-static-number">14</span><span>Логика и основания</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+<a class="atlas-static-node" href="#atlas-static-applied"><span class="atlas-static-number">15</span><span>Прикладная математика</span><span aria-hidden="true" class="atlas-static-branch">↗</span></a>
+</div>
+<p class="atlas-static-hint">Показана карта для режима просмотра без скриптов. Полный список уроков — ниже. В Safari на опубликованном сайте карта будет вращаться, а прогресс — сохраняться.</p>
+</div>
+<canvas aria-label="3D-граф разделов и уроков математики. Зелёная точка — не пройдено, золотая — пройдено. Вращайте мышью или касанием, меняйте масштаб и выбирайте узлы. Полный список ниже." class="graph-canvas" id="knowledge-map"></canvas>
+<div aria-hidden="true" class="graph-node-icons" id="graph-node-icons"></div>
+<div class="graph-eyebrow"><strong>АТЛАС / ОСНОВНЫЕ РАЗДЕЛЫ</strong><span>ПРОСТРАНСТВО ИДЕЙ ∙ 3D</span></div>
+<div aria-label="Управление картой" class="graph-controls">
+<button aria-label="Остановить автоматическое вращение" aria-pressed="true" class="control" id="toggle-spin" title="Автовращение" type="button">⟳</button>
+<button aria-label="Показать стрелки необходимых знаний" aria-pressed="false" class="control" id="toggle-dependencies" title="Показать зависимости вместо тематических связей" type="button">⇢</button>
+<button aria-label="Сбросить положение карты" class="control" id="reset-view" title="Сбросить вид" type="button">⌖</button>
+<button aria-label="Приблизить карту" class="control" id="zoom-in" title="Приблизить" type="button">+</button>
+<button aria-label="Отдалить карту" class="control" id="zoom-out" title="Отдалить" type="button">−</button>
+</div>
+<div aria-hidden="true" class="graph-legend"><span class="ready"><i></i>ДОСТУПНО</span><span class="gold"><i></i>ПРОЙДЕНО</span><span class="locked"><i></i>НУЖНЫ ЗНАНИЯ</span></div>
+<div aria-hidden="true" class="graph-info"><span class="crosshair">⌁</span><span>ТЯНИ, ЧТОБЫ ВРАЩАТЬ<br/>НАЖМИ НА ТОЧКУ УРОКА</span></div>
+<div aria-hidden="true" class="graph-tooltip" hidden="" id="graph-tooltip"></div>
+<div aria-hidden="true" class="graph-count">X: 00.00 / Y: 00.00 / Z: 00.00</div>
+<aside aria-live="polite" class="node-card" hidden="" id="node-card">
+<div class="node-card-top"><span id="card-number">УЗЕЛ / 001</span><button aria-label="Закрыть информацию об узле" id="close-card" type="button">×</button></div>
+<h2 id="card-title">Основания математики</h2>
+<p id="card-description">Тема находится в разработке.</p>
+<div class="node-status" id="card-status">НАЧНИ ОТСЮДА</div><button class="card-to-catalog" id="card-to-catalog" type="button">Посмотреть уроки ↓</button>
+</aside>
+<div aria-live="polite" class="sr-only" id="graph-live"></div>
+</div>
+</section>
+<div class="divider"></div>
+<section aria-labelledby="catalog-title" class="shell catalog" id="catalog">
+<div class="catalog-header">
+<div>
+<p class="section-kicker">[ АТЛАС / ВСЕ НАПРАВЛЕНИЯ ]</p>
+<h2 class="section-head" id="catalog-title">Все основные разделы.<br/><em>Начни с любого.</em></h2>
+<p class="catalog-lead">Выбери раздел на 3D-карте или здесь. Внутри — самостоятельные уроки: все 15 разделов доступны для изучения. Изучай в своём темпе: зелёные узлы готовы к изучению, приглушённые показывают недостающие знания, золотые — пройденные. Прогресс можно экспортировать.</p>
+</div>
+<div class="search-wrap"><input aria-label="Поиск по разделам и урокам" class="search" id="catalog-search" placeholder="Найти раздел или урок..." type="search"/></div>
+</div>
+<div aria-label="Состояния знаний" class="mm-key"><span class="ready"><b></b>Доступно к изучению</span><span><b></b>Нужны предпосылки</span><span class="done"><b></b>Пройдено</span></div><div aria-label="Каталог всех уроков без JavaScript" class="catalog-static" id="catalog-static">
+<p class="catalog-static-note">Выбери раздел и нажми на название урока — откроется его самостоятельная HTML-страница. Галочка слева отмечает прохождение.</p>
+<details id="atlas-static-foundations" open=""><summary><span class="catalog-static-num">01</span><span>Основания математики</span><small>7 УРОКОВ</small></summary><ol>
+<li><a href="lessons/foundations/numbers.html" title="Открыть самостоятельный HTML-урок">Числа и операции</a> </li>
+<li><a href="lessons/foundations/symbols.html" title="Открыть самостоятельный HTML-урок">Математические символы</a> </li>
+<li><a href="lessons/foundations/order.html" title="Открыть самостоятельный HTML-урок">Порядок действий</a> </li>
+<li><a href="lessons/foundations/powers-roots.html" title="Открыть самостоятельный HTML-урок">Степени и корни</a> </li>
+<li><a href="lessons/foundations/fractions-ratios.html" title="Открыть самостоятельный HTML-урок">Дроби и отношения</a> </li>
+<li><a href="lessons/foundations/sets-relations.html" title="Открыть самостоятельный HTML-урок">Множества и отношения</a> </li>
+<li><a href="lessons/foundations/proofs.html" title="Открыть самостоятельный HTML-урок">Как читать доказательства</a> </li>
+</ol></details>
+<details id="atlas-static-elementary"><summary><span class="catalog-static-num">02</span><span>Элементарная алгебра</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/elementary/variables.html" title="Открыть самостоятельный HTML-урок">Переменные и выражения</a> </li>
+<li><a href="lessons/elementary/identities.html" title="Открыть самостоятельный HTML-урок">Тождества и преобразования</a> </li>
+<li><a href="lessons/elementary/equations.html" title="Открыть самостоятельный HTML-урок">Уравнения и неравенства</a> </li>
+<li><a href="lessons/elementary/polynomials.html" title="Открыть самостоятельный HTML-урок">Многочлены</a> </li>
+<li><a href="lessons/elementary/functions.html" title="Открыть самостоятельный HTML-урок">Функции и графики</a> </li>
+<li><a href="lessons/elementary/trigonometry.html" title="Открыть самостоятельный HTML-урок">Тригонометрия</a> </li>
+</ol></details>
+<details id="atlas-static-linear"><summary><span class="catalog-static-num">03</span><span>Линейная алгебра</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/linear/vectors.html" title="Открыть самостоятельный HTML-урок">Векторы</a> </li>
+<li><a href="lessons/linear/matrices.html" title="Открыть самостоятельный HTML-урок">Матрицы</a> </li>
+<li><a href="lessons/linear/systems.html" title="Открыть самостоятельный HTML-урок">Системы линейных уравнений</a> </li>
+<li><a href="lessons/linear/determinants.html" title="Открыть самостоятельный HTML-урок">Определители</a> </li>
+<li><a href="lessons/linear/vector-spaces.html" title="Открыть самостоятельный HTML-урок">Линейные пространства</a> </li>
+<li><a href="lessons/linear/eigen.html" title="Открыть самостоятельный HTML-урок">Собственные числа и векторы</a> </li>
+</ol></details>
+<details id="atlas-static-abstract"><summary><span class="catalog-static-num">04</span><span>Абстрактная алгебра</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/abstract/operations.html" title="Открыть самостоятельный HTML-урок">Операции и алгебраические структуры</a> </li>
+<li><a href="lessons/abstract/groups.html" title="Открыть самостоятельный HTML-урок">Группы и симметрии</a> </li>
+<li><a href="lessons/abstract/rings.html" title="Открыть самостоятельный HTML-урок">Кольца</a> </li>
+<li><a href="lessons/abstract/fields.html" title="Открыть самостоятельный HTML-урок">Поля</a> </li>
+<li><a href="lessons/abstract/homomorphisms.html" title="Открыть самостоятельный HTML-урок">Гомоморфизмы</a> </li>
+<li><a href="lessons/abstract/galois.html" title="Открыть самостоятельный HTML-урок">Введение в теорию Галуа</a> </li>
+</ol></details>
+<details id="atlas-static-numbers"><summary><span class="catalog-static-num">05</span><span>Теория чисел</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/numbers/divisibility.html" title="Открыть самостоятельный HTML-урок">Делимость</a> </li>
+<li><a href="lessons/numbers/primes.html" title="Открыть самостоятельный HTML-урок">Простые числа</a> </li>
+<li><a href="lessons/numbers/gcd.html" title="Открыть самостоятельный HTML-урок">Наибольший общий делитель</a> </li>
+<li><a href="lessons/numbers/modular.html" title="Открыть самостоятельный HTML-урок">Модульная арифметика</a> </li>
+<li><a href="lessons/numbers/diophantine.html" title="Открыть самостоятельный HTML-урок">Диофантовы уравнения</a> </li>
+<li><a href="lessons/numbers/cryptography.html" title="Открыть самостоятельный HTML-урок">Криптографические применения</a> </li>
+</ol></details>
+<details id="atlas-static-geometry"><summary><span class="catalog-static-num">06</span><span>Геометрия</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/geometry/euclidean.html" title="Открыть самостоятельный HTML-урок">Евклидова геометрия</a> </li>
+<li><a href="lessons/geometry/coordinates.html" title="Открыть самостоятельный HTML-урок">Координаты и векторы</a> </li>
+<li><a href="lessons/geometry/analytic.html" title="Открыть самостоятельный HTML-урок">Аналитическая геометрия</a> </li>
+<li><a href="lessons/geometry/transformations.html" title="Открыть самостоятельный HTML-урок">Преобразования и симметрии</a> </li>
+<li><a href="lessons/geometry/differential.html" title="Открыть самостоятельный HTML-урок">Дифференциальная геометрия</a> </li>
+<li><a href="lessons/geometry/forms.html" title="Открыть самостоятельный HTML-урок">Дифференциальные формы</a> </li>
+</ol></details>
+<details id="atlas-static-topology"><summary><span class="catalog-static-num">07</span><span>Топология</span><small>7 УРОКОВ</small></summary><ol>
+<li><a href="lessons/topology/spaces.html" title="Открыть самостоятельный HTML-урок">Топологические пространства</a> </li>
+<li><a href="lessons/topology/open-closed.html" title="Открыть самостоятельный HTML-урок">Открытые и замкнутые множества</a> </li>
+<li><a href="lessons/topology/continuity.html" title="Открыть самостоятельный HTML-урок">Непрерывность</a> </li>
+<li><a href="lessons/topology/compactness.html" title="Открыть самостоятельный HTML-урок">Компактность</a> </li>
+<li><a href="lessons/topology/connectedness.html" title="Открыть самостоятельный HTML-урок">Связность</a> </li>
+<li><a href="lessons/topology/algebraic.html" title="Открыть самостоятельный HTML-урок">Алгебраическая топология</a> </li>
+<li><a href="lessons/topology/de-rham.html" title="Открыть самостоятельный HTML-урок">Когомологии де Рама</a> </li>
+</ol></details>
+<details id="atlas-static-analysis"><summary><span class="catalog-static-num">08</span><span>Математический анализ</span><small>10 УРОКОВ</small></summary><ol>
+<li><a href="lessons/analysis/limits.html" title="Открыть самостоятельный HTML-урок">Пределы и бесконечность</a> </li>
+<li><a href="lessons/analysis/continuity.html" title="Открыть самостоятельный HTML-урок">Непрерывность функций</a> </li>
+<li><a href="lessons/analysis/derivatives.html" title="Открыть самостоятельный HTML-урок">Производная</a> </li>
+<li><a href="lessons/analysis/integrals.html" title="Открыть самостоятельный HTML-урок">Интеграл</a> </li>
+<li><a href="lessons/analysis/series.html" title="Открыть самостоятельный HTML-урок">Ряды</a> </li>
+<li><a href="lessons/analysis/multivariable.html" title="Открыть самостоятельный HTML-урок">Анализ нескольких переменных</a> </li>
+<li><a href="lessons/analysis/complex.html" title="Открыть самостоятельный HTML-урок">Комплексный анализ</a> </li>
+<li><a href="lessons/analysis/measure.html" title="Открыть самостоятельный HTML-урок">Теория меры</a> </li>
+<li><a href="lessons/analysis/lebesgue.html" title="Открыть самостоятельный HTML-урок">Интеграл Лебега</a> </li>
+<li><a href="lessons/analysis/fourier.html" title="Открыть самостоятельный HTML-урок">Ряды и преобразование Фурье</a> </li>
+</ol></details>
+<details id="atlas-static-functional"><summary><span class="catalog-static-num">09</span><span>Функциональный анализ</span><small>10 УРОКОВ</small></summary><ol>
+<li><a href="lessons/functional/normed-banach.html" title="Открыть самостоятельный HTML-урок">Нормированные пространства и пространства Банаха</a> </li>
+<li><a href="lessons/functional/hilbert.html" title="Открыть самостоятельный HTML-урок">Гильбертовы пространства</a> </li>
+<li><a href="lessons/functional/bounded-operators.html" title="Открыть самостоятельный HTML-урок">Линейные и ограниченные операторы</a> </li>
+<li><a href="lessons/functional/unbounded.html" title="Открыть самостоятельный HTML-урок">Неограниченные операторы</a> </li>
+<li><a href="lessons/functional/adjoint-selfadjoint.html" title="Открыть самостоятельный HTML-урок">Сопряжённые и самосопряжённые операторы</a> </li>
+<li><a href="lessons/functional/spectral.html" title="Открыть самостоятельный HTML-урок">Спектральная теория операторов</a> </li>
+<li><a href="lessons/functional/compact.html" title="Открыть самостоятельный HTML-урок">Компактные операторы</a> </li>
+<li><a href="lessons/functional/quantum.html" title="Открыть самостоятельный HTML-урок">Операторы в квантовой механике</a> </li>
+<li><a href="lessons/functional/lp.html" title="Открыть самостоятельный HTML-урок">Пространства Lᵖ</a> </li>
+<li><a href="lessons/functional/distributions.html" title="Открыть самостоятельный HTML-урок">Обобщённые функции и распределения</a> </li>
+</ol></details>
+<details id="atlas-static-diffeq"><summary><span class="catalog-static-num">10</span><span>Дифференциальные уравнения</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/diffeq/velocity.html" title="Открыть самостоятельный HTML-урок">Производная как скорость</a> </li>
+<li><a href="lessons/diffeq/ode.html" title="Открыть самостоятельный HTML-урок">Обыкновенные дифференциальные уравнения</a> </li>
+<li><a href="lessons/diffeq/systems.html" title="Открыть самостоятельный HTML-урок">Системы ОДУ</a> </li>
+<li><a href="lessons/diffeq/stability.html" title="Открыть самостоятельный HTML-урок">Устойчивость решений</a> </li>
+<li><a href="lessons/diffeq/pde.html" title="Открыть самостоятельный HTML-урок">Уравнения в частных производных</a> </li>
+<li><a href="lessons/diffeq/dynamical.html" title="Открыть самостоятельный HTML-урок">Динамические системы</a> </li>
+</ol></details>
+<details id="atlas-static-probability"><summary><span class="catalog-static-num">11</span><span>Теория вероятностей</span><small>7 УРОКОВ</small></summary><ol>
+<li><a href="lessons/probability/events.html" title="Открыть самостоятельный HTML-урок">Случайные события</a> </li>
+<li><a href="lessons/probability/counting.html" title="Открыть самостоятельный HTML-урок">Комбинаторика для вероятностей</a> </li>
+<li><a href="lessons/probability/conditional.html" title="Открыть самостоятельный HTML-урок">Условная вероятность</a> </li>
+<li><a href="lessons/probability/random-variables.html" title="Открыть самостоятельный HTML-урок">Случайные величины</a> </li>
+<li><a href="lessons/probability/distributions.html" title="Открыть самостоятельный HTML-урок">Распределения</a> </li>
+<li><a href="lessons/probability/expectation.html" title="Открыть самостоятельный HTML-урок">Математическое ожидание</a> </li>
+<li><a href="lessons/probability/stochastic.html" title="Открыть самостоятельный HTML-урок">Стохастические процессы</a> </li>
+</ol></details>
+<details id="atlas-static-statistics"><summary><span class="catalog-static-num">12</span><span>Математическая статистика</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/statistics/descriptive.html" title="Открыть самостоятельный HTML-урок">Описание данных</a> </li>
+<li><a href="lessons/statistics/sampling.html" title="Открыть самостоятельный HTML-урок">Выборка и генеральная совокупность</a> </li>
+<li><a href="lessons/statistics/estimation.html" title="Открыть самостоятельный HTML-урок">Оценивание параметров</a> </li>
+<li><a href="lessons/statistics/confidence.html" title="Открыть самостоятельный HTML-урок">Доверительные интервалы</a> </li>
+<li><a href="lessons/statistics/testing.html" title="Открыть самостоятельный HTML-урок">Проверка гипотез</a> </li>
+<li><a href="lessons/statistics/regression.html" title="Открыть самостоятельный HTML-урок">Регрессия</a> </li>
+</ol></details>
+<details id="atlas-static-discrete"><summary><span class="catalog-static-num">13</span><span>Дискретная математика</span><small>6 УРОКОВ</small></summary><ol>
+<li><a href="lessons/discrete/combinatorics.html" title="Открыть самостоятельный HTML-урок">Комбинаторика</a> </li>
+<li><a href="lessons/discrete/graphs.html" title="Открыть самостоятельный HTML-урок">Теория графов</a> </li>
+<li><a href="lessons/discrete/relations.html" title="Открыть самостоятельный HTML-урок">Отношения и структуры</a> </li>
+<li><a href="lessons/discrete/boolean.html" title="Открыть самостоятельный HTML-урок">Булева алгебра</a> </li>
+<li><a href="lessons/discrete/algorithms.html" title="Открыть самостоятельный HTML-урок">Алгоритмы</a> </li>
+<li><a href="lessons/discrete/computability.html" title="Открыть самостоятельный HTML-урок">Теория вычислимости</a> </li>
+</ol></details>
+<details id="atlas-static-logic"><summary><span class="catalog-static-num">14</span><span>Логика и основания</span><small>7 УРОКОВ</small></summary><ol>
+<li><a href="lessons/logic/propositions.html" title="Открыть самостоятельный HTML-урок">Высказывания</a> </li>
+<li><a href="lessons/logic/connectives.html" title="Открыть самостоятельный HTML-урок">Логические связки</a> </li>
+<li><a href="lessons/logic/predicates.html" title="Открыть самостоятельный HTML-урок">Логика предикатов</a> </li>
+<li><a href="lessons/logic/proofs.html" title="Открыть самостоятельный HTML-урок">Доказательства и контрпримеры</a> </li>
+<li><a href="lessons/logic/axioms.html" title="Открыть самостоятельный HTML-урок">Аксиомы и формальные системы</a> </li>
+<li><a href="lessons/logic/models.html" title="Открыть самостоятельный HTML-урок">Теория моделей</a> </li>
+<li><a href="lessons/logic/categories.html" title="Открыть самостоятельный HTML-урок">Теория категорий</a> </li>
+</ol></details>
+<details id="atlas-static-applied"><summary><span class="catalog-static-num">15</span><span>Прикладная математика</span><small>8 УРОКОВ</small></summary><ol>
+<li><a href="lessons/applied/numerical-methods.html" title="Открыть самостоятельный HTML-урок">Численные методы</a> </li>
+<li><a href="lessons/applied/roots.html" title="Открыть самостоятельный HTML-урок">Вычисление корней</a> </li>
+<li><a href="lessons/applied/optimization.html" title="Открыть самостоятельный HTML-урок">Оптимизация</a> </li>
+<li><a href="lessons/applied/modeling.html" title="Открыть самостоятельный HTML-урок">Математическое моделирование</a> </li>
+<li><a href="lessons/applied/operations-research.html" title="Открыть самостоятельный HTML-урок">Исследование операций</a> </li>
+<li><a href="lessons/applied/control.html" title="Открыть самостоятельный HTML-урок">Теория управления</a> </li>
+<li><a href="lessons/applied/mathematical-physics.html" title="Открыть самостоятельный HTML-урок">Математическая физика</a> </li>
+<li><a href="lessons/applied/tensors.html" title="Открыть самостоятельный HTML-урок">Тензорное исчисление</a> </li>
+</ol></details>
+</div>
+<div aria-label="Разделы математики" class="catalog-grid" id="catalog-grid"></div>
+<p class="nothing" hidden="" id="catalog-empty">Совпадений нет. Попробуй другое название.</p>
+<div aria-live="polite" class="sector-detail" id="sector-detail">
+<div class="detail-intro">
+<div class="detail-index" id="detail-index">РАЗДЕЛ / 01</div>
+<h3 id="detail-title">Основания математики</h3>
+<p id="detail-description">С чего начинается математический язык.</p>
+<div class="detail-route" id="detail-route">✦ Рекомендуемое начало пути</div>
+</div>
+<div class="detail-lessons">
+<div class="detail-lessons-head"><span>ПРОГРАММА РАЗДЕЛА</span><span id="detail-total">00 УРОКОВ</span></div>
+<div aria-label="Прогресс выбранного раздела" class="sector-progress"><span id="sector-progress-fill"></span></div>
+<div class="lesson-list" id="lesson-list"></div><div aria-live="polite" class="mm-access" id="mm-prerequisites"></div>
+<p class="detail-hint">Нажми название урока, чтобы читать прямо на этой странице. Ссылка ↗ HTML ведёт к отдельному интерактивному файлу: он доступен в обычном браузере после распаковки сайта.</p>
+</div>
+</div>
+<div aria-label="Резервная копия учебного прогресса" class="mm-data">
+<button id="mm-export" type="button">↓ Экспортировать прогресс (.json)</button>
+<button id="mm-import" type="button">↑ Импортировать прогресс</button>
+<input accept="application/json,.json" aria-label="Выбрать файл прогресса" id="mm-import-file" type="file"/>
+<small aria-live="polite" id="mm-data-status">Резервная копия включает золотые отметки и подтверждённые упражнения. Импорт добавляет отметки, не удаляя текущие.</small>
+</div>
+</section>
+<div class="divider"></div>
+<section aria-labelledby="about-title" class="shell under" id="about">
+<div>
+<p class="section-kicker">[ АРХИТЕКТУРА ЗНАНИЙ ]</p>
+<h2 class="section-head" id="about-title">Одна идея.<br/><em>Бесконечно много связей.</em></h2>
+</div>
+<div class="rule-grid">
+<article class="rule"><div class="rule-id">01 / АВТОНОМНОСТЬ</div><h3>Один урок — один HTML</h3><p>Каждый урок — самостоятельный HTML-файл с теорией, примерами и упражнениями, доступный напрямую.</p></article>
+<article class="rule"><div class="rule-id">02 / СВЯЗИ</div><h3>Знания — это граф</h3><p>Рёбра соединяют родственные разделы, а точки обозначают самостоятельные уроки.</p></article>
+<article class="rule"><div class="rule-id">03 / ПРОГРЕСС</div><h3>Маршрут раскрывается</h3><p>Отмеченные уроки сохраняются локально. Все уроки завершены — раздел получает ✓, следующий подсвечивается на карте.</p></article>
+</div>
+</section>
+</main>
+<footer class="shell"><span>© МАГИЯ МАТЕМАТИКИ · НЕЗАВИСИМЫЙ ОБРАЗОВАТЕЛЬНЫЙ АТЛАС</span><span class="signature">∂ / ПОЗНАНИЕ ЧЕРЕЗ СВЯЗИ</span></footer>
+<script>
+    'use strict';
+    const mmReadHref = href => href;
+    // АТЛАС. Каждый раздел содержит уроки. Один урок = один независимый HTML-файл.
+    // Чтобы опубликовать урок, измените строку "Название" на
+    // { title: 'Название', href: 'lessons/foundations/numbers.html' }.
+    // Никаких внешних библиотек или запросов к серверу.
+
+    const mmSectorIcon={"functional":"orbit","foundations":"book-open","elementary":"variable","linear":"matrix","abstract":"hexagon","numbers":"hash","geometry":"geometry","topology":"network","analysis":"chart-line","diffeq":"wave","probability":"dice","statistics":"chart-bar","discrete":"grid","logic":"logic","applied":"settings"};
+    const mmLessonIcons={"functional":["layers","matrix","arrow-right","activity","orbit","chart-line","layers","atom","integral","wave"],"foundations":["hash","sigma","list","radical","divide","venn","check-circle"],"elementary":["variable","sigma","equal","grid","chart-line","wave"],"linear":["arrow-right","matrix","sigma","grid","layers","orbit"],"abstract":["network","hexagon","circle","hexagon","git-branch","logic"],"numbers":["divide","hash","calculator","grid","equal","lock"],"geometry":["geometry","compass","chart-line","orbit","cube","integral"],"topology":["network","layers","git-branch","hexagon","network","git-branch","book-open"],"analysis":["infinity","chart-line","activity","integral","sigma","cube","orbit","layers","integral","wave"],"diffeq":["chart-line","wave","network","target","integral","orbit"],"probability":["dice","grid","dice","chart-line","chart-bar","sigma","wave"],"statistics":["chart-bar","layers","sigma","target","check-circle","chart-line"],"discrete":["grid","network","git-branch","logic","list","binary"],"logic":["logic","git-branch","variable","check-circle","book-open","network","network"],"applied":["calculator","radical","target","cube","settings","settings","atom","cube"]};
+    function mmIcon(name, cls=''){
+      const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+      svg.setAttribute('class',('mm-icon '+cls).trim());svg.setAttribute('viewBox','0 0 24 24');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
+      const use=document.createElementNS('http://www.w3.org/2000/svg','use');
+      use.setAttribute('href','#mm-i-'+(name||'book-open'));svg.appendChild(use);return svg;
+    }
+    const mmLessonIcon=(s,i)=>mmLessonIcons[s.id]?.[i]||'book-open';
+    const sectors = [
+      {id:'foundations',label:'Основания математики',short:'ОСНОВАНИЯ',summary:'Начальный язык математики: числа, операции, обозначения, множества, элементарные доказательства.',start:true,lessons:[{title:"Числа и операции",href:'lessons/foundations/numbers.html'},{title:"Математические символы",href:'lessons/foundations/symbols.html'},{title:"Порядок действий",href:'lessons/foundations/order.html'},{title:"Степени и корни",href:'lessons/foundations/powers-roots.html'},{title:"Дроби и отношения",href:'lessons/foundations/fractions-ratios.html'},{title:"Множества и отношения",href:'lessons/foundations/sets-relations.html'},{title:"Как читать доказательства",href:'lessons/foundations/proofs.html'}]},
+      {id:'elementary',label:'Элементарная алгебра',short:'АЛГЕБРА',summary:'Переменные, уравнения, функции и язык преобразований, необходимый для высшей математики.',lessons:[{title:"Переменные и выражения",href:'lessons/elementary/variables.html'},{title:"Тождества и преобразования",href:'lessons/elementary/identities.html'},{title:"Уравнения и неравенства",href:'lessons/elementary/equations.html'},{title:"Многочлены",href:'lessons/elementary/polynomials.html'},{title:"Функции и графики",href:'lessons/elementary/functions.html'},{title:"Тригонометрия",href:'lessons/elementary/trigonometry.html'}]},
+      {id:'linear',label:'Линейная алгебра',short:'ЛИНЕЙНАЯ АЛГЕБРА',summary:'Векторы, матрицы и линейные отображения — язык пространств и современных вычислений.',lessons:[{title:"Векторы",href:'lessons/linear/vectors.html'},{title:"Матрицы",href:'lessons/linear/matrices.html'},{title:"Системы линейных уравнений",href:'lessons/linear/systems.html'},{title:"Определители",href:'lessons/linear/determinants.html'},{title:"Линейные пространства",href:'lessons/linear/vector-spaces.html'},{title:"Собственные числа и векторы",href:'lessons/linear/eigen.html'}]},
+      {id:'abstract',label:'Абстрактная алгебра',short:'АБСТРАКТНАЯ АЛГЕБРА',summary:'Общие структуры и операции: группы, кольца, поля и симметрии.',lessons:[{title:"Операции и алгебраические структуры",href:'lessons/abstract/operations.html'},{title:"Группы и симметрии",href:'lessons/abstract/groups.html'},{title:"Кольца",href:'lessons/abstract/rings.html'},{title:"Поля",href:'lessons/abstract/fields.html'},{title:"Гомоморфизмы",href:'lessons/abstract/homomorphisms.html'},{title:"Введение в теорию Галуа",href:'lessons/abstract/galois.html'}]},
+      {id:'numbers',label:'Теория чисел',short:'ТЕОРИЯ ЧИСЕЛ',summary:'Делимость, простые числа, сравнения и глубокие свойства целых чисел.',lessons:[{title:"Делимость",href:'lessons/numbers/divisibility.html'},{title:"Простые числа",href:'lessons/numbers/primes.html'},{title:"Наибольший общий делитель",href:'lessons/numbers/gcd.html'},{title:"Модульная арифметика",href:'lessons/numbers/modular.html'},{title:"Диофантовы уравнения",href:'lessons/numbers/diophantine.html'},{title:"Криптографические применения",href:'lessons/numbers/cryptography.html'}]},
+      {id:'geometry',label:'Геометрия',short:'ГЕОМЕТРИЯ',summary:'Фигуры, пространства, расстояния, преобразования и геометрическое мышление.',lessons:[{title:"Евклидова геометрия",href:'lessons/geometry/euclidean.html'},{title:"Координаты и векторы",href:'lessons/geometry/coordinates.html'},{title:"Аналитическая геометрия",href:'lessons/geometry/analytic.html'},{title:"Преобразования и симметрии",href:'lessons/geometry/transformations.html'},{title:"Дифференциальная геометрия",href:'lessons/geometry/differential.html'},{title:"Дифференциальные формы",href:'lessons/geometry/forms.html'}]},
+      {id:'topology',label:'Топология',short:'ТОПОЛОГИЯ',summary:'Непрерывность, алгебраическая топология и инварианты гладких многообразий; связь с дифференциальной геометрией.',lessons:[{title:"Топологические пространства",href:'lessons/topology/spaces.html'},{title:"Открытые и замкнутые множества",href:'lessons/topology/open-closed.html'},{title:"Непрерывность",href:'lessons/topology/continuity.html'},{title:"Компактность",href:'lessons/topology/compactness.html'},{title:"Связность",href:'lessons/topology/connectedness.html'},{title:"Алгебраическая топология",href:'lessons/topology/algebraic.html'},{title:"Когомологии де Рама",href:'lessons/topology/de-rham.html'}]},
+      {id:'analysis',label:'Математический анализ',short:'МАТАНАЛИЗ',summary:'Пределы, производные, интегралы и бесконечные процессы изменения.',lessons:[{title:"Пределы и бесконечность",href:'lessons/analysis/limits.html'},{title:"Непрерывность функций",href:'lessons/analysis/continuity.html'},{title:"Производная",href:'lessons/analysis/derivatives.html'},{title:"Интеграл",href:'lessons/analysis/integrals.html'},{title:"Ряды",href:'lessons/analysis/series.html'},{title:"Анализ нескольких переменных",href:'lessons/analysis/multivariable.html'},{title:"Комплексный анализ",href:'lessons/analysis/complex.html'},{title:"Теория меры",href:'lessons/analysis/measure.html'},{title:"Интеграл Лебега",href:'lessons/analysis/lebesgue.html'},{title:"Ряды и преобразование Фурье",href:'lessons/analysis/fourier.html'}]},
+      {id:'functional',label:'Функциональный анализ',short:'ФУНКЦИОН. АНАЛИЗ',summary:'Теория операторов: нормированные и гильбертовы пространства, ограниченные и неограниченные операторы, спектр и приложения в квантовой механике.',lessons:[{title:"Нормированные пространства и пространства Банаха",href:'lessons/functional/normed-banach.html'},{title:"Гильбертовы пространства",href:'lessons/functional/hilbert.html'},{title:"Линейные и ограниченные операторы",href:'lessons/functional/bounded-operators.html'},{title:"Неограниченные операторы",href:'lessons/functional/unbounded.html'},{title:"Сопряжённые и самосопряжённые операторы",href:'lessons/functional/adjoint-selfadjoint.html'},{title:"Спектральная теория операторов",href:'lessons/functional/spectral.html'},{title:"Компактные операторы",href:'lessons/functional/compact.html'},{title:"Операторы в квантовой механике",href:'lessons/functional/quantum.html'},{title:"Пространства Lᵖ",href:'lessons/functional/lp.html'},{title:"Обобщённые функции и распределения",href:'lessons/functional/distributions.html'}]},
+      {id:'diffeq',label:'Дифференциальные уравнения',short:'ДИФФЕРЕНЦ. УРАВН.',summary:'Математические законы изменения: от простых динамических систем до уравнений в частных производных.',lessons:[{title:"Производная как скорость",href:'lessons/diffeq/velocity.html'},{title:"Обыкновенные дифференциальные уравнения",href:'lessons/diffeq/ode.html'},{title:"Системы ОДУ",href:'lessons/diffeq/systems.html'},{title:"Устойчивость решений",href:'lessons/diffeq/stability.html'},{title:"Уравнения в частных производных",href:'lessons/diffeq/pde.html'},{title:"Динамические системы",href:'lessons/diffeq/dynamical.html'}]},
+      {id:'probability',label:'Теория вероятностей',short:'ВЕРОЯТНОСТЬ',summary:'Строгое описание случайности, событий и распределений.',lessons:[{title:"Случайные события",href:'lessons/probability/events.html'},{title:"Комбинаторика для вероятностей",href:'lessons/probability/counting.html'},{title:"Условная вероятность",href:'lessons/probability/conditional.html'},{title:"Случайные величины",href:'lessons/probability/random-variables.html'},{title:"Распределения",href:'lessons/probability/distributions.html'},{title:"Математическое ожидание",href:'lessons/probability/expectation.html'},{title:"Стохастические процессы",href:'lessons/probability/stochastic.html'}]},
+      {id:'statistics',label:'Математическая статистика',short:'СТАТИСТИКА',summary:'Как получать выводы о мире из наблюдений, данных и неопределённости.',lessons:[{title:"Описание данных",href:'lessons/statistics/descriptive.html'},{title:"Выборка и генеральная совокупность",href:'lessons/statistics/sampling.html'},{title:"Оценивание параметров",href:'lessons/statistics/estimation.html'},{title:"Доверительные интервалы",href:'lessons/statistics/confidence.html'},{title:"Проверка гипотез",href:'lessons/statistics/testing.html'},{title:"Регрессия",href:'lessons/statistics/regression.html'}]},
+      {id:'discrete',label:'Дискретная математика',short:'ДИСКРЕТНАЯ',summary:'Конечные структуры, графы, комбинаторика, алгоритмы и вычислимость.',lessons:[{title:"Комбинаторика",href:'lessons/discrete/combinatorics.html'},{title:"Теория графов",href:'lessons/discrete/graphs.html'},{title:"Отношения и структуры",href:'lessons/discrete/relations.html'},{title:"Булева алгебра",href:'lessons/discrete/boolean.html'},{title:"Алгоритмы",href:'lessons/discrete/algorithms.html'},{title:"Теория вычислимости",href:'lessons/discrete/computability.html'}]},
+      {id:'logic',label:'Логика и основания',short:'ЛОГИКА',summary:'Логические выводы, аксиомы, доказательства и фундамент математических теорий.',lessons:[{title:"Высказывания",href:'lessons/logic/propositions.html'},{title:"Логические связки",href:'lessons/logic/connectives.html'},{title:"Логика предикатов",href:'lessons/logic/predicates.html'},{title:"Доказательства и контрпримеры",href:'lessons/logic/proofs.html'},{title:"Аксиомы и формальные системы",href:'lessons/logic/axioms.html'},{title:"Теория моделей",href:'lessons/logic/models.html'},{title:"Теория категорий",href:'lessons/logic/categories.html'}]},
+      {id:'applied',label:'Прикладная математика',short:'ПРИКЛАДНАЯ',summary:'Численные методы, оптимизация, модели процессов и математический инструментарий науки.',lessons:[{title:"Численные методы",href:'lessons/applied/numerical-methods.html'},{title:"Вычисление корней",href:'lessons/applied/roots.html'},{title:"Оптимизация",href:'lessons/applied/optimization.html'},{title:"Математическое моделирование",href:'lessons/applied/modeling.html'},{title:"Исследование операций",href:'lessons/applied/operations-research.html'},{title:"Теория управления",href:'lessons/applied/control.html'},{title:"Математическая физика",href:'lessons/applied/mathematical-physics.html'},{title:"Тензорное исчисление",href:'lessons/applied/tensors.html'}]},
+    ];
+    // Рёбра между разделами — взаимосвязи, не обязательные пререквизиты.
+    const edges = [
+      ['foundations','elementary'],['foundations','logic'],['foundations','numbers'],
+      ['elementary','linear'],['elementary','analysis'],['elementary','geometry'],
+      ['linear','abstract'],['linear','geometry'],['linear','applied'],['linear','statistics'],
+      ['abstract','numbers'],['abstract','topology'],['abstract','logic'],
+      ['geometry','topology'],['geometry','analysis'],['geometry','applied'],
+      ['topology','analysis'],['topology','logic'],
+      ['analysis','diffeq'],['analysis','functional'],['analysis','probability'],['analysis','applied'],
+      ['linear','functional'],['functional','diffeq'],['functional','applied'],
+      ['probability','statistics'],['probability','discrete'],
+      ['statistics','applied'],['discrete','logic'],['discrete','applied'],
+      ['diffeq','applied']
+    ];
+
+    // Значки в постоянных элементах интерфейса.
+    [['.nav a[href="#atlas"]','network'],['.nav a[href="#catalog"]','folder'],['.nav a[href="#about"]','book-open'],['.primary','compass'],['.secondary','grid'],['.eyebrow','orbit'],['.graph-eyebrow strong','network'],['.detail-lessons-head span:first-child','book-open'],['.rule:nth-child(1) h3','book-open'],['.rule:nth-child(2) h3','network'],['.rule:nth-child(3) h3','check-circle']].forEach(([selector,icon])=>{
+      const el=document.querySelector(selector);if(el)el.prepend(mmIcon(icon,'sm'));
+    });
+    const byId = Object.fromEntries(sectors.map(s=>[s.id,s]));
+    const normalizeLesson = x => typeof x==='string'? {title:x,href:null}:x;
+    const getLessons = s => s.lessons.map(normalizeLesson);
+    // Рекомендованный порядок — педагогический маршрут, а не ограничение доступа.
+    // При завершении раздела подсвечивается первая незавершённая ветвь этого списка.
+    const learningPath=['foundations','elementary','geometry','logic','discrete','linear','analysis','functional','probability','statistics','numbers','abstract','topology','diffeq','applied'];
+    const progressStorageKey='magic-math:lesson-progress:v1';
+    let doneLessons={};
+    try { const saved=JSON.parse(localStorage.getItem(progressStorageKey)||'{}'); if(saved && typeof saved==='object' && !Array.isArray(saved)) doneLessons=saved; }catch(e){ /* Хранилище может быть запрещено в приватном режиме или при file:// */ }
+    // Уникальный ключ. Для будущих уроков можно добавить явный id, чтобы пережить переименование.
+    // Синхронизация отметок автономных HTML-уроков, в том числе в file://.
+    // Только опубликованные уроки принимаются как допустимые ключи.
+    const incoming=new URLSearchParams(location.search);
+    const incomingKey=incoming.get('lesson-key');
+    const incomingValue=incoming.get('lesson-progress');
+    const allowedLessonKeys=new Set(sectors.flatMap(s=>getLessons(s).filter(l=>l.href).map(l=>`${s.id}::${l.id||l.title}`)));
+
+    // MM v1.1.2: перенос последовательных завершений между независимыми HTML.
+    // Список состоит только из номеров опубликованных уроков текущего учебного маршрута.
+    const mmTrailIndex = learningPath.flatMap(id=>{
+      const s=sectors.find(x=>x.id===id);
+      return s ? getLessons(s).filter(l=>l.href).map(l=>`${s.id}::${l.id||l.title}`) : [];
+    });
+    const mmTrailValue = incoming.get('mm-trail');
+    if(mmTrailValue && /^\d{1,3}(?:\.\d{1,3})*$/.test(mmTrailValue) && mmTrailValue.length<=450){
+      for(const segment of new Set(mmTrailValue.split('.'))){
+        const n=Number(segment),key=mmTrailIndex[n];
+        if(Number.isInteger(n) && key && allowedLessonKeys.has(key))doneLessons[key]=true;
+      }
+      try{localStorage.setItem(progressStorageKey,JSON.stringify(doneLessons));}catch(e){}
+      try{const clean=new URL(location.href);clean.searchParams.delete('mm-trail');history.replaceState(null,'',clean.pathname+clean.search+clean.hash);}catch(e){}
+    }
+    if(incomingKey && allowedLessonKeys.has(incomingKey) && ['done','undo'].includes(incomingValue)){
+      if(incomingValue==='done')doneLessons[incomingKey]=true;
+      else delete doneLessons[incomingKey];
+      try{localStorage.setItem(progressStorageKey,JSON.stringify(doneLessons));}catch(e){}
+      try{const clean=new URL(location.href);clean.searchParams.delete('lesson-key');clean.searchParams.delete('lesson-progress');clean.searchParams.delete('lesson-verified');history.replaceState(null,'',clean.pathname+clean.search+clean.hash);}catch(e){}
+    }
+    const mmVerifiedInput=incoming.get('lesson-verified');
+    const lessonKey=(sector,lesson)=>`${sector.id}::${lesson.id||lesson.title}`;
+    const isDone=(sector,lesson)=>doneLessons[lessonKey(sector,lesson)]===true;
+    const countDone=sector=>getLessons(sector).filter(lesson=>isDone(sector,lesson)).length;
+    const sectorComplete=sector=>sector.lessons.length>0 && countDone(sector)===sector.lessons.length;
+
+    // MMV1_UPGRADE / directed prerequisite graph, never a hard access restriction.
+    const mmPrerequisites = {"lessons/foundations/numbers.html":[],"lessons/foundations/symbols.html":["lessons/foundations/numbers.html"],"lessons/foundations/order.html":["lessons/foundations/symbols.html"],"lessons/foundations/powers-roots.html":["lessons/foundations/order.html"],"lessons/foundations/fractions-ratios.html":["lessons/foundations/powers-roots.html"],"lessons/foundations/sets-relations.html":["lessons/foundations/fractions-ratios.html"],"lessons/foundations/proofs.html":["lessons/foundations/sets-relations.html"],"lessons/elementary/variables.html":["lessons/foundations/fractions-ratios.html"],"lessons/elementary/identities.html":["lessons/elementary/variables.html"],"lessons/elementary/equations.html":["lessons/elementary/identities.html"],"lessons/elementary/polynomials.html":["lessons/elementary/equations.html"],"lessons/elementary/functions.html":["lessons/elementary/polynomials.html"],"lessons/elementary/trigonometry.html":["lessons/elementary/functions.html"],"lessons/linear/vectors.html":["lessons/elementary/equations.html"],"lessons/linear/matrices.html":["lessons/linear/vectors.html"],"lessons/linear/systems.html":["lessons/linear/matrices.html"],"lessons/linear/determinants.html":["lessons/linear/systems.html"],"lessons/linear/vector-spaces.html":["lessons/linear/determinants.html"],"lessons/linear/eigen.html":["lessons/linear/vector-spaces.html"],"lessons/abstract/operations.html":["lessons/foundations/sets-relations.html"],"lessons/abstract/groups.html":["lessons/abstract/operations.html"],"lessons/abstract/rings.html":["lessons/abstract/groups.html"],"lessons/abstract/fields.html":["lessons/abstract/rings.html"],"lessons/abstract/homomorphisms.html":["lessons/abstract/fields.html"],"lessons/abstract/galois.html":["lessons/abstract/homomorphisms.html"],"lessons/numbers/divisibility.html":["lessons/foundations/numbers.html"],"lessons/numbers/primes.html":["lessons/numbers/divisibility.html"],"lessons/numbers/gcd.html":["lessons/numbers/primes.html"],"lessons/numbers/modular.html":["lessons/numbers/gcd.html"],"lessons/numbers/diophantine.html":["lessons/numbers/modular.html"],"lessons/numbers/cryptography.html":["lessons/numbers/diophantine.html"],"lessons/geometry/euclidean.html":["lessons/foundations/numbers.html"],"lessons/geometry/coordinates.html":["lessons/geometry/euclidean.html"],"lessons/geometry/analytic.html":["lessons/geometry/coordinates.html"],"lessons/geometry/transformations.html":["lessons/geometry/analytic.html"],"lessons/geometry/differential.html":["lessons/geometry/transformations.html"],"lessons/geometry/forms.html":["lessons/geometry/differential.html","lessons/analysis/multivariable.html"],"lessons/topology/spaces.html":["lessons/foundations/sets-relations.html"],"lessons/topology/open-closed.html":["lessons/topology/spaces.html"],"lessons/topology/continuity.html":["lessons/topology/open-closed.html"],"lessons/topology/compactness.html":["lessons/topology/continuity.html"],"lessons/topology/connectedness.html":["lessons/topology/compactness.html"],"lessons/topology/algebraic.html":["lessons/topology/connectedness.html"],"lessons/topology/de-rham.html":["lessons/topology/algebraic.html","lessons/geometry/forms.html","lessons/geometry/differential.html","lessons/analysis/multivariable.html"],"lessons/analysis/limits.html":["lessons/elementary/functions.html"],"lessons/analysis/continuity.html":["lessons/analysis/limits.html"],"lessons/analysis/derivatives.html":["lessons/analysis/continuity.html"],"lessons/analysis/integrals.html":["lessons/analysis/derivatives.html"],"lessons/analysis/series.html":["lessons/analysis/integrals.html"],"lessons/analysis/multivariable.html":["lessons/analysis/series.html"],"lessons/analysis/complex.html":["lessons/analysis/multivariable.html","lessons/analysis/derivatives.html"],"lessons/analysis/measure.html":["lessons/analysis/limits.html","lessons/foundations/sets-relations.html"],"lessons/analysis/lebesgue.html":["lessons/analysis/measure.html"],"lessons/analysis/fourier.html":["lessons/analysis/series.html","lessons/analysis/integrals.html"],"lessons/functional/normed-banach.html":["lessons/linear/vector-spaces.html","lessons/analysis/limits.html"],"lessons/functional/hilbert.html":["lessons/functional/normed-banach.html"],"lessons/functional/bounded-operators.html":["lessons/functional/hilbert.html"],"lessons/functional/unbounded.html":["lessons/functional/bounded-operators.html"],"lessons/functional/adjoint-selfadjoint.html":["lessons/functional/unbounded.html"],"lessons/functional/spectral.html":["lessons/functional/adjoint-selfadjoint.html","lessons/linear/eigen.html"],"lessons/functional/compact.html":["lessons/functional/spectral.html"],"lessons/functional/quantum.html":["lessons/functional/compact.html","lessons/functional/spectral.html"],"lessons/functional/lp.html":["lessons/analysis/lebesgue.html","lessons/functional/normed-banach.html"],"lessons/functional/distributions.html":["lessons/analysis/fourier.html","lessons/functional/hilbert.html"],"lessons/diffeq/velocity.html":["lessons/analysis/derivatives.html"],"lessons/diffeq/ode.html":["lessons/diffeq/velocity.html"],"lessons/diffeq/systems.html":["lessons/diffeq/ode.html"],"lessons/diffeq/stability.html":["lessons/diffeq/systems.html"],"lessons/diffeq/pde.html":["lessons/diffeq/stability.html","lessons/analysis/multivariable.html","lessons/analysis/fourier.html"],"lessons/diffeq/dynamical.html":["lessons/diffeq/pde.html"],"lessons/probability/events.html":["lessons/foundations/fractions-ratios.html"],"lessons/probability/counting.html":["lessons/probability/events.html"],"lessons/probability/conditional.html":["lessons/probability/counting.html"],"lessons/probability/random-variables.html":["lessons/probability/conditional.html"],"lessons/probability/distributions.html":["lessons/probability/random-variables.html"],"lessons/probability/expectation.html":["lessons/probability/distributions.html"],"lessons/probability/stochastic.html":["lessons/probability/expectation.html"],"lessons/statistics/descriptive.html":["lessons/probability/distributions.html"],"lessons/statistics/sampling.html":["lessons/statistics/descriptive.html"],"lessons/statistics/estimation.html":["lessons/statistics/sampling.html"],"lessons/statistics/confidence.html":["lessons/statistics/estimation.html"],"lessons/statistics/testing.html":["lessons/statistics/confidence.html"],"lessons/statistics/regression.html":["lessons/statistics/testing.html"],"lessons/discrete/combinatorics.html":["lessons/logic/connectives.html"],"lessons/discrete/graphs.html":["lessons/discrete/combinatorics.html"],"lessons/discrete/relations.html":["lessons/discrete/graphs.html"],"lessons/discrete/boolean.html":["lessons/discrete/relations.html"],"lessons/discrete/algorithms.html":["lessons/discrete/boolean.html"],"lessons/discrete/computability.html":["lessons/discrete/algorithms.html"],"lessons/logic/propositions.html":["lessons/foundations/symbols.html"],"lessons/logic/connectives.html":["lessons/logic/propositions.html"],"lessons/logic/predicates.html":["lessons/logic/connectives.html"],"lessons/logic/proofs.html":["lessons/logic/predicates.html"],"lessons/logic/axioms.html":["lessons/logic/proofs.html"],"lessons/logic/models.html":["lessons/logic/axioms.html"],"lessons/logic/categories.html":["lessons/logic/models.html","lessons/abstract/homomorphisms.html","lessons/discrete/graphs.html"],"lessons/applied/numerical-methods.html":["lessons/linear/matrices.html","lessons/analysis/derivatives.html"],"lessons/applied/roots.html":["lessons/applied/numerical-methods.html"],"lessons/applied/optimization.html":["lessons/applied/roots.html"],"lessons/applied/modeling.html":["lessons/applied/optimization.html"],"lessons/applied/operations-research.html":["lessons/applied/modeling.html"],"lessons/applied/control.html":["lessons/applied/operations-research.html"],"lessons/applied/mathematical-physics.html":["lessons/applied/control.html"],"lessons/applied/tensors.html":["lessons/applied/mathematical-physics.html"]};
+    const mmByHref=Object.fromEntries(sectors.flatMap(sec=>getLessons(sec).map(l=>[l.href,{sec,lesson:l}])));
+    function mmMissing(lesson){return (mmPrerequisites[lesson.href]||[]).filter(h=>{
+      const other=mmByHref[h];return other && !isDone(other.sec,other.lesson);
+    });}
+    const mmReady=lesson=>mmMissing(lesson).length===0;
+    const mmSectionReady=sec=>getLessons(sec).some(l=>!isDone(sec,l)&&mmReady(l));
+    const mmCrossPrereqs=[...new Set(Object.entries(mmPrerequisites).flatMap(([dest,reqs])=>{
+      const to=mmByHref[dest]?.sec.id;return reqs.flatMap(x=>{
+        const from=mmByHref[x]?.sec.id;return from&&to&&from!==to?[from+'|'+to]:[];
+      });
+    }))].map(s=>s.split('|'));
+    const mmMasteryKey='magic-math:mastery:v1';
+    let mmMastery={};
+    try{const saved=JSON.parse(localStorage.getItem(mmMasteryKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))mmMastery=saved;}catch(e){}
+    if(incomingKey && allowedLessonKeys.has(incomingKey) && incomingValue==='done' && mmVerifiedInput==='1'){
+      mmMastery[incomingKey]=true;
+      try{localStorage.setItem(mmMasteryKey,JSON.stringify(mmMastery));}catch(e){}
+    }
+    if(incomingKey && allowedLessonKeys.has(incomingKey) && incomingValue==='undo'){
+      delete mmMastery[incomingKey];
+      try{localStorage.setItem(mmMasteryKey,JSON.stringify(mmMastery));}catch(e){}
+    }
+    // Verified mastery is distinct from a manual completion tick.
+    function mmMastered(sec,lesson){return mmMastery[lessonKey(sec,lesson)]===true;}
+    const nextRecommended=()=>{const pending=learningPath.filter(id=>!sectorComplete(byId[id]));return pending.find(id=>mmSectionReady(byId[id]))||pending[0]||null;};
+    let recommended=nextRecommended();
+    function saveProgress(){try{localStorage.setItem(progressStorageKey,JSON.stringify(doneLessons));}catch(e){ /* Отметки доступны в текущей сессии */ }}
+    function toggleLesson(sectorId,lesson){
+      const s=byId[sectorId];const key=lessonKey(s,lesson);
+      if(doneLessons[key]){delete doneLessons[key];delete mmMastery[key];try{localStorage.setItem(mmMasteryKey,JSON.stringify(mmMastery));}catch(e){}}else doneLessons[key]=true;
+      saveProgress();refreshProgress();renderCatalog();chooseSector(sectorId);
+      if(!card.hidden){updateCardStatus(selected);const t=document.getElementById('card-title');t.classList.toggle('is-done',sectorComplete(byId[selected]));}
+    }
+    function refreshProgress(){
+      recommended=nextRecommended();
+      const passed=sectors.reduce((sum,s)=>sum+countDone(s),0);
+      const completed=sectors.filter(sectorComplete).length;
+      const ratio=total?passed/total*100:0;
+      document.getElementById('global-progress-text').textContent=`${passed} / ${total} УРОКОВ`;
+      document.getElementById('journey-fill').style.width=`${ratio}%`;
+      document.getElementById('journey-track').setAttribute('aria-valuenow',String(Math.round(ratio)));
+      document.getElementById('completed-sector-count').textContent=String(completed).padStart(2,'0');
+      const next=recommended?byId[recommended]:null;
+      document.getElementById('recommendation-label').textContent=next?'✦ СЛЕДУЮЩИЙ РЕКОМЕНДУЕМЫЙ РАЗДЕЛ':'✓ ВСЕ РАЗДЕЛЫ ПРОЙДЕНЫ';
+      document.getElementById('start-learning').textContent=next?next.label:'Математическая вселенная освоена';
+      document.getElementById('recommendation-detail').textContent=next?` · ${next.lessons.length-countDone(next)} уроков осталось. Все уроки доступны, порядок изучения свободный.`:' · Можно повторять темы и открывать новые материалы.';
+      document.getElementById('recommendation-box').classList.toggle('all-complete',!next);
+    }
+    function updateCardStatus(id){
+      const s=byId[id];if(!s)return;
+      const status=document.getElementById('card-status');
+      const count=countDone(s);
+      status.classList.toggle('is-complete',sectorComplete(s));
+      status.textContent=sectorComplete(s)?'✓ РАЗДЕЛ ПРОЙДЕН':!mmSectionReady(s)?'◇ ПОКА НУЖНЫ ПРЕДВАРИТЕЛЬНЫЕ ЗНАНИЯ':id===recommended?`✦ РЕКОМЕНДУЕТСЯ · ${count} / ${s.lessons.length}`:`ПРОЙДЕНО ${count} / ${s.lessons.length} УРОКОВ`;
+    }
+
+    const published = sectors.flatMap(getLessons).filter(t=>t.href).length;
+    const total = sectors.reduce((sum,s)=>sum+s.lessons.length,0);
+    document.getElementById('published-count').textContent = String(published).padStart(2,'0');
+    document.getElementById('planned-count').textContent = String(sectors.length).padStart(2,'0');
+    const catalogGrid = document.getElementById('catalog-grid');
+    const catalogInput = document.getElementById('catalog-search');
+    let selected='foundations';
+    let hover=null,hoverLesson=null;
+    let activeSearch='';
+
+    function chooseSector(id,scroll=false) {
+      const s=byId[id]; if(!s)return;
+      selected=id;
+      document.getElementById('detail-index').textContent=`РАЗДЕЛ / ${String(sectors.indexOf(s)+1).padStart(2,'0')}`;
+      {const h=document.getElementById('detail-title');h.replaceChildren(mmIcon(mmSectorIcon[s.id]||'book-open'),document.createTextNode(s.label));h.classList.toggle('is-done',sectorComplete(s));}
+      document.getElementById('detail-description').textContent=s.summary;
+      document.getElementById('detail-route').textContent=sectorComplete(s)?'✓ Раздел пройден полностью':id===recommended?'✦ Следующий рекомендуемый раздел':mmSectionReady(s)?'● Есть доступные для изучения уроки':'◇ Для рекомендованного маршрута нужны предварительные знания';
+      document.getElementById('detail-total').textContent=`${countDone(s)} / ${s.lessons.length} ПРОЙДЕНО`;
+      document.getElementById('sector-progress-fill').style.width=`${Math.round(countDone(s)/s.lessons.length*100)}%`;
+      const list=document.getElementById('lesson-list');list.replaceChildren();
+      getLessons(s).forEach((lesson,i)=>{
+        if(s.id==='functional' && (i===0 || i===2 || i===7)){
+          const group=document.createElement('div');group.className='lesson-subgroup';
+          group.textContent=i===0?'I / ПРОСТРАНСТВА':i===2?'II / ТЕОРИЯ ОПЕРАТОРОВ':'III / ПРИМЕНЕНИЯ';list.append(group);
+        }
+        const checked=isDone(s,lesson);const available=mmReady(lesson);
+        const box=document.createElement('div');box.className='lesson'+(s.id===recommended&&i===0?' lesson-first':'')+(checked?' lesson-done':available?' is-ready':' is-locked');
+        const check=document.createElement('button');check.type='button';check.className='lesson-check';
+        check.setAttribute('aria-pressed',String(checked));
+        check.setAttribute('aria-label',`${checked?'Снять отметку о прохождении':'Отметить урок пройденным'}: ${lesson.title}`);
+        check.title=checked?'Снять отметку':'Отметить пройденным';check.replaceChildren(mmIcon(checked?'check':'circle','sm'));
+        check.addEventListener('click',()=>toggleLesson(s.id,lesson));
+        const name=document.createElement(lesson.href?'a':'span');name.className='lesson-name';name.append(mmIcon(mmLessonIcon(s,i)),document.createTextNode(`${String(i+1).padStart(2,'0')} / ${lesson.title}`));
+        if(lesson.href){ name.href=mmReadHref(lesson.href); name.title='Открыть самостоятельный HTML-урок'; } // Прямая ссылка на независимый HTML
+        const tag=document.createElement('span');tag.className='lesson-status';
+        tag.textContent=checked?(mmMastered(s,lesson)?'★ ПРОВЕРЕНО':'✓ ПРОЙДЕНО'):available?'● ДОСТУПНО':'◇ ПОДГОТОВКА';
+        tag.title=available?'Можно приступать':'Необходимые знания: '+mmMissing(lesson).map(h=>mmByHref[h]?.lesson.title).join(', ');
+        if(mmMastered(s,lesson)){const star=document.createElement('span');star.className='is-verified';star.textContent='★';name.append(star);}
+        box.append(check,name,tag);
+        list.append(box);
+      });
+      const candidate=getLessons(s).find(l=>!isDone(s,l))||getLessons(s)[0];
+      const info=document.getElementById('mm-prerequisites');info.replaceChildren();
+      const heading=document.createElement('strong');heading.textContent='ПЕРЕД УРОКОМ · '+candidate.title;info.append(heading);
+      const deps=mmPrerequisites[candidate.href]||[];
+      if(!deps.length){const txt=document.createElement('p');txt.textContent='Вводный урок: специальных предпосылок нет.';info.append(txt);}
+      else{
+        const list=document.createElement('ul');for(const href of deps){const record=mmByHref[href];if(!record)continue;
+          const li=document.createElement('li');const done=isDone(record.sec,record.lesson);li.className=done?'done':'pending';
+          li.append(document.createTextNode(done?'✓ ':'○ '));const a=document.createElement('a');a.href=mmReadHref(href);a.textContent=record.lesson.title;
+          li.append(a);list.append(li);}
+        info.append(list);
+      }
+      const note=document.createElement('p');note.textContent='Зависимости — рекомендации, а не запрет: любую страницу можно открыть сразу.';info.append(note);
+      catalogGrid.querySelectorAll('button[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sector===id)));
+      if(scroll) document.getElementById('sector-detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});
+    }
+    function renderCatalog(){
+      catalogGrid.replaceChildren();let count=0;
+      sectors.forEach((s,i)=>{
+        const q=activeSearch;
+        const match=!q||[s.label,s.summary,...s.lessons.map(x=>normalizeLesson(x).title)].join(' ').toLocaleLowerCase('ru').includes(q);
+        if(!match)return;count++;
+        const button=document.createElement('button');button.type='button';button.className='sector';button.dataset.sector=s.id;
+        button.setAttribute('aria-pressed',String(selected===s.id));
+        if(sectorComplete(s))button.classList.add('complete');else button.classList.add(mmSectionReady(s)?'is-ready':'is-locked');
+        if(s.id===recommended)button.classList.add('recommended');
+        const st=document.createElement('div');st.className='sector-st';
+        const number=document.createElement('span');number.textContent=`${String(i+1).padStart(2,'0')} / СЕКТОР`;
+        const mark=document.createElement('span');mark.textContent=sectorComplete(s)?'✓ ПРОЙДЕН':s.id===recommended?'✦ СЛЕДУЮЩИЙ':mmSectionReady(s)?'● ДОСТУПНО':'◇ ПОДГОТОВКА';
+        if(sectorComplete(s))mark.className='done-mark';else if(s.id===recommended)mark.className='next-mark';
+        st.append(number,mark);
+        const h=document.createElement('h3');h.append(mmIcon(mmSectorIcon[s.id]||'book-open'),document.createTextNode(s.label));
+        const foot=document.createElement('p');foot.textContent=`${countDone(s)} / ${s.lessons.length} уроков пройдено`;
+        button.append(st,h,foot);
+        button.addEventListener('click',()=>chooseSector(s.id,true));
+        catalogGrid.append(button);
+      });
+      document.getElementById('catalog-empty').hidden=count>0;
+    }
+    catalogInput.addEventListener('input',()=>{activeSearch=catalogInput.value.trim().toLocaleLowerCase('ru');renderCatalog();});
+    refreshProgress();renderCatalog();chooseSector(selected);
+    document.getElementById('start-learning').addEventListener('click',()=>{if(recommended)chooseSector(recommended);});
+
+
+    // Offline progress backup: a JSON data file, nothing sent over the network.
+    const mmDataStatus=document.getElementById('mm-data-status');
+    document.getElementById('mm-export').addEventListener('click',()=>{
+      const payload={format:'magic-math-progress',version:1,exportedAt:new Date().toISOString(),
+        progress:Object.fromEntries(Object.entries(doneLessons).filter(([k,v])=>allowedLessonKeys.has(k)&&v===true)),
+        mastery:Object.fromEntries(Object.entries(mmMastery).filter(([k,v])=>allowedLessonKeys.has(k)&&v===true))};
+      const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'}));
+      const a=document.createElement('a');a.href=url;a.download='magiya-matematiki-progress.json';document.body.append(a);a.click();a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),2000);
+      mmDataStatus.textContent='Резервная копия подготовлена. Сохрани JSON в надёжном месте.';
+    });
+    const mmFile=document.getElementById('mm-import-file');
+    document.getElementById('mm-import').addEventListener('click',()=>mmFile.click());
+    mmFile.addEventListener('change',async()=>{
+      const file=mmFile.files?.[0];if(!file)return;
+      try{
+        if(file.size>2e6)throw new Error('Файл слишком большой');
+        const payload=JSON.parse(await file.text());
+        if(payload.format!=='magic-math-progress'||payload.version!==1||!payload.progress||typeof payload.progress!=='object'||Array.isArray(payload.progress))throw new Error('Это не файл прогресса «Магии Математики»');
+        const merged=Object.entries(payload.progress).filter(([k,v])=>allowedLessonKeys.has(k)&&v===true);
+        for(const [k] of merged)doneLessons[k]=true;
+        const verified=payload.mastery&&typeof payload.mastery==='object'&&!Array.isArray(payload.mastery)?payload.mastery:{};
+        for(const [k,v] of Object.entries(verified)){if(allowedLessonKeys.has(k)&&v===true){mmMastery[k]=true;doneLessons[k]=true;}}
+        saveProgress();try{localStorage.setItem(mmMasteryKey,JSON.stringify(mmMastery));}catch(e){}
+        refreshProgress();renderCatalog();chooseSector(selected);
+        mmDataStatus.textContent=`Импортировано ${merged.length} отметок. Текущие отметки не удалены.`;
+      }catch(err){mmDataStatus.textContent='Ошибка импорта: '+err.message;}
+      mmFile.value='';
+    });
+
+    document.documentElement.classList.add("mm-catalog-ready");
+
+    // Canvas-атлас: 15 основных ветвей и спутники — отдельные уроки.
+    const canvas=document.getElementById('knowledge-map');
+    const ctx=canvas.getContext('2d',{alpha:true});
+    const card=document.getElementById('node-card');
+    const live=document.getElementById('graph-live');
+    const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)');
+    let w=1,h=1,dpr=1,rx=-.18,ry=-.42,zoom=1,spin=!prefersReduced.matches;
+    let dragging=false,moved=false,pointer=null,last=performance.now(),clock=0,projections=[],satelliteProjections=[],dependencyMode=false;
+    const graphTooltip=document.getElementById('graph-tooltip');
+    const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+    const points=sectors.map((s,i)=>{
+      const y=1-2*(i+.5)/sectors.length, ring=Math.sqrt(1-y*y);
+      const theta=i*Math.PI*(3-Math.sqrt(5));
+      return {...s,pos:[Math.cos(theta)*ring*2.55,y*2.5,Math.sin(theta)*ring*2.55]};
+    });
+    const byPoint=Object.fromEntries(points.map(p=>[p.id,p]));
+    const graphIcons=document.getElementById('graph-node-icons');
+    const graphIconEls=Object.fromEntries(points.map(p=>{const holder=document.createElement('span');holder.className='graph-node-icon';holder.append(mmIcon(mmSectorIcon[p.id]||'book-open'));graphIcons.append(holder);return [p.id,holder];}));
+    const satellites=points.flatMap((p,gi)=>p.lessons.map((lesson,i)=>{
+      const a=i*2.3999+gi*.67,depth=(i%3-1)*.13,r=.55+.09*(i%3);
+      const [x,y,z]=p.pos;
+      const norm=Math.hypot(x,z)||1;
+      const tangent=[-z/norm,0,x/norm];
+      return {group:p.id,lesson:normalizeLesson(lesson),index:i,pos:[x+Math.cos(a)*r*tangent[0]+Math.sin(a)*r*.25*x/2.55,y+Math.sin(a)*r*.86,z+Math.cos(a)*r*tangent[2]+Math.sin(a)*r*.25*z/2.55+depth]};
+    }));
+    const stars=Array.from({length:120},(_,i)=>({x:(Math.sin(i*92.413)*42545.7)%1,y:(Math.sin(i*51.771)*24144.7)%1,r:i%8===0?1.1:.56,a:.11+i%5*.038}));
+    function resize(){const r=canvas.getBoundingClientRect();w=Math.max(1,r.width);h=Math.max(1,r.height);dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+    if('ResizeObserver' in window)new ResizeObserver(resize).observe(canvas);else addEventListener('resize',resize);
+    resize();
+    function project(v){const [x,y,z]=v;let c=Math.cos(ry),s=Math.sin(ry);const X=x*c+z*s,Z=-x*s+z*c;c=Math.cos(rx);s=Math.sin(rx);const Y=y*c-Z*s,D=y*s+Z*c;const persp=7.6/(7.6-D);const scale=Math.min(w*.44,h*.48)*.27*zoom*persp;return {x:w*.51+X*scale,y:h*.515-Y*scale,z:D,persp};}
+    function line(a,b,color,width=1){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();}
+    function draw(t){
+      const dt=clamp(t-last,0,65);last=t;clock+=dt;
+      if(spin&&!dragging)ry+=dt*.00009;
+      ctx.clearRect(0,0,w,h);
+      const cx=w*.51,cy=h*.515,rad=Math.min(w*.46,h*.48);
+      const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,rad*1.35);grad.addColorStop(0,'rgba(20,126,54,.12)');grad.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
+      for(const star of stars){ctx.beginPath();ctx.arc(Math.abs(star.x)*w,Math.abs(star.y)*h,star.r,0,Math.PI*2);ctx.fillStyle=`rgba(122,220,158,${star.a})`;ctx.fill();}
+      ctx.save();ctx.translate(cx,cy);
+      for(let i=1;i<=3;i++){ctx.beginPath();ctx.arc(0,0,rad*(.35+i*.28),0,Math.PI*2);ctx.setLineDash([2,9]);ctx.strokeStyle='rgba(95,220,135,.085)';ctx.stroke();}
+      ctx.setLineDash([]);ctx.beginPath();ctx.ellipse(0,0,rad*1.07,rad*.32,-.35,0,Math.PI*2);ctx.strokeStyle='rgba(75,218,119,.08)';ctx.stroke();ctx.restore();
+      const core=project([0,0,0]);
+      projections=points.map(p=>({...p,...project(p.pos)}));
+      const byProjected=Object.fromEntries(projections.map(p=>[p.id,p]));
+      const focus=hover||selected;
+      if(dependencyMode){
+        ctx.save();ctx.setLineDash([4,5]);
+        for(const [a,b] of mmCrossPrereqs){const p=byProjected[a],q=byProjected[b];if(!p||!q)continue;
+          line(p,q,'rgba(159,255,183,.34)',1);
+          const ax=p.x+(q.x-p.x)*.82,ay=p.y+(q.y-p.y)*.82,ang=Math.atan2(q.y-p.y,q.x-p.x);
+          ctx.setLineDash([]);ctx.beginPath();ctx.moveTo(ax-6*Math.cos(ang-.48),ay-6*Math.sin(ang-.48));ctx.lineTo(ax,ay);
+          ctx.lineTo(ax-6*Math.cos(ang+.48),ay-6*Math.sin(ang+.48));ctx.strokeStyle='#a2ffd0';ctx.lineWidth=1;ctx.stroke();ctx.setLineDash([4,5]);
+        }ctx.restore();
+      }else{
+        for(const [a,b] of edges){const p=byProjected[a],q=byProjected[b],related=focus&&(a===focus||b===focus);line(p,q,related?'rgba(121,251,160,.5)':'rgba(62,168,101,.16)',related?1.3:.7);}
+      }
+      for(const p of projections){line(core,p,'rgba(43,180,81,.045)',.55);}
+      // Уроки — спутники разделов. Золотой цвет отражает реальный прогресс,
+      // даже если раздел сейчас не выбран. Все изменения читаются в каждом кадре.
+      satelliteProjections=satellites.map(s=>({...s,...project(s.pos)}));
+      for(const p of satelliteProjections){
+        const g=byProjected[p.group],lit=focus===p.group;
+        const complete=isDone(byId[p.group],p.lesson),ready=mmReady(p.lesson);
+        const highlighted=hoverLesson&&hoverLesson.group===p.group&&hoverLesson.index===p.index;
+        line(g,p,complete?'rgba(255,192,79,.52)':ready?(lit?'rgba(90,238,128,.30)':'rgba(70,200,101,.14)'):'rgba(65,94,77,.055)',complete?1.1:lit?.85:.5);
+        const radius=(complete?3.2:lit?2.5:1.55)*Math.max(.7,p.persp);
+        if(complete){
+          const aura=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,radius*4);
+          aura.addColorStop(0,'rgba(255,204,97,.42)');aura.addColorStop(1,'rgba(255,204,97,0)');
+          ctx.beginPath();ctx.arc(p.x,p.y,radius*4,0,Math.PI*2);ctx.fillStyle=aura;ctx.fill();
+          ctx.beginPath();ctx.arc(p.x,p.y,radius*1.85,0,Math.PI*2);ctx.strokeStyle='rgba(255,221,131,.65)';ctx.lineWidth=.8;ctx.stroke();
+        }
+        ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);
+        ctx.fillStyle=complete?'#ffd36b':ready?(lit?'#b1ffc3':'#6bea9d'):'#496557';ctx.fill();
+        if(highlighted){ctx.strokeStyle=complete?'#fff0c5':'#d5ffe1';ctx.lineWidth=1.2;ctx.stroke();}
+      }
+      ctx.beginPath();ctx.arc(core.x,core.y,18,0,Math.PI*2);ctx.fillStyle='rgba(65,252,124,.09)';ctx.fill();
+      ctx.beginPath();ctx.arc(core.x,core.y,11,0,Math.PI*2);ctx.fillStyle='#0e4928';ctx.strokeStyle='#9effb5';ctx.lineWidth=1.2;ctx.fill();ctx.stroke();
+      ctx.fillStyle='#d2ffd8';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='17px Georgia,serif';ctx.fillText('∑',core.x,core.y+1);
+      const occupied=[];
+      // Labels are shown for all major sectors when space permits, with priority for the selected node.
+      const ordered=[...projections].sort((a,b)=>a.z-b.z);
+      for(const p of ordered){const chosen=p.id===focus,starter=p.start;
+        const completed=sectorComplete(byId[p.id]),next=p.id===recommended,ready=mmSectionReady(byId[p.id]);
+        const radius=(chosen?8.2:next?8.1:completed?7.5:5.4)*p.persp;
+        if(chosen||next||completed){
+          const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,radius*5);
+          glow.addColorStop(0,completed?'rgba(255,192,72,.52)':chosen?'rgba(113,255,155,.40)':'rgba(163,255,140,.38)');
+          glow.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=glow;
+          ctx.beginPath();ctx.arc(p.x,p.y,radius*5,0,Math.PI*2);ctx.fill();
+        }
+        if(next){const pulse=1.45+.22*Math.sin(clock*.0028);ctx.beginPath();ctx.arc(p.x,p.y,radius*pulse,0,Math.PI*2);ctx.strokeStyle='rgba(181,255,165,.64)';ctx.lineWidth=1.4;ctx.stroke();}
+        if(completed){
+          const pulse=1.65+.045*Math.sin(clock*.0019);
+          ctx.beginPath();ctx.arc(p.x,p.y,radius*pulse,0,Math.PI*2);
+          ctx.strokeStyle='rgba(255,220,124,.90)';ctx.lineWidth=1.5;ctx.stroke();
+        }
+        ctx.beginPath();ctx.arc(p.x,p.y,radius*1.8,0,Math.PI*2);
+        ctx.fillStyle=completed?'rgba(236,164,47,.19)':chosen?'rgba(90,245,129,.17)':'rgba(55,151,84,.08)';ctx.fill();
+        ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);
+        ctx.fillStyle=completed?'#ffd36b':ready?(chosen?'#b8ffc9':next?'#aeff98':'#4ab27a'):'#4b6856';ctx.fill();
+        ctx.strokeStyle=completed?'#fff0bd':ready?(chosen?'#ebfff1':'#9ee8b1'):'#64816d';ctx.lineWidth=1;ctx.stroke();
+      }
+      // Avoid overlapping captions in projection; every section remains accessible in the catalog.
+      const labels=[...projections].sort((a,b)=>(a.id===focus?-10:0)-(b.id===focus?-10:0)||b.z-a.z);
+      for(const icon of Object.values(graphIconEls))icon.style.display='none';
+      for(const p of labels){const important=p.id===focus||p.id===recommended||sectorComplete(byId[p.id]);
+        const font=w<500?8.1:10.2;ctx.font=`${important?'600':'400'} ${font}px ui-monospace,Menlo,monospace`;
+        const text=p.short,tw=ctx.measureText(text).width+33,ty=p.y-19*p.persp;
+        const box={x:p.x-tw/2,y:ty-10,w:tw,h:21};
+        if(!important&&occupied.some(q=>box.x<q.x+q.w+4&&box.x+box.w>q.x-4&&box.y<q.y+q.h+3&&box.y+box.h>q.y-3))continue;
+        occupied.push(box);
+        ctx.fillStyle=important?'rgba(6,31,13,.95)':'rgba(3,15,8,.78)';ctx.fillRect(box.x,box.y,tw,21);
+        const completed=sectorComplete(byId[p.id]);
+        ctx.fillStyle=completed?'#ffe6a5':important?'#caffd8':'rgba(158,213,171,.84)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,p.x+7,ty+.5);
+        const nodeIcon=graphIconEls[p.id];nodeIcon.style.display='block';nodeIcon.style.left=(box.x+12)+'px';nodeIcon.style.top=(ty+.5)+'px';nodeIcon.classList.toggle('is-done',completed);
+        if(p.id===recommended||completed){ctx.fillStyle=completed?'#ffd36b':'#a2ffb5';ctx.font='10px ui-monospace,Menlo,monospace';ctx.fillText(completed?'✓':'✦',p.x+tw/2+9,ty);}
+      }
+      // Золотые спутники рисуем поверх крупных узлов и подписей: даже при
+      // пересечении 3D-проекций отметка пройденного урока остаётся заметной.
+      for(const p of satelliteProjections){
+        if(!isDone(byId[p.group],p.lesson))continue;
+        const radius=3.35*Math.max(.75,p.persp);
+        const glow=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,radius*4.8);
+        glow.addColorStop(0,'rgba(255,215,111,.60)');glow.addColorStop(1,'rgba(255,205,100,0)');
+        ctx.fillStyle=glow;ctx.beginPath();ctx.arc(p.x,p.y,radius*4.8,0,Math.PI*2);ctx.fill();
+        ctx.beginPath();ctx.arc(p.x,p.y,radius*1.75,0,Math.PI*2);
+        ctx.strokeStyle='rgba(255,230,157,.9)';ctx.lineWidth=.8;ctx.stroke();
+        ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);
+        ctx.fillStyle='#ffd36b';ctx.fill();
+      }
+      const stat=document.querySelector('.graph-count');if(stat && Math.floor(t/190)%2===0)stat.textContent=`${sectors.length} SECTORS / ${total} LESSONS`;
+      if(!document.documentElement.classList.contains("mm-graph-ready"))document.documentElement.classList.add("mm-graph-ready");
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+    function hit(x,y){
+      // Сначала проверяем малые точки уроков, затем крупные узлы разделов.
+      // На мобильных устройствах немного увеличиваем активную область.
+      let best=null,nearest=w<500?11:9;
+      for(const p of satelliteProjections){const d=Math.hypot(p.x-x,p.y-y);if(d<nearest){nearest=d;best={type:'lesson',point:p};}}
+      if(best)return best;
+      nearest=24;
+      for(const p of projections){const d=Math.hypot(p.x-x,p.y-y);if(d<nearest){nearest=d;best={type:'sector',id:p.id};}}
+      return best;
+    }
+    function updateTooltip(hitResult,x,y){
+      if(!hitResult||hitResult.type!=='lesson'){graphTooltip.hidden=true;return;}
+      const p=hitResult.point,complete=isDone(byId[p.group],p.lesson),ready=mmReady(p.lesson);
+      graphTooltip.replaceChildren();
+      const name=document.createElement('strong');name.append(mmIcon(mmLessonIcon(byId[p.group],p.index)),document.createTextNode(p.lesson.title));
+      const state=document.createElement('small');state.textContent=(complete?(mmMastered(byId[p.group],p.lesson)?'★ ПРОВЕРЕНО · ЗОЛОТОЙ':'✓ ПРОЙДЕН · ЗОЛОТОЙ'):ready?'● ДОСТУПЕН К ИЗУЧЕНИЮ':'◇ ЕСТЬ ПРЕДВАРИТЕЛЬНЫЕ ТЕМЫ')+(p.lesson.href?' · ОТКРЫТЬ HTML':' · В ПЛАНЕ');
+      graphTooltip.append(name,state);graphTooltip.classList.toggle('is-done',complete);
+      graphTooltip.style.left=`${clamp(x+14,8,w-230)}px`;
+      graphTooltip.style.top=`${clamp(y+12,75,h-85)}px`;graphTooltip.hidden=false;
+    }
+    function showCard(id){const s=byId[id];if(!s)return;chooseSector(id);card.hidden=false;
+      document.getElementById('card-number').textContent=`РАЗДЕЛ / ${String(sectors.indexOf(s)+1).padStart(2,'0')}`;
+      {const title=document.getElementById('card-title');title.replaceChildren(mmIcon(mmSectorIcon[s.id]||'book-open'),document.createTextNode(s.label));title.classList.toggle('is-done',sectorComplete(s));}document.getElementById('card-description').textContent=s.summary;
+      updateCardStatus(id);
+      live.textContent=`${s.label}: ${s.summary}. Пройдено ${countDone(s)} из ${s.lessons.length} уроков.`;
+    }
+    function coords(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+    canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!e.isPrimary)return;pointer={...coords(e),clientX:e.clientX,clientY:e.clientY};dragging=true;moved=false;spin=false;updateSpin();graphTooltip.hidden=true;canvas.classList.add('dragging');canvas.setPointerCapture(e.pointerId);});
+    canvas.addEventListener('pointermove',e=>{const p=coords(e);if(dragging&&pointer){const dx=e.clientX-pointer.clientX,dy=e.clientY-pointer.clientY;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.006;rx=clamp(rx+dy*.006,-1.48,1.48);pointer={...p,clientX:e.clientX,clientY:e.clientY};}else{const target=hit(p.x,p.y);hoverLesson=target?.type==='lesson'?target.point:null;hover=target?(target.type==='lesson'?target.point.group:target.id):null;canvas.style.cursor=target?'pointer':'grab';updateTooltip(target,p.x,p.y);}});
+    canvas.addEventListener('pointerup',e=>{if(!dragging)return;dragging=false;canvas.classList.remove('dragging');if(!moved){const p=coords(e),target=hit(p.x,p.y);if(target?.type==='lesson'){const lesson=target.point.lesson;const group=target.point.group;if(lesson.href){location.assign(mmReadHref(lesson.href));}else{chooseSector(group,true);showCard(group);}}else if(target?.type==='sector')showCard(target.id);else{card.hidden=true;hover=null;}}if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);});
+    canvas.addEventListener('pointercancel',()=>{dragging=false;graphTooltip.hidden=true;canvas.classList.remove('dragging');});
+    canvas.addEventListener('pointerleave',()=>{if(!dragging){hover=null;hoverLesson=null;graphTooltip.hidden=true;}});
+    canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*(e.deltaY>0?.91:1.09),.55,1.85);},{passive:false});
+    function updateSpin(){const button=document.getElementById('toggle-spin');button.setAttribute('aria-pressed',String(spin));button.setAttribute('aria-label',spin?'Остановить автоматическое вращение':'Включить автоматическое вращение');}
+    document.getElementById('toggle-dependencies').addEventListener('click',()=>{
+      dependencyMode=!dependencyMode;const b=document.getElementById('toggle-dependencies');
+      b.setAttribute('aria-pressed',String(dependencyMode));
+      b.setAttribute('aria-label',dependencyMode?'Показать тематические связи':'Показать стрелки необходимых знаний');
+      document.querySelector('.graph-eyebrow span').textContent=dependencyMode?'ПУНКТИР / ПРЕРЕКВИЗИТ → СЛЕДУЮЩАЯ ТЕМА':'СВЯЗИ РАЗДЕЛОВ И УРОКОВ';
+    });
+    document.getElementById('toggle-spin').addEventListener('click',()=>{spin=!spin;updateSpin();});
+    document.getElementById('reset-view').addEventListener('click',()=>{rx=-.18;ry=-.42;zoom=1;card.hidden=true;hover=null;hoverLesson=null;graphTooltip.hidden=true;});
+    document.getElementById('zoom-in').addEventListener('click',()=>{zoom=clamp(zoom*1.15,.55,1.85);});
+    document.getElementById('zoom-out').addEventListener('click',()=>{zoom=clamp(zoom/1.15,.55,1.85);});
+    document.getElementById('close-card').addEventListener('click',()=>{card.hidden=true;});
+    document.getElementById('card-to-catalog').addEventListener('click',()=>{chooseSector(selected);document.getElementById('catalog').scrollIntoView({behavior:prefersReduced.matches?'instant':'smooth',block:'start'});});
+    window.addEventListener('storage',e=>{if(e.key===mmMasteryKey){try{mmMastery=JSON.parse(e.newValue||'{}')||{};}catch(err){mmMastery={};}renderCatalog();chooseSector(selected);return;}if(e.key!==progressStorageKey)return;try{const next=JSON.parse(e.newValue||'{}');doneLessons=next&&typeof next==='object'&&!Array.isArray(next)?next:{};}catch(err){doneLessons={};}refreshProgress();renderCatalog();chooseSector(selected);if(!card.hidden){updateCardStatus(selected);document.getElementById('card-title').classList.toggle('is-done',sectorComplete(byId[selected]));}});
+    updateSpin();showCard(recommended||'foundations');
+    if (matchMedia('(max-width: 520px)').matches) card.hidden=true;
+  </script>
+
+</body>
+</html>
