@@ -486,6 +486,24 @@
 </div>
 </section>
 <div class="divider"></div>
+<section aria-labelledby="route-title" class="shell" id="learning-route" hidden>
+<style>
+#learning-route{margin-block:2rem;padding:clamp(1rem,3vw,2rem);border:1px solid #315743;background:#091b12}
+#learning-route h2{margin:0 0 .9rem}
+#learning-route select{max-width:100%;padding:.55rem;color:#e3f6e9;background:#12291c;border:1px solid #638674;border-radius:4px;font:inherit}
+#learning-route a{color:#a2f2bd;text-decoration:underline}
+#learning-route li{margin:.45rem 0}
+#learning-route .route-done{color:#ffd36b}
+#learning-route .route-waiting{color:#bdc9c1}
+</style>
+<h2 class="section-head" id="route-title">Маршрут обучения</h2>
+<label for="route-goal">Цель</label>
+<select id="route-goal">
+<option value="">Выбери тему</option>
+<option value="lessons/functional/bounded-operators.html">Теория операторов</option>
+</select>
+<div id="route-result" aria-live="polite"></div>
+</section>
 <section aria-labelledby="catalog-title" class="shell catalog" id="catalog">
 <div class="catalog-header">
 <div>
@@ -881,7 +899,73 @@
       catalogGrid.querySelectorAll('button[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.sector===id)));
       if(scroll) document.getElementById('sector-detail').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'nearest'});
     }
+    const routePanel=document.getElementById('learning-route');
+    const routeGoal=document.getElementById('route-goal');
+    const routeResult=document.getElementById('route-result');
+    let routeNodes=new Set();
+    try{routeGoal.value=sessionStorage.getItem('magic-math:route-goal')||'';}catch(e){}
+    routePanel.hidden=false;
+    routeGoal.addEventListener('change',()=>{
+      try{sessionStorage.setItem('magic-math:route-goal',routeGoal.value);}catch(e){}
+      renderRoute();
+    });
+    function renderRoute(){
+      routeResult.replaceChildren();
+      routeNodes=new Set();
+      const goal=routeGoal.value;
+      if(!mmByHref[goal])return;
+      const ordered=[];
+      function visit(href){
+        if(routeNodes.has(href)||!mmByHref[href])return;
+        routeNodes.add(href);
+        (mmPrerequisites[href]||[]).forEach(visit);
+        ordered.push(href);
+      }
+      visit(goal);
+      const done=href=>isDone(mmByHref[href].sec,mmByHref[href].lesson);
+      const ready=ordered.filter(href=>!done(href)&&mmReady(mmByHref[href].lesson));
+      function link(href){
+        const a=document.createElement('a');
+        a.href=href;
+        a.textContent=mmByHref[href].lesson.title;
+        return a;
+      }
+      const summary=document.createElement('p');
+      summary.textContent=`Пройдено ${ordered.filter(done).length} из ${ordered.length} уроков. Голубые кольца на 3D-карте показывают маршрут.`;
+      routeResult.append(summary);
+      if(ready.length){
+        const heading=document.createElement('h3');
+        heading.textContent=ready.length===1?'Следующий доступный урок':'Доступные ветки подготовки';
+        const list=document.createElement('ul');
+        ready.forEach(href=>{
+          const row=document.createElement('li');
+          row.append(link(href));
+          const usedBy=ordered.filter(dest=>(mmPrerequisites[dest]||[]).includes(href)&&!done(dest));
+          if(usedBy.length)row.append(' · Нужен для: '+usedBy.map(dest=>mmByHref[dest].lesson.title).join(', '));
+          list.append(row);
+        });
+        routeResult.append(heading,list);
+      }
+      const details=document.createElement('details');
+      const title=document.createElement('summary');
+      title.textContent='Все шаги маршрута';
+      const steps=document.createElement('ol');
+      ordered.forEach(href=>{
+        const row=document.createElement('li');
+        const status=document.createElement('span');
+        const entry=mmByHref[href];
+        if(done(href)){status.className='route-done';status.textContent=' · Пройдено';}
+        else if(mmReady(entry.lesson))status.textContent=' · Можно начать';
+        else{status.className='route-waiting';status.textContent=' · Ожидает предпосылок';}
+        row.append(link(href),status);
+        steps.append(row);
+      });
+      details.append(title,steps);
+      routeResult.append(details);
+    }
+
     function renderCatalog(){
+      renderRoute();
       catalogGrid.replaceChildren();let count=0;
       sectors.forEach((s,i)=>{
         const q=activeSearch;
@@ -1001,6 +1085,15 @@
       // Уроки — спутники разделов. Золотой цвет отражает реальный прогресс,
       // даже если раздел сейчас не выбран. Все изменения читаются в каждом кадре.
       satelliteProjections=satellites.map(s=>({...s,...project(s.pos)}));
+      if(routeNodes.size){
+        const routePoints=new Map(satelliteProjections.filter(p=>routeNodes.has(p.lesson.href)).map(p=>[p.lesson.href,p]));
+        for(const [href,to] of routePoints){
+          for(const req of mmPrerequisites[href]||[]){
+            const from=routePoints.get(req);
+            if(from)line(from,to,'rgba(110,216,255,.64)',1.25);
+          }
+        }
+      }
       for(const p of satelliteProjections){
         const g=byProjected[p.group],lit=focus===p.group;
         const complete=isDone(byId[p.group],p.lesson),ready=mmReady(p.lesson);
@@ -1015,6 +1108,11 @@
         }
         ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);
         ctx.fillStyle=complete?'#ffd36b':ready?(lit?'#b1ffc3':'#6bea9d'):'#496557';ctx.fill();
+        if(routeNodes.has(p.lesson.href)){
+          ctx.beginPath();ctx.arc(p.x,p.y,radius+3,0,Math.PI*2);
+          ctx.strokeStyle='#8edfff';ctx.lineWidth=1.25;ctx.stroke();
+          ctx.beginPath();ctx.arc(p.x,p.y,radius,0,Math.PI*2);
+        }
         if(highlighted){ctx.strokeStyle=complete?'#fff0c5':'#d5ffe1';ctx.lineWidth=1.2;ctx.stroke();}
       }
       ctx.beginPath();ctx.arc(core.x,core.y,18,0,Math.PI*2);ctx.fillStyle='rgba(65,252,124,.09)';ctx.fill();
