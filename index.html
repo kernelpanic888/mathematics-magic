@@ -468,6 +468,7 @@
 <div aria-hidden="true" class="graph-node-icons" id="graph-node-icons"></div>
 <div class="graph-eyebrow"><strong>АТЛАС / ОСНОВНЫЕ РАЗДЕЛЫ</strong><span>ПРОСТРАНСТВО ИДЕЙ ∙ 3D</span></div>
 <div aria-label="Управление картой" class="graph-controls">
+<button aria-label="Переключить карту в 2D" class="control" id="toggle-dimension" title="Переключить карту в 2D" type="button">2D</button>
 <button aria-label="Остановить автоматическое вращение" aria-pressed="true" class="control" id="toggle-spin" title="Автовращение" type="button">⟳</button>
 <button aria-label="Показать стрелки необходимых знаний" aria-pressed="false" class="control" id="toggle-dependencies" title="Показать зависимости вместо тематических связей" type="button">⇢</button>
 <button aria-label="Сбросить положение карты" class="control" id="reset-view" title="Сбросить вид" type="button">⌖</button>
@@ -475,7 +476,7 @@
 <button aria-label="Отдалить карту" class="control" id="zoom-out" title="Отдалить" type="button">−</button>
 </div>
 <div aria-hidden="true" class="graph-legend"><span class="ready"><i></i>ДОСТУПНО</span><span class="gold"><i></i>ПРОЙДЕНО</span><span class="locked"><i></i>НУЖНЫ ЗНАНИЯ</span></div>
-<div aria-hidden="true" class="graph-info"><span class="crosshair">⌁</span><span>ТЯНИ, ЧТОБЫ ВРАЩАТЬ<br/>НАЖМИ НА ТОЧКУ УРОКА</span></div>
+<div aria-hidden="true" class="graph-info"><span class="crosshair">⌁</span><span><span id="graph-gesture">ТЯНИ, ЧТОБЫ ВРАЩАТЬ<br/></span>НАЖМИ НА ТОЧКУ УРОКА</span></div>
 <div aria-hidden="true" class="graph-tooltip" hidden="" id="graph-tooltip"></div>
 <div aria-hidden="true" class="graph-count">X: 00.00 / Y: 00.00 / Z: 00.00</div>
 <aside aria-live="polite" class="node-card" hidden="" id="node-card">
@@ -1048,6 +1049,7 @@
     const live=document.getElementById('graph-live');
     const prefersReduced=matchMedia('(prefers-reduced-motion: reduce)');
     let w=1,h=1,dpr=1,rx=-.18,ry=-.42,zoom=1,spin=!prefersReduced.matches;
+    let flatMode=false;
     let dragging=false,moved=false,pointer=null,last=performance.now(),clock=0,projections=[],satelliteProjections=[],dependencyMode=false;
     const graphTooltip=document.getElementById('graph-tooltip');
     const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
@@ -1056,6 +1058,15 @@
       const theta=i*Math.PI*(3-Math.sqrt(5));
       return {...s,pos:[Math.cos(theta)*ring*2.55,y*2.5,Math.sin(theta)*ring*2.55]};
     });
+    const flatPositions=Object.fromEntries(learningPath.map((id,i)=>[
+      id,[(i%3-1)*.30,(Math.floor(i/3)-2)*.13]
+    ]));
+    function projectFlat(id,index=null){
+      const [x,y]=flatPositions[id];
+      const angle=index===null?0:index*2*Math.PI/byId[id].lessons.length;
+      const radius=index===null?0:Math.min(w,h)*.043*zoom;
+      return {x:w*(.5+x*zoom)+Math.cos(angle)*radius,y:h*(.50+y*zoom)+Math.sin(angle)*radius,z:0,persp:1};
+    }
     const byPoint=Object.fromEntries(points.map(p=>[p.id,p]));
     const graphIcons=document.getElementById('graph-node-icons');
     const graphIconEls=Object.fromEntries(points.map(p=>{const holder=document.createElement('span');holder.className='graph-node-icon';holder.append(mmIcon(mmSectorIcon[p.id]||'book-open'));graphIcons.append(holder);return [p.id,holder];}));
@@ -1074,7 +1085,7 @@
     function line(a,b,color,width=1){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=color;ctx.lineWidth=width;ctx.stroke();}
     function draw(t){
       const dt=clamp(t-last,0,65);last=t;clock+=dt;
-      if(spin&&!dragging)ry+=dt*.00009;
+      if(spin&&!flatMode&&!dragging)ry+=dt*.00009;
       ctx.clearRect(0,0,w,h);
       const cx=w*.51,cy=h*.515,rad=Math.min(w*.46,h*.48);
       const grad=ctx.createRadialGradient(cx,cy,0,cx,cy,rad*1.35);grad.addColorStop(0,'rgba(20,126,54,.12)');grad.addColorStop(1,'rgba(0,0,0,0)');ctx.fillStyle=grad;ctx.fillRect(0,0,w,h);
@@ -1082,8 +1093,8 @@
       ctx.save();ctx.translate(cx,cy);
       for(let i=1;i<=3;i++){ctx.beginPath();ctx.arc(0,0,rad*(.35+i*.28),0,Math.PI*2);ctx.setLineDash([2,9]);ctx.strokeStyle='rgba(95,220,135,.085)';ctx.stroke();}
       ctx.setLineDash([]);ctx.beginPath();ctx.ellipse(0,0,rad*1.07,rad*.32,-.35,0,Math.PI*2);ctx.strokeStyle='rgba(75,218,119,.08)';ctx.stroke();ctx.restore();
-      const core=project([0,0,0]);
-      projections=points.map(p=>({...p,...project(p.pos)}));
+      const core=flatMode?{x:w*.5,y:h*.84}:project([0,0,0]);
+      projections=points.map(p=>({...p,...(flatMode?projectFlat(p.id):project(p.pos))}));
       const byProjected=Object.fromEntries(projections.map(p=>[p.id,p]));
       const focus=hover||selected;
       if(dependencyMode){
@@ -1100,7 +1111,7 @@
       for(const p of projections){line(core,p,'rgba(43,180,81,.045)',.55);}
       // Уроки — спутники разделов. Золотой цвет отражает реальный прогресс,
       // даже если раздел сейчас не выбран. Все изменения читаются в каждом кадре.
-      satelliteProjections=satellites.map(s=>({...s,...project(s.pos)}));
+      satelliteProjections=satellites.map(s=>({...s,...(flatMode?projectFlat(s.group,s.index):project(s.pos))}));
       if(routeNodes.size){
         const routePoints=new Map(satelliteProjections.filter(p=>routeNodes.has(p.lesson.href)).map(p=>[p.lesson.href,p]));
         for(const [href,to] of routePoints){
@@ -1219,17 +1230,33 @@
     }
     function coords(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
     canvas.addEventListener('pointerdown',e=>{if(e.pointerType==='touch'&&!e.isPrimary)return;pointer={...coords(e),clientX:e.clientX,clientY:e.clientY};dragging=true;moved=false;spin=false;updateSpin();graphTooltip.hidden=true;canvas.classList.add('dragging');canvas.setPointerCapture(e.pointerId);});
-    canvas.addEventListener('pointermove',e=>{const p=coords(e);if(dragging&&pointer){const dx=e.clientX-pointer.clientX,dy=e.clientY-pointer.clientY;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;ry+=dx*.006;rx=clamp(rx+dy*.006,-1.48,1.48);pointer={...p,clientX:e.clientX,clientY:e.clientY};}else{const target=hit(p.x,p.y);hoverLesson=target?.type==='lesson'?target.point:null;hover=target?(target.type==='lesson'?target.point.group:target.id):null;canvas.style.cursor=target?'pointer':'grab';updateTooltip(target,p.x,p.y);}});
+    canvas.addEventListener('pointermove',e=>{const p=coords(e);if(dragging&&pointer){const dx=e.clientX-pointer.clientX,dy=e.clientY-pointer.clientY;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;if(!flatMode){ry+=dx*.006;rx=clamp(rx+dy*.006,-1.48,1.48);}pointer={...p,clientX:e.clientX,clientY:e.clientY};}else{const target=hit(p.x,p.y);hoverLesson=target?.type==='lesson'?target.point:null;hover=target?(target.type==='lesson'?target.point.group:target.id):null;canvas.style.cursor=target?'pointer':'grab';updateTooltip(target,p.x,p.y);}});
     canvas.addEventListener('pointerup',e=>{if(!dragging)return;dragging=false;canvas.classList.remove('dragging');if(!moved){const p=coords(e),target=hit(p.x,p.y);if(target?.type==='lesson'){const lesson=target.point.lesson;const group=target.point.group;if(lesson.href){location.assign(mmReadHref(lesson.href));}else{chooseSector(group,true);showCard(group);}}else if(target?.type==='sector')showCard(target.id);else{card.hidden=true;hover=null;}}if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);});
     canvas.addEventListener('pointercancel',()=>{dragging=false;graphTooltip.hidden=true;canvas.classList.remove('dragging');});
     canvas.addEventListener('pointerleave',()=>{if(!dragging){hover=null;hoverLesson=null;graphTooltip.hidden=true;}});
     canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=clamp(zoom*(e.deltaY>0?.91:1.09),.55,1.85);},{passive:false});
     function updateSpin(){const button=document.getElementById('toggle-spin');button.setAttribute('aria-pressed',String(spin));button.setAttribute('aria-label',spin?'Остановить автоматическое вращение':'Включить автоматическое вращение');}
+    function updateGraphModeLabel(){
+      document.querySelector('.graph-eyebrow span').textContent=(flatMode?'2D':'3D')+
+        (dependencyMode?' · ПРЕДПОСЫЛКА → ТЕМА':' · СВЯЗИ РАЗДЕЛОВ И УРОКОВ');
+    }
+    const dimensionButton=document.getElementById('toggle-dimension');
+    dimensionButton.addEventListener('click',()=>{
+      flatMode=!flatMode;
+      dimensionButton.textContent=flatMode?'3D':'2D';
+      dimensionButton.title='Переключить карту в '+dimensionButton.textContent;
+      dimensionButton.setAttribute('aria-label',dimensionButton.title);
+      document.getElementById('toggle-spin').disabled=flatMode;
+      document.getElementById('graph-gesture').hidden=flatMode;
+      document.getElementById('atlas').setAttribute('aria-label',flatMode?'Интерактивная плоская карта математики':'Интерактивная трёхмерная карта основных разделов математики');
+      graphTooltip.hidden=true;hover=null;hoverLesson=null;
+      updateGraphModeLabel();
+    });
     document.getElementById('toggle-dependencies').addEventListener('click',()=>{
       dependencyMode=!dependencyMode;const b=document.getElementById('toggle-dependencies');
       b.setAttribute('aria-pressed',String(dependencyMode));
       b.setAttribute('aria-label',dependencyMode?'Показать тематические связи':'Показать стрелки необходимых знаний');
-      document.querySelector('.graph-eyebrow span').textContent=dependencyMode?'ПУНКТИР / ПРЕРЕКВИЗИТ → СЛЕДУЮЩАЯ ТЕМА':'СВЯЗИ РАЗДЕЛОВ И УРОКОВ';
+      updateGraphModeLabel();
     });
     document.getElementById('toggle-spin').addEventListener('click',()=>{spin=!spin;updateSpin();});
     document.getElementById('reset-view').addEventListener('click',()=>{rx=-.18;ry=-.42;zoom=1;card.hidden=true;hover=null;hoverLesson=null;graphTooltip.hidden=true;});
