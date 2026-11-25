@@ -500,7 +500,6 @@
 <label for="route-goal">Цель</label>
 <select id="route-goal">
 <option value="">Выбери тему</option>
-<option value="lessons/functional/bounded-operators.html">Теория операторов</option>
 </select>
 <div id="route-result" aria-live="polite"></div>
 </section>
@@ -903,6 +902,19 @@
     const routePanel=document.getElementById('learning-route');
     const routeGoal=document.getElementById('route-goal');
     const routeResult=document.getElementById('route-result');
+    for(const sector of sectors){
+      const group=document.createElement('optgroup');
+      group.label=sector.label;
+      for(const lesson of getLessons(sector)){
+        const option=document.createElement('option');
+        option.value=lesson.href;
+        option.textContent=lesson.href==='lessons/functional/bounded-operators.html'
+          ? lesson.title+' (теория операторов)'
+          : lesson.title;
+        group.append(option);
+      }
+      routeGoal.append(group);
+    }
     let routeNodes=new Set();
     try{routeGoal.value=sessionStorage.getItem('magic-math:route-goal')||'';}catch(e){}
     routePanel.hidden=false;
